@@ -1,12 +1,11 @@
 :root {
-    --light-color: #000000;
+    --light-color: #3c3836;
     --light-highlight: #d65d0e;
-    --light-background: #ffffff;
+    --light-background: #f2e5bc;
 
-    --dark-color: #ffffff;
+    --dark-color: #928374;
     --dark-highlight: #d65d0e;
-    --dark-background: #000000;
-}
+    --dark-background: #32302f;}
 
 *,
 *::before,
