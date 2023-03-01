@@ -1,0 +1,11 @@
+.footer {
+    height: 5vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.copyright {
+    font-size: 0.8rem;
+}
