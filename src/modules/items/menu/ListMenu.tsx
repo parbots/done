@@ -2,12 +2,16 @@
 import { ChangeEvent, useState } from 'react';
 import { FormEvent } from 'react';
 
-import styles from './ListMenu.module.css'
+import styles from './ListMenu.module.css';
 
-type Filter = 'all' | 'incomplete' | 'complete';
+import type { Filter } from 'types/item';
 
 type ListMenuProps = {
     addItem: (itemName: string) => void;
+    searchValue: string;
+    setSearchValue: (newSearchValue: string) => void;
+    currentFilter: Filter;
+    setCurrentFilter: (newFilter: Filter) => void;
 };
 
 export const ListMenu = (props: ListMenuProps) => {
@@ -23,7 +27,6 @@ export const ListMenu = (props: ListMenuProps) => {
     const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-
         if (itemInputValue !== '' && itemInputValue[0] !== ' ') {
             props.addItem(itemInputValue);
 
@@ -31,22 +34,16 @@ export const ListMenu = (props: ListMenuProps) => {
         }
     };
 
-    // TODO lift this state up
-    const [searchInputValue, setSearchInputValue] = useState('');
-
     const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
 
-        setSearchInputValue(event.target.value);
+        props.setSearchValue(event.target.value);
     };
-
-    // TODO lift this state up
-    const [filterValue, setFilterValue] = useState<Filter>('all');
 
     const handleFilterRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
 
-        setFilterValue(event.target.value as Filter);
+        props.setCurrentFilter(event.target.value as Filter);
     };
 
     return (
@@ -68,7 +65,7 @@ export const ListMenu = (props: ListMenuProps) => {
                     type='text'
                     name='searchInput'
                     placeholder='Search...'
-                    value={searchInputValue}
+                    value={props.searchValue}
                     onChange={handleSearchInputChange}
                     className={styles.searchInput}
                 />
@@ -77,7 +74,7 @@ export const ListMenu = (props: ListMenuProps) => {
                 <fieldset id='filterRadioField' className={styles.filterRadioSection}>
                     <label
                         htmlFor='show-all'
-                        data-selected={(filterValue === 'all').toString()}
+                        data-selected={(props.currentFilter === 'all').toString()}
                         className={styles.filterLabel}
                     >
                         <input
@@ -85,7 +82,7 @@ export const ListMenu = (props: ListMenuProps) => {
                             name='show'
                             id='show-all'
                             value='all'
-                            checked={filterValue === 'all'}
+                            checked={props.currentFilter === 'all'}
                             onChange={handleFilterRadioChange}
                             className={styles.filterRadio}
                         />
@@ -94,7 +91,7 @@ export const ListMenu = (props: ListMenuProps) => {
 
                     <label
                         htmlFor='show-incomplete'
-                        data-selected={(filterValue === 'incomplete').toString()}
+                        data-selected={(props.currentFilter === 'incomplete').toString()}
                         className={styles.filterLabel}
                     >
                         <input
@@ -102,7 +99,7 @@ export const ListMenu = (props: ListMenuProps) => {
                             name='show'
                             id='show-incomplete'
                             value='incomplete'
-                            checked={filterValue === 'incomplete'}
+                            checked={props.currentFilter === 'incomplete'}
                             onChange={handleFilterRadioChange}
                             className={styles.filterRadio}
                         />
@@ -111,7 +108,7 @@ export const ListMenu = (props: ListMenuProps) => {
 
                     <label
                         htmlFor='show-complete'
-                        data-selected={(filterValue === 'complete').toString()}
+                        data-selected={(props.currentFilter === 'complete').toString()}
                         className={styles.filterLabel}
                     >
                         <input
@@ -119,7 +116,7 @@ export const ListMenu = (props: ListMenuProps) => {
                             name='show'
                             id='show-complete'
                             value='complete'
-                            checked={filterValue === 'complete'}
+                            checked={props.currentFilter === 'complete'}
                             onChange={handleFilterRadioChange}
                             className={styles.filterRadio}
                         />

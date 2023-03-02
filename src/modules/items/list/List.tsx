@@ -7,6 +7,7 @@ import { ListItem } from '@modules/items/item'
 
 type ListProps = {
     items: Item[];
+    toggleCompleteItem: (selectedItem: Item) => void;
 };
 
 export const List = (props: ListProps) => {
@@ -18,6 +19,7 @@ export const List = (props: ListProps) => {
                         key={item.id}
                         text={item.text}
                         complete={item.complete}
+                        toggleComplete={() => {props.toggleCompleteItem(item)}}
                     />
                 );
             })}
