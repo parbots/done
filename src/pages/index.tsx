@@ -36,6 +36,18 @@ export default function HomePage() {
         );
     };
 
+    const clearItems = () => {
+        setItems([]);
+    };
+
+    const clearCompleteItems = () => {
+        setItems(
+            items.filter((item) => {
+                return !item.complete;
+            })
+        );
+    };
+
     const [currentFilter, setCurrentFilter] = useState<Filter>('all');
     const [filteredItems, setFilteredItems] = useState<Item[]>(items);
 
@@ -87,6 +99,8 @@ export default function HomePage() {
                         setSearchValue={setSearchValue}
                         currentFilter={currentFilter}
                         setCurrentFilter={setCurrentFilter}
+                        clearCompleteItems={clearCompleteItems}
+                        clearItems={clearItems}
                     />
                     <List items={searchedItems} toggleCompleteItem={toggleCompleteItem} />
                 </main>

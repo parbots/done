@@ -12,6 +12,8 @@ type ListMenuProps = {
     setSearchValue: (newSearchValue: string) => void;
     currentFilter: Filter;
     setCurrentFilter: (newFilter: Filter) => void;
+    clearCompleteItems: () => void;
+    clearItems: () => void;
 };
 
 export const ListMenu = (props: ListMenuProps) => {
@@ -122,6 +124,25 @@ export const ListMenu = (props: ListMenuProps) => {
                         />
                         Done
                     </label>
+                </fieldset>
+
+                <label htmlFor='actionField'>Clear:</label>
+                <fieldset id='actionField' className={styles.actionSection}>
+                    <button
+                        type="button"
+                        onClick={() => { props.clearCompleteItems() }}
+                        className={styles.actionButton}
+                    >
+                        Done
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => { props.clearItems() }}
+                        className={styles.actionButton}
+                    >
+                        All
+                    </button>
                 </fieldset>
             </fieldset>
         </form>
