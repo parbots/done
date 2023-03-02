@@ -1,10 +1,12 @@
 
 import styles from './List.module.css'
 
-import { Item } from '@modules/items/item'
+import type { Item } from 'types/item';
+
+import { ListItem } from '@modules/items/item'
 
 type ListProps = {
-    items: {text: string, complete: boolean}[];
+    items: Item[];
 };
 
 export const List = (props: ListProps) => {
@@ -12,7 +14,7 @@ export const List = (props: ListProps) => {
         <ul className={styles.list}>
             {props.items.map((item) => {
                 return (
-                    <Item
+                    <ListItem
                         key={item.text}
                         text={item.text}
                         complete={item.complete}

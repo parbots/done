@@ -1,14 +1,14 @@
 
 import { useState } from 'react';
 
-import styles from './Item.module.css';
+import styles from './ListItem.module.css';
 
-type ItemProps = {
+type ListItemProps = {
     complete: boolean;
     text: string;
 }
 
-export const Item = (props: ItemProps) => {
+export const ListItem = (props: ListItemProps) => {
 
     const [complete, setComplete] = useState<boolean>(props.complete);
 

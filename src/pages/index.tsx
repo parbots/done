@@ -7,12 +7,14 @@ import styles from '@styles/HomePage.module.css'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
+import type { Item } from 'types/item'
+
 import { ListMenu } from '@modules/items/menu'
 import { List } from '@modules/items/list'
 
 export default function HomePage() {
 
-    const [items, setItems] = useState<{ text: string, complete: boolean }[]>([
+    const [items, setItems] = useState<Item[]>([
         { text: 'Todo 1', complete: false },
         { text: 'Todo 2', complete: false },
         { text: 'Todo 3', complete: true },
