@@ -1,0 +1,53 @@
+.menu {
+    width: 60vw;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.addItemSection {
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.itemInput {
+    
+    padding: 0.2rem;
+
+    border: none;
+    border-bottom: solid 0.15rem var(--color);
+
+    color: var(--color);
+    background-color: var(--background);
+
+    transition: 0.3s color, 0.3s border-color;
+}
+
+.itemInput:hover {
+    border-color: var(--highlight);
+    color: var(--highlight);
+}
+
+.addItemButton {
+
+    padding: 0.2rem;
+
+    cursor: pointer;
+
+    border: solid 0.15rem var(--color);
+    border-radius: 0.15rem;
+
+    color: var(--color);
+    background-color: var(--background);
+
+    transition: 0.3s color, 0.3s border-color;
+}
+
+.addItemButton:hover {
+    border-color: var(--highlight);
+    color: var(--highlight);
+}

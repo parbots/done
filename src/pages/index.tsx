@@ -1,13 +1,27 @@
 import Head from 'next/head'
 
+import { useState } from 'react'
+
 import styles from '@styles/HomePage.module.css'
 
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
-import { List } from '@modules/list'
+import { ListMenu } from '@modules/items/menu'
+import { List } from '@modules/items/list'
 
 export default function HomePage() {
+
+    const [items, setItems] = useState<{ text: string, complete: boolean }[]>([
+        { text: 'Todo 1', complete: false },
+        { text: 'Todo 2', complete: false },
+        { text: 'Todo 3', complete: true },
+    ]);
+
+    const addItem = (itemText: string) => {
+        setItems([...items, { text: itemText, complete: false }]);
+    };
+
     return (
         <>
             <Head>
@@ -22,7 +36,8 @@ export default function HomePage() {
                 <Header />
 
                 <main className={styles.main}>
-                    <List />
+                    <ListMenu addItem={addItem} />
+                    <List items={items} />
                 </main>
 
                 <Footer />
