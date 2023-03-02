@@ -14,14 +14,17 @@ import { List } from '@modules/items/list'
 
 export default function HomePage() {
 
-    const [items, setItems] = useState<Item[]>([
-        { text: 'Todo 1', complete: false },
-        { text: 'Todo 2', complete: false },
-        { text: 'Todo 3', complete: true },
-    ]);
+    const [items, setItems] = useState<Item[]>([]);
 
+    // TODO: use library for random IDs
+    const [itemID, setItemID] = useState(0);
+
+    // Insert a new item at the beginning of the list
     const addItem = (itemText: string) => {
-        setItems([...items, { text: itemText, complete: false }]);
+        setItems([{id: itemID, text: itemText, complete: false }, ...items]);
+    
+        // temp
+        setItemID((prev) => {return prev + 1});
     };
 
     return (

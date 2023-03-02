@@ -15,7 +15,8 @@
 }
 
 .itemInput {
-    
+    flex: 1;
+
     padding: 0.2rem;
 
     border: none;
@@ -27,13 +28,15 @@
     transition: 0.3s color, 0.3s border-color;
 }
 
-.itemInput:hover {
+.itemInput:hover,
+.itemInput:focus-visible {
+    outline: none;
+
     border-color: var(--highlight);
     color: var(--highlight);
 }
 
 .addItemButton {
-
     padding: 0.2rem;
 
     cursor: pointer;
@@ -47,7 +50,10 @@
     transition: 0.3s color, 0.3s border-color;
 }
 
-.addItemButton:hover {
+.addItemButton:hover,
+.addItemButton:focus-visible {
+    outline: none;
+
     border-color: var(--highlight);
     color: var(--highlight);
 }

@@ -15,7 +15,7 @@ export const List = (props: ListProps) => {
             {props.items.map((item) => {
                 return (
                     <ListItem
-                        key={item.text}
+                        key={item.id}
                         text={item.text}
                         complete={item.complete}
                     />

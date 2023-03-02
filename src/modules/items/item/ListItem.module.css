@@ -30,7 +30,10 @@
     transition: 0.3s color, 0.3s border-color;
 }
 
-.itemCheckbox:hover {
+.itemCheckbox:hover,
+.itemCheckbox:focus-visible {
+    outline: none;
+
     color: var(--highlight);
     border-color: var(--highlight);
 }
@@ -51,6 +54,7 @@
     transform: scale(1);
 }
 
-.itemCheckbox:hover::after {
+.itemCheckbox:hover::after,
+.itemCheckbox:focus-visible::after {
     background-color: var(--highlight);
 }
