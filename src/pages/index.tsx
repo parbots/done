@@ -5,7 +5,7 @@ import styles from '@styles/HomePage.module.css'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
-import { List } from '@modules/List'
+import { List } from '@modules/list'
 
 export default function HomePage() {
     return (

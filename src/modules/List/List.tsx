@@ -1,14 +1,14 @@
 
-
 import styles from './List.module.css'
+
+import { Item } from '@modules/list/item';
 
 export const List = () => {
     return (
         <ul className={styles.list}>
-            <li className={styles.item}>
-                <input type="checkbox" className={styles.itemCheckbox} />
-                <p className={styles.itemText}>Todo 1</p>
-            </li>
+            <Item text='Todo 1' />
+            <Item text='Todo 2' />
+            <Item text='Todo 3' />
         </ul>
     );
 };
