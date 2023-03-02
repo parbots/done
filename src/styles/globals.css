@@ -42,9 +42,9 @@ html:focus-within {
 }
 
 body {
-    --color: var(--light-color);
-    --highlight: var(--light-highlight);
-    --background: var(--light-background);
+    --color: var(--dark-color);
+    --highlight: var(--dark-highlight);
+    --background: var(--dark-background);
 
     min-height: 100vh;
 

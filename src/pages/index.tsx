@@ -5,6 +5,8 @@ import styles from '@styles/HomePage.module.css'
 import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
+import { List } from '@modules/List'
+
 export default function HomePage() {
     return (
         <>
@@ -20,7 +22,7 @@ export default function HomePage() {
                 <Header />
 
                 <main className={styles.main}>
-                    <p>Main Content</p>
+                    <List />
                 </main>
 
                 <Footer />
