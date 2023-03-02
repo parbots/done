@@ -6,9 +6,9 @@ import { Item } from '@modules/list/item';
 export const List = () => {
     return (
         <ul className={styles.list}>
-            <Item text='Todo 1' />
-            <Item text='Todo 2' />
-            <Item text='Todo 3' />
+            <Item complete={false} text='Todo 1' />
+            <Item complete={false} text='Todo 2' />
+            <Item complete={true} text='Todo 3' />
         </ul>
     );
 };
