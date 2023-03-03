@@ -7,7 +7,9 @@ import { ListItem } from '@modules/items/item'
 
 type ListProps = {
     items: Item[];
+    removeItem: (selectedItem: Item) => void;
     toggleCompleteItem: (selectedItem: Item) => void;
+    editItem: (selectedItem: Item, newText: string) => void;
 };
 
 export const List = (props: ListProps) => {
@@ -19,7 +21,9 @@ export const List = (props: ListProps) => {
                         key={item.id}
                         text={item.text}
                         complete={item.complete}
-                        toggleComplete={() => {props.toggleCompleteItem(item)}}
+                        toggleCompleteSelf={() => props.toggleCompleteItem(item)}
+                        editSelf={(newText: string) => props.editItem(item, newText)}
+                        removeSelf={() => props.removeItem(item)}
                     />
                 );
             })}

@@ -122,7 +122,7 @@ export default function HomePage() {
                         clearCompleteItems={clearCompleteItems}
                         clearItems={clearItems}
                     />
-                    <List items={searchedItems} toggleCompleteItem={toggleCompleteItem} />
+                    <List items={searchedItems} removeItem={removeItem} editItem={editItem} toggleCompleteItem={toggleCompleteItem} />
                 </main>
 
                 <Footer />

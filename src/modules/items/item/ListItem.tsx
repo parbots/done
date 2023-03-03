@@ -1,30 +1,64 @@
 
+import { ChangeEvent, KeyboardEvent, MouseEvent, useRef, useState } from 'react';
+
 import styles from './ListItem.module.css';
 
 type ListItemProps = {
     complete: boolean;
     text: string;
-    toggleComplete: () => void;
+    toggleCompleteSelf: () => void;
+    editSelf: (newText: string) => void;
+    removeSelf: () => void;
 }
 
 export const ListItem = (props: ListItemProps) => {
+    const textInputRef = useRef<HTMLInputElement>(null);
+    const [textInput, setTextInput] = useState<string>(props.text);
+
+    const handleTextInput = (event: ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault();
+
+        setTextInput(event.target.value);
+    };
+
+    const submitText = () => {
+        if (textInput === '' || textInput[0] === ' ') {
+            setTextInput(props.text);
+        }
+        else {
+            props.editSelf(textInput);
+        }
+    };
+
+    const handleTextInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            textInputRef.current?.blur();
+        }
+    };
+
     return (
         <li className={styles.item}>
             <section className={styles.mainSection}>
                 <input
                     type='checkbox'
                     checked={props.complete}
-                    onChange={() => props.toggleComplete()}
+                    onChange={() => props.toggleCompleteSelf()}
                     className={styles.itemCheckbox}
                 />
-                <p className={styles.itemText}>
-                    {props.text}
-                </p>
+
+                <input
+                    type='text'
+                    ref={textInputRef}
+                    value={textInput}
+                    onChange={handleTextInput}
+                    onBlur={() => submitText()}
+                    onKeyDown={handleTextInputKeyDown}
+                    className={styles.itemTextInput}
+                />
             </section>
 
             <section className={styles.actionSection}>
-                <button className={styles.editItemButton}>Edit</button>
-                <button className={styles.removeItemButton}>Remove</button>
+                <button onClick={() => props.removeSelf()} className={styles.removeItemButton}>Remove</button>
             </section>
         </li>
     );

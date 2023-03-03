@@ -1,4 +1,3 @@
-
 .item {
     width: 100%;
     height: 1.5rem;
@@ -68,8 +67,35 @@
     background-color: var(--highlight);
 }
 
-.itemText {
+.itemTextInput {
     flex: 1;
+
+    outline: none;
+
+    border: none;
+    border-bottom: 0.15rem solid var(--background);
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.itemTextInput::selection {
+    color: var(--background);
+    background-color: var(--highlight);
+}
+
+.item:hover .itemTextInput:not(:hover),
+.item:focus-within .itemTextInput:not(:focus-visible) {
+    border-color: var(--color);
+}
+
+.itemTextInput:hover,
+.itemTextInput:focus-visible {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
 }
 
 .actionSection {
@@ -77,30 +103,6 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-}
-
-.editItemButton {
-    cursor: pointer;
-
-    border: none;
-
-    color: var(--color);
-    background: none;
-
-    opacity: 0;
-
-    transition: color 0.3s, opacity 0.3s;
-}
-
-.editItemButton:hover,
-.editItemButton:focus-visible {
-    color: var(--highlight);
-}
-
-.item:hover .editItemButton,
-.item:focus-visible .editItemButton,
-.item:focus-within .editItemButton {
-    opacity: 1;
 }
 
 .removeItemButton {
