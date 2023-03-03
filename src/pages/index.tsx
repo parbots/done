@@ -30,10 +30,27 @@ export default function HomePage() {
         setItemID(itemID + 1);
     };
 
+    const removeItem = (selectedItem: Item) => {
+        setItems(
+            items.filter((item) => {
+                return item !== selectedItem;
+            })
+        );
+    };
+
     const toggleCompleteItem = (selectedItem: Item) => {
         setItems(
             items.map((item) => {
                 if (item === selectedItem) item.complete = !item.complete;
+                return item;
+            })
+        );
+    };
+
+    const editItem = (selectedItem: Item, newText: string) => {
+        setItems(
+            items.map((item) => {
+                if (item === selectedItem) item.text = newText;
                 return item;
             })
         );
