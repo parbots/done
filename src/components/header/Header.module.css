@@ -44,8 +44,7 @@
 }
 
 .signupLink {
-    color: var(--background);
-    background-color: var(--color);
+    color: var(--color);
 }
 
 .signupLink:hover,
@@ -54,5 +53,5 @@
 
     border-color: var(--highlight);
 
-    background-color: var(--highlight);
+    color: var(--highlight);
 }
