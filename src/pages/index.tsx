@@ -19,12 +19,15 @@ export default function HomePage() {
     // TODO: use library for random IDs
     const [itemID, setItemID] = useState(0);
 
-    // Insert a new item at the beginning of the list
+    // Insert a new item at the end of the list
     const addItem = (itemText: string) => {
-        setItems([{ id: itemID, text: itemText, complete: false }, ...items]);
+        setItems([
+            ...items,
+            { id: itemID, text: itemText, complete: false }
+        ]);
 
         // temp
-        setItemID((prev) => { return prev + 1 });
+        setItemID(itemID + 1);
     };
 
     const toggleCompleteItem = (selectedItem: Item) => {

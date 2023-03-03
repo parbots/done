@@ -9,6 +9,15 @@
     gap: 1rem;
 }
 
+.mainSection {
+    flex: 1;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
 .itemCheckbox {
     width: 1.5rem;
     height: 1.5rem;
@@ -57,4 +66,63 @@
 .itemCheckbox:hover::after,
 .itemCheckbox:focus-visible::after {
     background-color: var(--highlight);
+}
+
+.itemText {
+    flex: 1;
+}
+
+.actionSection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.editItemButton {
+    cursor: pointer;
+
+    border: none;
+
+    color: var(--color);
+    background: none;
+
+    opacity: 0;
+
+    transition: color 0.3s, opacity 0.3s;
+}
+
+.editItemButton:hover,
+.editItemButton:focus-visible {
+    color: var(--highlight);
+}
+
+.item:hover .editItemButton,
+.item:focus-visible .editItemButton,
+.item:focus-within .editItemButton {
+    opacity: 1;
+}
+
+.removeItemButton {
+    cursor: pointer;
+    
+    border: none;
+
+    color: var(--color);
+    background: none;
+
+    opacity: 0;
+
+    transition: color 0.3s, opacity 0.3s;
+}
+
+.removeItemButton:hover,
+.removeItemButton:focus-visible {
+    color: var(--highlight);
+}
+
+.item:hover .removeItemButton,
+.item:focus-visible .removeItemButton,
+.item:focus-within .removeItemButton {
+    opacity: 1;
 }
