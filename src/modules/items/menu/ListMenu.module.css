@@ -31,6 +31,11 @@
     transition: 0.3s color, 0.3s border-color;
 }
 
+.itemInput::selection {
+    color: var(--background);
+    background-color: var(--highlight);
+}
+
 .itemInput:hover,
 .itemInput:focus-visible {
     outline: none;
@@ -76,6 +81,9 @@
     flex: 1;
 
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
 
     border: none;
 }
@@ -92,6 +100,11 @@
     background-color: var(--background);
 
     transition: 0.3s color, 0.3s border-color;
+}
+
+.searchInput::selection {
+    color: var(--background);
+    background-color: var(--highlight);
 }
 
 .searchInput:hover,
@@ -115,6 +128,8 @@
     padding: 0.15rem;
 
     cursor: pointer;
+
+    outline: none;
 
     border: solid 0.15rem var(--color);
     border-radius: 0.15rem;
@@ -173,4 +188,58 @@
 
     color: var(--background);
     background-color: var(--highlight);
+}
+
+@media (max-width: 1250px) {
+    .menu {
+        width: 90vw;
+    }
+}
+
+@media (max-width: 1024px) {
+    .filterSection {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+            'search search'
+            'filter action'
+        ;
+    }
+
+    .searchFieldset {
+        grid-area: search;
+    }
+
+    .filterFieldset {
+        grid-area: filter;
+
+        justify-content: center;
+    }
+
+    .actionFieldset {
+        grid-area: action;
+
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .filterSection {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas:
+            'search'
+            'filter'
+            'action'
+        ;
+    }
+
+    .filterFieldset {
+        justify-content: flex-start;
+    }
+
+    .actionFieldset {
+        justify-content: flex-start;
+    }
 }

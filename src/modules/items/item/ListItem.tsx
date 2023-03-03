@@ -37,7 +37,7 @@ export const ListItem = (props: ListItemProps) => {
     };
 
     return (
-        <li className={styles.item}>
+        <li data-complete={props.complete.toString()} className={styles.item}>
             <section className={styles.mainSection}>
                 <input
                     type='checkbox'

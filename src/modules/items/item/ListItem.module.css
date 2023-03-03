@@ -1,10 +1,8 @@
 .item {
     width: 100%;
-    height: 1.5rem;
 
     display: flex;
     justify-content: flex-start;
-    align-items: center;
     gap: 1rem;
 }
 
@@ -32,10 +30,13 @@
     border: 0.15rem solid var(--color);
     border-radius: 0.15rem;
 
-    color: var(--color);
     background-color: var(--background);
 
     transition: 0.3s color, 0.3s border-color;
+}
+
+.item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible) {
+    border-color: var(--faded);
 }
 
 .itemCheckbox:hover,
@@ -67,8 +68,18 @@
     background-color: var(--highlight);
 }
 
+.item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible)::after {
+    background-color: var(--faded);
+}
+
 .itemTextInput {
     flex: 1;
+
+    height: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 
     outline: none;
 
@@ -81,14 +92,23 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
+.item[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+    color: var(--faded);
+}
+
 .itemTextInput::selection {
     color: var(--background);
     background-color: var(--highlight);
 }
 
-.item:hover .itemTextInput:not(:hover),
-.item:focus-within .itemTextInput:not(:focus-visible) {
+.item:hover .itemTextInput:not(:hover, :focus-visible),
+.item:focus-within .itemTextInput:not(:hover, :focus-visible) {
     border-color: var(--color);
+}
+
+.item:hover[data-complete='true'] .itemTextInput:not(:hover, :focus-visible),
+.item:focus-within[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+    border-color: var(--faded);
 }
 
 .itemTextInput:hover,
@@ -106,20 +126,27 @@
 }
 
 .removeItemButton {
+    padding: 0.15rem;
+
     cursor: pointer;
-    
-    border: none;
+ 
+    outline: none;
+
+    border: 0.15rem solid var(--color);
+    border-radius: 0.15rem;
 
     color: var(--color);
     background: none;
 
     opacity: 0;
 
-    transition: color 0.3s, opacity 0.3s;
+    transition: color 0.3s, border-color 0.3s, opacity 0.3s;
 }
 
 .removeItemButton:hover,
 .removeItemButton:focus-visible {
+    border-color: var(--highlight);
+
     color: var(--highlight);
 }
 
@@ -127,4 +154,10 @@
 .item:focus-visible .removeItemButton,
 .item:focus-within .removeItemButton {
     opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .removeItemButton {
+        opacity: 1;
+    }
 }

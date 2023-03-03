@@ -8,3 +8,9 @@
     gap: 0.8rem;
 }
 
+@media (max-width: 600px) {
+    .list {
+        width: 90vw;
+    }
+}
+

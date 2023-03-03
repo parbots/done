@@ -1,9 +1,11 @@
 :root {
     --light-color: #3c3836;
+    --light-faded: #928374;
     --light-highlight: #d65d0e;
-    --light-background: #f2e5bc;
+    --light-background: #ebdbb2;
 
-    --dark-color: #928374;
+    --dark-color: #ebdbb2;
+    --dark-faded: #928374;
     --dark-highlight: #d65d0e;
     --dark-background: #32302f;}
 
@@ -43,6 +45,7 @@ html:focus-within {
 
 body {
     --color: var(--dark-color);
+    --faded: var(--dark-faded);
     --highlight: var(--dark-highlight);
     --background: var(--dark-background);
 

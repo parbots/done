@@ -57,8 +57,9 @@ export const ListMenu = (props: ListMenuProps) => {
 
             <section className={styles.filterSection}>
 
-                <label htmlFor='searchFieldset' className={styles.searchFieldsetLabel}>Search:</label>
                 <fieldset id='searchFieldset' className={styles.searchFieldset}>
+                    <label htmlFor='searchFieldset' className={styles.searchFieldsetLabel}>Search:</label>
+
                     <input
                         type='text'
                         name='searchInput'
@@ -69,8 +70,9 @@ export const ListMenu = (props: ListMenuProps) => {
                     />
                 </fieldset>
 
-                <label htmlFor='filterFieldset' className={styles.filterFieldsetLabel}>Show:</label>
                 <fieldset id='filterFieldset' className={styles.filterFieldset}>
+                    <label htmlFor='filterFieldset' className={styles.filterFieldsetLabel}>Show:</label>
+
                     <button
                         type='button'
                         data-selected={(props.currentFilter === 'all').toString()}
@@ -99,8 +101,9 @@ export const ListMenu = (props: ListMenuProps) => {
                     </button>
                 </fieldset>
 
-                <label htmlFor='actionFieldset' className={styles.actionFieldsetLabel}>Clear:</label>
                 <fieldset id='actionFieldset' className={styles.actionFieldset}>
+                    <label htmlFor='actionFieldset' className={styles.actionFieldsetLabel}>Clear:</label>
+
                     <button
                         type='button'
                         onClick={() => { props.clearCompleteItems() }}
