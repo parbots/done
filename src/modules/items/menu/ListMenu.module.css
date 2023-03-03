@@ -6,7 +6,7 @@
     gap: 1rem;
 }
 
-.addItemSection {
+.addItemFieldset {
     width: 100%;
 
     display: flex;
@@ -72,6 +72,14 @@
     border: none;
 }
 
+.searchFieldset {
+    flex: 1;
+
+    display: flex;
+
+    border: none;
+}
+
 .searchInput {
     flex: 1;
 
@@ -94,7 +102,7 @@
     color: var(--highlight);
 }
 
-.filterRadioSection {
+.filterFieldset {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -103,11 +111,7 @@
     border: none;
 }
 
-.filterRadio {
-    appearance: none;
-}
-
-.filterLabel {
+.filterButton {
     padding: 0.15rem;
 
     cursor: pointer;
@@ -121,24 +125,24 @@
     transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-.filterLabel:hover,
-.filterLabel:focus-visible {
+.filterButton:hover,
+.filterButton:focus-visible {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-.filterLabel[data-selected='true'] {
+.filterButton[data-selected='true'] {
     color: var(--background);
     background-color: var(--color)
 }
 
-.filterLabel[data-selected='true']:hover,
-.filterLabel[data-selected='true']:focus-visible {
+.filterButton[data-selected='true']:hover,
+.filterButton[data-selected='true']:focus-visible {
     background-color: var(--highlight)
 }
 
-.actionSection {
+.actionFieldset {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -163,6 +167,8 @@
 
 .actionButton:hover,
 .actionButton:focus-visible {
+    outline: none;
+
     border-color: var(--highlight);
 
     color: var(--background);

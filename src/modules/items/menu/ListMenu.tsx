@@ -1,6 +1,5 @@
 
-import { ChangeEvent, useState } from 'react';
-import { FormEvent } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 
 import styles from './ListMenu.module.css';
 
@@ -42,94 +41,68 @@ export const ListMenu = (props: ListMenuProps) => {
         props.setSearchValue(event.target.value);
     };
 
-    const handleFilterRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-
-        props.setCurrentFilter(event.target.value as Filter);
-    };
-
     return (
         <form onSubmit={handleFormSubmit} className={styles.menu}>
-            <fieldset className={styles.addItemSection}>
+            <fieldset className={styles.addItemFieldset}>
                 <input
-                    type="text"
+                    type='text'
                     name='itemInput'
                     placeholder='Enter new todo...'
                     value={itemInputValue}
                     onChange={handleItemInputChange}
                     className={styles.itemInput}
                 />
-                <button type="submit" className={styles.addItemButton}>Add</button>
+                <button type='submit' className={styles.addItemButton}>Add</button>
             </fieldset>
 
-            <fieldset className={styles.filterSection}>
-                <input
-                    type='text'
-                    name='searchInput'
-                    placeholder='Search...'
-                    value={props.searchValue}
-                    onChange={handleSearchInputChange}
-                    className={styles.searchInput}
-                />
+            <section className={styles.filterSection}>
 
-                <label htmlFor='filterRadioField' className={styles.filterRadioSectionLabel}>Show:</label>
-                <fieldset id='filterRadioField' className={styles.filterRadioSection}>
-                    <label
-                        htmlFor='show-all'
-                        data-selected={(props.currentFilter === 'all').toString()}
-                        className={styles.filterLabel}
-                    >
-                        <input
-                            type='radio'
-                            name='show'
-                            id='show-all'
-                            value='all'
-                            checked={props.currentFilter === 'all'}
-                            onChange={handleFilterRadioChange}
-                            className={styles.filterRadio}
-                        />
-                        All
-                    </label>
-
-                    <label
-                        htmlFor='show-incomplete'
-                        data-selected={(props.currentFilter === 'incomplete').toString()}
-                        className={styles.filterLabel}
-                    >
-                        <input
-                            type='radio'
-                            name='show'
-                            id='show-incomplete'
-                            value='incomplete'
-                            checked={props.currentFilter === 'incomplete'}
-                            onChange={handleFilterRadioChange}
-                            className={styles.filterRadio}
-                        />
-                        Doing
-                    </label>
-
-                    <label
-                        htmlFor='show-complete'
-                        data-selected={(props.currentFilter === 'complete').toString()}
-                        className={styles.filterLabel}
-                    >
-                        <input
-                            type='radio'
-                            name='show'
-                            id='show-complete'
-                            value='complete'
-                            checked={props.currentFilter === 'complete'}
-                            onChange={handleFilterRadioChange}
-                            className={styles.filterRadio}
-                        />
-                        Done
-                    </label>
+                <label htmlFor='searchFieldset' className={styles.searchFieldsetLabel}>Search:</label>
+                <fieldset id='searchFieldset' className={styles.searchFieldset}>
+                    <input
+                        type='text'
+                        name='searchInput'
+                        placeholder='Enter text...'
+                        value={props.searchValue}
+                        onChange={handleSearchInputChange}
+                        className={styles.searchInput}
+                    />
                 </fieldset>
 
-                <label htmlFor='actionField'>Clear:</label>
-                <fieldset id='actionField' className={styles.actionSection}>
+                <label htmlFor='filterFieldset' className={styles.filterFieldsetLabel}>Show:</label>
+                <fieldset id='filterFieldset' className={styles.filterFieldset}>
                     <button
-                        type="button"
+                        type='button'
+                        data-selected={(props.currentFilter === 'all').toString()}
+                        onClick={() => props.setCurrentFilter('all')}
+                        className={styles.filterButton}
+                    >
+                        All
+                    </button>
+
+                    <button
+                        type='button'
+                        data-selected={(props.currentFilter === 'incomplete').toString()}
+                        onClick={() => props.setCurrentFilter('incomplete')}
+                        className={styles.filterButton}
+                    >
+                        Doing
+                    </button>
+
+                    <button
+                        type='button'
+                        data-selected={(props.currentFilter === 'complete').toString()}
+                        onClick={() => props.setCurrentFilter('complete')}
+                        className={styles.filterButton}
+                    >
+                        Done
+                    </button>
+                </fieldset>
+
+                <label htmlFor='actionFieldset' className={styles.actionFieldsetLabel}>Clear:</label>
+                <fieldset id='actionFieldset' className={styles.actionFieldset}>
+                    <button
+                        type='button'
                         onClick={() => { props.clearCompleteItems() }}
                         className={styles.actionButton}
                     >
@@ -137,14 +110,14 @@ export const ListMenu = (props: ListMenuProps) => {
                     </button>
 
                     <button
-                        type="button"
+                        type='button'
                         onClick={() => { props.clearItems() }}
                         className={styles.actionButton}
                     >
                         All
                     </button>
                 </fieldset>
-            </fieldset>
+            </section>
         </form>
     );
 };
