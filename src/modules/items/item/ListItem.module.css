@@ -101,13 +101,11 @@
     background-color: var(--highlight);
 }
 
-.item:hover .itemTextInput:not(:hover, :focus-visible),
-.item:focus-within .itemTextInput:not(:hover, :focus-visible) {
+.item:hover .itemTextInput:not(:hover, :focus-visible) {
     border-color: var(--color);
 }
 
-.item:hover[data-complete='true'] .itemTextInput:not(:hover, :focus-visible),
-.item:focus-within[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+.item:hover[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
     border-color: var(--faded);
 }
 
@@ -132,28 +130,17 @@
  
     outline: none;
 
-    border: 0.15rem solid var(--color);
-    border-radius: 0.15rem;
+    border: none;
 
-    color: var(--color);
+    color: var(--faded);
     background: none;
 
-    opacity: 0;
-
-    transition: color 0.3s, border-color 0.3s, opacity 0.3s;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 .removeItemButton:hover,
 .removeItemButton:focus-visible {
-    border-color: var(--highlight);
-
     color: var(--highlight);
-}
-
-.item:hover .removeItemButton,
-.item:focus-visible .removeItemButton,
-.item:focus-within .removeItemButton {
-    opacity: 1;
 }
 
 @media (max-width: 600px) {
