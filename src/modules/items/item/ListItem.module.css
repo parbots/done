@@ -27,12 +27,12 @@
 
     appearance: none;
 
-    border: 0.15rem solid var(--color);
+    border: solid 0.15rem var(--color);
     border-radius: 0.15rem;
 
     background-color: var(--background);
 
-    transition: 0.3s color, 0.3s border-color;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 .item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible) {
@@ -48,7 +48,7 @@
 }
 
 .itemCheckbox::after {
-    content: "";
+    content: '';
 
     width: 1rem;
     height: 1rem;
@@ -56,7 +56,7 @@
     background-color: var(--color);
 
     transform: scale(0);
-    transition: 0.3s transform, 0.3s background;
+    transition: background 0.3s, transform 0.3s;
 }
 
 .itemCheckbox:checked::after {
@@ -124,7 +124,7 @@
 }
 
 .removeItemButton {
-    padding: 0.15rem;
+    padding: 0.15rem 0.5rem;
 
     cursor: pointer;
  
@@ -141,10 +141,4 @@
 .removeItemButton:hover,
 .removeItemButton:focus-visible {
     color: var(--highlight);
-}
-
-@media (max-width: 600px) {
-    .removeItemButton {
-        opacity: 1;
-    }
 }

@@ -28,7 +28,7 @@
     color: var(--color);
     background-color: var(--background);
 
-    transition: 0.3s color, 0.3s border-color;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 .itemInput::selection {
@@ -45,7 +45,7 @@
 }
 
 .addItemButton {
-    padding: 0.2rem;
+    padding: 0.15rem 0.5rem;
 
     cursor: pointer;
 
@@ -55,7 +55,7 @@
     color: var(--color);
     background-color: var(--background);
 
-    transition: 0.3s color, 0.3s border-color;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 .addItemButton:hover,
@@ -99,7 +99,7 @@
     color: var(--color);
     background-color: var(--background);
 
-    transition: 0.3s color, 0.3s border-color;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 .searchInput::selection {
@@ -125,7 +125,7 @@
 }
 
 .filterButton {
-    padding: 0.15rem;
+    padding: 0.15rem 0.5rem;
 
     cursor: pointer;
 
@@ -167,7 +167,7 @@
 }
 
 .actionButton {
-    padding: 0.15rem;
+    padding: 0.15rem 0.5rem;
 
     cursor: pointer;
 
