@@ -109,7 +109,6 @@ export default function ListPage() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
 
-
             <div className={styles.page}>
                 <Header />
 

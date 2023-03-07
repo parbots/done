@@ -1,0 +1,66 @@
+
+.page {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    min-height: 85vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.signinForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.emailFieldset {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    border: none;
+}
+
+.emailInput {
+    flex: 1;
+}
+
+.passwordFieldset {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+
+    border: none;
+}
+
+.passwordInput {
+    flex: 1;
+}
+
+.signinButton {
+    padding: 0.15rem 0.5rem;
+
+    border: solid 0.15rem var(--color);
+    border-radius: 0.15rem;
+
+    color: var(--color);
+    background: none;
+}
+
