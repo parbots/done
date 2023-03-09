@@ -15,11 +15,13 @@
 }
 
 .signinForm {
+    width: 30vw;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .emailFieldset {
@@ -34,8 +36,22 @@
     border: none;
 }
 
+.emailLabel {
+    width: 20%;
+
+    text-align: center;
+}
+
 .emailInput {
-    flex: 1;
+    width: 80%;
+
+    outline: none;
+
+    border: none;
+    border-bottom: solid 0.15rem var(--color);
+
+    color: var(--color);
+    background: none;
 }
 
 .passwordFieldset {
@@ -43,24 +59,52 @@
 
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     gap: 1rem;
 
     border: none;
 }
 
+.passwordLabel {
+    width: 20%;
+
+    text-align: center;
+}
+
 .passwordInput {
-    flex: 1;
+    width:80%;
+
+    outline: none;
+
+    border: none;
+    border-bottom: solid 0.15rem var(--color);
+
+    color: var(--color);
+    background: none;
 }
 
 .signinButton {
     padding: 0.15rem 0.5rem;
 
+    cursor: pointer;
+
+    outline: none;
+
     border: solid 0.15rem var(--color);
     border-radius: 0.15rem;
 
     color: var(--color);
-    background: none;
+    background: var(--background);
+
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.signinButton:hover,
+.signinButton:focus-visible {
+    border-color: var(--highlight);
+
+    color: var(--background);
+    background-color: var(--highlight);
 }
 
