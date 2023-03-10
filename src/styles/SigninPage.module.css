@@ -4,6 +4,48 @@
     flex-direction: column;
 }
 
+.header {
+    height: 10vh;
+
+    padding: 0 2rem 0 2rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerTitle {
+    font-size: 2rem;
+}
+
+.headerNav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.headerNavLink {
+    padding: 0.15rem 0.5rem;
+
+    outline: none;
+
+    border: solid 0.15rem var(--color);
+    border-radius: 0.15rem;
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.headerNavLink:hover,
+.headerNavLink:focus-visible {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
+
 .main {
     min-height: 85vh;
 

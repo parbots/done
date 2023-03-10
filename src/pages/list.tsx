@@ -1,11 +1,11 @@
 
 import Head from 'next/head'
+import Link from 'next/link'
 
 import { useState, useEffect } from 'react'
 
 import styles from '@styles/ListPage.module.css'
 
-import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
 import type { Item, Filter } from 'types/item'
@@ -110,7 +110,13 @@ export default function ListPage() {
             </Head>
 
             <div className={styles.page}>
-                <Header />
+                <header className={styles.header}>
+                    <h2 className={styles.headerTitle}>done</h2>
+
+                    <nav className={styles.headerNav}>
+                        <Link href='/' className={styles.headerNavLink}>Home</Link>
+                    </nav>
+                </header>
 
                 <main className={styles.main}>
                     <ListMenu

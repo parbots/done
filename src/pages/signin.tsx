@@ -1,11 +1,11 @@
 
 import Head from 'next/head'
+import Link from 'next/link'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
 
 import styles from '@styles/SigninPage.module.css'
 
-import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
 export default function SigninPage() {
@@ -42,7 +42,13 @@ export default function SigninPage() {
             </Head>
 
             <div className={styles.page}>
-                <Header />
+                <header className={styles.header}>
+                    <h2 className={styles.headerTitle}>done</h2>
+
+                    <nav className={styles.headerNav}>
+                        <Link href='/' className={styles.headerNavLink}>Sign Up</Link>
+                    </nav>
+                </header>
 
                 <main className={styles.main}>
                     <form onSubmit={handleFormSubmit} className={styles.signinForm}>
