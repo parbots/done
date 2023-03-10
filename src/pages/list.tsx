@@ -1,8 +1,7 @@
 
 import Head from 'next/head'
-import Link from 'next/link'
 
-import { useState, useEffect } from 'react'
+import { MouseEvent, useState, useEffect } from 'react'
 
 import styles from '@styles/ListPage.module.css'
 
@@ -12,6 +11,7 @@ import type { Item, Filter } from 'types/item'
 
 import { ListMenu } from '@modules/items/menu'
 import { List } from '@modules/items/list'
+import { useRouter } from 'next/router'
 
 export default function ListPage() {
 
@@ -100,6 +100,16 @@ export default function ListPage() {
         );
     }, [filteredItems, searchValue]);
 
+    const router = useRouter();
+
+    const handleSignoutButton = (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+
+        // TODO handle signout
+
+        router.push('/');
+    };
+
     return (
         <>
             <Head>
@@ -114,7 +124,7 @@ export default function ListPage() {
                     <h2 className={styles.headerTitle}>done</h2>
 
                     <nav className={styles.headerNav}>
-                        <Link href='/' className={styles.headerNavLink}>Home</Link>
+                        <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
                     </nav>
                 </header>
 

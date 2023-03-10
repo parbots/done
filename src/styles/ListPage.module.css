@@ -45,6 +45,29 @@
     color: var(--highlight);
 }
 
+.headerNavButton {
+    padding: 0.15rem 0.5rem;
+
+    cursor: pointer;
+
+    outline: none;
+
+    border: solid 0.15rem var(--color);
+    border-radius: 0.15rem;
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.headerNavButton:hover,
+.headerNavButton:focus-visible {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
+
 .main {
     min-height: 85vh;
 
