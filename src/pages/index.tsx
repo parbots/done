@@ -21,7 +21,7 @@ export default function HomePage() {
 
                     <nav className={styles.headerNav}>
                         <Link href='/signin' className={styles.headerNavLink}>Sign In</Link>
-                        <Link href='/' className={styles.headerNavLink}>Sign Up</Link>
+                        <Link href='/signup' className={styles.headerNavLink}>Sign Up</Link>
                     </nav>
                 </header>
 

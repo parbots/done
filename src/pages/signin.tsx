@@ -46,7 +46,7 @@ export default function SigninPage() {
                     <h2 className={styles.headerTitle}>done</h2>
 
                     <nav className={styles.headerNav}>
-                        <Link href='/' className={styles.headerNavLink}>Sign Up</Link>
+                        <Link href='/signup' className={styles.headerNavLink}>Sign Up</Link>
                     </nav>
                 </header>
 
