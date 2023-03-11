@@ -6,7 +6,7 @@ import styles from './ListMenu.module.css';
 import type { Filter } from 'types/item';
 
 type ListMenuProps = {
-    addItem: (itemName: string) => void;
+    addItem: (newItemText: string, newItemComplete?: boolean) => void;
     searchValue: string;
     setSearchValue: (newSearchValue: string) => void;
     currentFilter: Filter;

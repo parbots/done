@@ -19,6 +19,7 @@
       "@components/*": ["src/components/*"],
       "@styles/*": ["src/styles/*"],
       "@modules/*": ["src/modules/*"],
+      "@hooks/*": ["src/hooks/*"],
       "types/*": ["src/types/*"]
     }
   },
