@@ -29,7 +29,7 @@ export const ListMenu = (props: ListMenuProps) => {
         event.preventDefault();
 
         if (itemInputValue !== '' && itemInputValue[0] !== ' ') {
-            props.addItem(itemInputValue);
+            props.addItem(itemInputValue.trim());
 
             setItemInputValue('');
         }
@@ -47,7 +47,7 @@ export const ListMenu = (props: ListMenuProps) => {
                 <input
                     type='text'
                     name='itemInput'
-                    placeholder='Enter new todo...'
+                    placeholder='New todo...'
                     value={itemInputValue}
                     onChange={handleItemInputChange}
                     className={styles.itemInput}
