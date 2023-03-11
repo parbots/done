@@ -1,13 +1,12 @@
 
 import { useState, useEffect } from 'react'
 
+import { v4 as uuid } from 'uuid'
+
 import type { Item, Filter } from 'types/item'
 
 export const useList = (initialItems: Item[]) => {
     const [items, setItems] = useState<Item[]>(initialItems);
-
-    // TODO use library to generate random IDs
-    const [itemID, setItemID] = useState<number>(0);
 
     const [currentFilter, setCurrentFilter] = useState<Filter>('all');
     const [filteredItems, setFilteredItems] = useState<Item[]>(items);
@@ -19,11 +18,8 @@ export const useList = (initialItems: Item[]) => {
     const addItem = (newItemText: string, newItemComplete: boolean = false) => {
         setItems([
             ...items,
-            { id: itemID, text: newItemText, complete: newItemComplete }
+            { id: uuid(), text: newItemText, complete: newItemComplete }
         ]);
-
-        // temp
-        setItemID(itemID + 1);
     };
 
     // Remove an item from the list
