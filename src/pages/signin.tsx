@@ -1,8 +1,11 @@
 
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
+
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import styles from '@styles/SigninPage.module.css'
 
@@ -10,11 +13,15 @@ import { Footer } from '@components/footer'
 
 export default function SigninPage() {
 
+    const router = useRouter();
+
+    const supabase = useSupabaseClient();
+
     const [emailInputValue, setEmailInputValue] = useState<string>('');
 
     const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-    
+
         setEmailInputValue(event.target.value);
     };
 
@@ -22,14 +29,27 @@ export default function SigninPage() {
 
     const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-    
+
         setPasswordInputValue(event.target.value);
     };
 
-    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         // TODO handle validation and signin
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: emailInputValue,
+            password: passwordInputValue,
+        });
+
+        if (error) {
+            alert(error.message);
+
+            return;
+        }
+
+        router.push('/list');
     };
 
     return (
@@ -54,9 +74,9 @@ export default function SigninPage() {
                     <form onSubmit={handleFormSubmit} className={styles.signinForm}>
                         <fieldset className={styles.emailFieldset}>
                             <label htmlFor='signinEmailInput' className={styles.emailLabel}>Email:</label>
-                            <input 
-                                type='email' 
-                                id='signinEmailInput' 
+                            <input
+                                type='email'
+                                id='signinEmailInput'
                                 value={emailInputValue}
                                 onChange={handleEmailInput}
                                 className={styles.emailInput}
@@ -65,9 +85,9 @@ export default function SigninPage() {
 
                         <fieldset className={styles.passwordFieldset}>
                             <label htmlFor='signinPasswordInput' className={styles.passwordLabel}>Password:</label>
-                            <input 
-                                type='password' 
-                                id='signinPasswordInput' 
+                            <input
+                                type='password'
+                                id='signinPasswordInput'
                                 value={passwordInputValue}
                                 onChange={handlePasswordInput}
                                 className={styles.passwordInput}

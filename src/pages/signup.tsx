@@ -1,14 +1,21 @@
 
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
+
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import styles from '@styles/SignupPage.module.css'
 
 import { Footer } from '@components/footer'
 
 export default function SignupPage() {
+
+    const router = useRouter();
+
+    const supabase = useSupabaseClient();
 
     const [emailInputValue, setEmailInputValue] = useState<string>('');
 
@@ -34,10 +41,39 @@ export default function SignupPage() {
         setRepeatPasswordInputValue(event.target.value);
     };
 
-    const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // TODO handle validation and signup
+        // TODO show ui instead of alerts for errors
+
+        if (!emailInputValue.includes('@')) {
+            alert('Please enter a valid email!');
+            return;
+        }
+
+        if (passwordInputValue.length < 8) {
+            alert('Password must be at least 8 characters!');
+            return;
+        }
+
+        if (passwordInputValue !== repeatPasswordInputValue) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        const { data, error } = await supabase.auth.signUp({
+            email: emailInputValue,
+            password: passwordInputValue,
+        });
+
+        // TODO show ui instead of alerts for server errors
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        router.push('/list');
     };
 
     return (
