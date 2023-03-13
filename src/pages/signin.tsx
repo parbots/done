@@ -33,22 +33,32 @@ export default function SigninPage() {
         setPasswordInputValue(event.target.value);
     };
 
+    const [showInfo, setShowInfo] = useState<boolean>(false);
+    const [infoMessage, setInfoMessage] = useState<string>('info');
+
     const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        // TODO handle validation and signin
-
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: emailInputValue,
-            password: passwordInputValue,
-        });
-
-        if (error) {
-            alert(error.message);
-
+        
+        // Do nothing if either input is blank
+        if (emailInputValue.trim() === '' || passwordInputValue.trim() === '') {
             return;
         }
 
+        // Request signin from supabase
+        const { error } = await supabase.auth.signInWithPassword({
+            email: emailInputValue.trim(),
+            password: passwordInputValue.trim(),
+        });
+
+        // Show server signin errors
+        if (error) {
+            setInfoMessage(error.message);
+            setShowInfo(true);
+
+            return;
+        }
+        
+        // Reroute to user list
         router.push('/list');
     };
 
@@ -93,6 +103,10 @@ export default function SigninPage() {
                                 className={styles.passwordInput}
                             />
                         </fieldset>
+
+                        <section className={styles.infoSection}>
+                            <p data-show={showInfo.toString()} className={styles.infoMessage}>{infoMessage}</p>
+                        </section>
 
                         <button type='submit' className={styles.signinButton}>Sign In</button>
                     </form>

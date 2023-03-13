@@ -7,7 +7,10 @@
     --dark-color: #bdae93;
     --dark-faded: #928374;
     --dark-highlight: #d65d0e;
-    --dark-background: #32302f;}
+    --dark-background: #32302f;
+
+    --red: #cc241d;
+}
 
 *,
 *::before,
