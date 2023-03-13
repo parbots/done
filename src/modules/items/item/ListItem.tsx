@@ -1,13 +1,13 @@
 
-import { ChangeEvent, KeyboardEvent, MouseEvent, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
 
 import styles from './ListItem.module.css';
 
 type ListItemProps = {
     complete: boolean;
     text: string;
-    toggleCompleteSelf: () => void;
-    editSelf: (newText: string) => void;
+    toggleSelfComplete: () => void;
+    editSelfText: (newText: string) => void;
     removeSelf: () => void;
 }
 
@@ -26,7 +26,7 @@ export const ListItem = (props: ListItemProps) => {
             setTextInput(props.text);
         }
         else {
-            props.editSelf(textInput);
+            props.editSelfText(textInput);
         }
     };
 
@@ -42,7 +42,7 @@ export const ListItem = (props: ListItemProps) => {
                 <input
                     type='checkbox'
                     checked={props.complete}
-                    onChange={() => props.toggleCompleteSelf()}
+                    onChange={() => props.toggleSelfComplete()}
                     className={styles.itemCheckbox}
                 />
 

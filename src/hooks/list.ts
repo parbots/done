@@ -1,8 +1,6 @@
 
 import { useState, useEffect } from 'react'
 
-import { v4 as uuid } from 'uuid'
-
 import type { Item, Filter } from 'types/item'
 
 export const useList = (initialItems: Item[]) => {
@@ -13,14 +11,6 @@ export const useList = (initialItems: Item[]) => {
 
     const [searchValue, setSearchValue] = useState<string>('');
     const [searchedItems, setSearchedItems] = useState<Item[]>(filteredItems);
-
-    // Insert a new item at the end of the list
-    const addItem = (newItemText: string, newItemComplete: boolean = false) => {
-        setItems([
-            ...items,
-            { id: uuid(), text: newItemText, complete: newItemComplete }
-        ]);
-    };
 
     // Remove an item from the list
     const removeItem = (selectedItem: Item) => {
@@ -42,7 +32,7 @@ export const useList = (initialItems: Item[]) => {
     };
 
     // Set new text value for selected item
-    const editItem = (selectedItem: Item, newItemText: string) => {
+    const editItemText = (selectedItem: Item, newItemText: string) => {
         setItems(
             items.map((item) => {
                 if (item === selectedItem) item.text = newItemText;
@@ -52,7 +42,7 @@ export const useList = (initialItems: Item[]) => {
     };
 
     // Set the list to empty
-    const clearItems = () => {
+    const clearAllItems = () => {
         setItems([]);
     };
 
@@ -98,12 +88,12 @@ export const useList = (initialItems: Item[]) => {
 
     return {
         items: searchedItems,
+        setItems: (newItems: Item[]) => { setItems(newItems); },
 
-        addItem: addItem,
         removeItem: removeItem,
-        editItem: editItem,
+        editItemText: editItemText,
         toggleItemComplete: toggleItemComplete,
-        clearItems: clearItems,
+        clearAllItems: clearAllItems,
         clearCompleteItems: clearCompleteItems,
 
         currentFilter: currentFilter,

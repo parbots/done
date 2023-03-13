@@ -1,15 +1,16 @@
 
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { MouseEvent } from 'react'
+import { MouseEvent, useEffect } from 'react'
 
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
 import styles from '@styles/ListPage.module.css'
 
 import { useList } from '@hooks/list'
+
+import type { Item } from 'types/item'
 
 import { ListMenu } from '@modules/items/menu'
 import { List } from '@modules/items/list'
@@ -22,6 +23,7 @@ export default function ListPage() {
 
     const supabase = useSupabaseClient();
     const session = useSession();
+    const user = useUser();
 
     const list = useList([]);
 
@@ -30,12 +32,173 @@ export default function ListPage() {
 
         const { error } = await supabase.auth.signOut();
 
+        // TODO add error handling on signout
         if (error) alert(error.message);
 
         router.push('/');
     };
 
-    // TODO return redirect if session is null
+    // Runs on page load
+    useEffect(() => {
+        // If no user session is active, redirect to signup page
+        if (!session) {
+            router.push('/');
+            return;
+        }
+
+        // Get inital user items
+        getUserItems();
+    }, []);
+
+    const getUserItems = async () => {
+        try {
+
+            const { data, error } = await supabase
+                .from('items')
+                .select('id, item_text, is_complete')
+                .eq('user_id', user?.id)
+
+            if (error) alert(error.message);
+
+            if (!data) {
+                alert('No data retrieved!');
+                return;
+            }
+
+            const items: Item[] = data.map((item: { id: number, item_text: string, is_complete: boolean }) => {
+                return {
+                    id: item.id,
+                    text: item.item_text,
+                    complete: item.is_complete
+                };
+            });
+
+            list.setItems(items);
+        }
+        finally {}
+    };
+
+    const updateItems = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('items')
+                .select('id, item_text, is_complete')
+                .eq('user_id', user?.id);
+
+            if (error) alert(error.message);
+
+            if (!data) {
+                alert('No data retrieved!');
+                return;
+            }
+
+            const items: Item[] = data.map((item) => {
+                return {
+                    id: item.id,
+                    text: item.item_text,
+                    complete: item.is_complete
+                };
+            });
+
+            list.setItems(items);
+        }
+        finally {}
+    };
+
+    const addItem = async (newItemText: string, newItemComplete: boolean = false) => {
+        try {
+            const { error } = await supabase
+                .from('items')
+                .upsert({
+                    user_id: user?.id,
+                    item_text: newItemText,
+                    is_complete: newItemComplete
+                });
+
+            if (error) alert(error.message);
+
+            await updateItems();
+        }
+        catch (error) {
+            alert(error);
+        }
+    };
+
+    const removeItem = async (selectedItem: Item) => {
+        try {
+            const { error } = await supabase
+                .from('items')
+                .delete()
+                .eq('user_id', user?.id)
+                .eq('id', selectedItem.id);
+
+            if (error) alert(error.message);
+        }
+        finally {
+            list.removeItem(selectedItem);
+        }
+    };
+
+    const toggleItemComplete = async (selectedItem: Item) => {
+        try {
+            const { error } = await supabase
+                .from('items')
+                .update({
+                    is_complete: !selectedItem.complete,
+                })
+                .eq('id', selectedItem.id);
+
+            if (error) alert(error.message);
+        }
+        finally {
+            list.toggleItemComplete(selectedItem);
+        }
+    };
+
+    const editItemText = async (selectedItem: Item, newItemText: string) => {
+        try {
+            const { error } = await supabase
+                .from('items')
+                .update({
+                    item_text: newItemText,
+                })
+                .eq('id', selectedItem.id)
+
+            if (error) alert(error);
+        }
+        finally {
+            list.editItemText(selectedItem, newItemText);
+        }
+    };
+
+    const clearCompleteItems = async () => {
+        try {
+            const { error } = await supabase
+                .from('items')
+                .delete()
+                .eq('user_id', user?.id)
+                .eq('is_complete', true);
+
+            if (error) alert(error.message);
+        }
+        finally {
+            list.clearCompleteItems();
+        }
+    };
+
+    const clearAllItems = async () => {
+        try {
+            const { error } = await supabase
+                .from('items')
+                .delete()
+                .eq('user_id', user?.id);
+
+            if (error) alert(error.message);
+        }
+        finally {
+            list.clearAllItems();
+        }
+    };
 
     return (
         <>
@@ -50,45 +213,30 @@ export default function ListPage() {
                 <header className={styles.header}>
                     <h2 className={styles.headerTitle}>done</h2>
 
-                    {!session &&
-                        <nav className={styles.headerNav}>
-                            <Link href='/signin' className={styles.headerNavLink}>Sign In</Link>
-                            <Link href='/signup' className={styles.headerNavLink}>Sign Up</Link>
-                        </nav>
-                    }
-
-                    {session &&
-                        <nav className={styles.headerNav}>
-                            <p className={styles.headerNavUsername}>{session.user.email}</p>
-                            <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
-                        </nav>
-                    }
+                    <nav className={styles.headerNav}>
+                        <p className={styles.headerNavUsername}>{session?.user.email}</p>
+                        <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
+                    </nav>
                 </header>
 
-                {!session &&
-                    <main className={styles.main}>
-                    </main>
-                }
+                <main className={styles.main}>
+                    <ListMenu
+                        addItem={addItem}
+                        searchValue={list.searchValue}
+                        setSearchValue={list.setSearchValue}
+                        currentFilter={list.currentFilter}
+                        setCurrentFilter={list.setCurrentFilter}
+                        clearCompleteItems={clearCompleteItems}
+                        clearItems={clearAllItems}
+                    />
+                    <List
+                        items={list.items}
+                        removeItem={removeItem}
+                        editItemText={editItemText}
+                        toggleItemComplete={toggleItemComplete}
+                    />
+                </main>
 
-                {session &&
-                    <main className={styles.main}>
-                        <ListMenu
-                            addItem={list.addItem}
-                            searchValue={list.searchValue}
-                            setSearchValue={list.setSearchValue}
-                            currentFilter={list.currentFilter}
-                            setCurrentFilter={list.setCurrentFilter}
-                            clearCompleteItems={list.clearCompleteItems}
-                            clearItems={list.clearItems}
-                        />
-                        <List
-                            items={list.items}
-                            removeItem={list.removeItem}
-                            editItem={list.editItem}
-                            toggleCompleteItem={list.toggleItemComplete}
-                        />
-                    </main>
-                }
                 <Footer />
             </div>
         </>
