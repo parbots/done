@@ -12,6 +12,14 @@ export const useList = (initialItems: Item[]) => {
     const [searchValue, setSearchValue] = useState<string>('');
     const [searchedItems, setSearchedItems] = useState<Item[]>(filteredItems);
 
+    // Append a new item to the list
+    const addItem = (newItem: Item) => {
+        setItems([
+            ...items,
+            newItem,
+        ]);
+    };
+
     // Remove an item from the list
     const removeItem = (selectedItem: Item) => {
         setItems(
@@ -90,16 +98,17 @@ export const useList = (initialItems: Item[]) => {
         items: searchedItems,
         setItems: (newItems: Item[]) => { setItems(newItems); },
 
-        removeItem: removeItem,
-        editItemText: editItemText,
-        toggleItemComplete: toggleItemComplete,
-        clearAllItems: clearAllItems,
-        clearCompleteItems: clearCompleteItems,
+        addItem,
+        removeItem,
+        editItemText,
+        toggleItemComplete,
+        clearAllItems,
+        clearCompleteItems,
 
-        currentFilter: currentFilter,
+        currentFilter,
         setCurrentFilter: (newFilter: Filter) => { setCurrentFilter(newFilter); },
 
-        searchValue: searchValue,
+        searchValue,
         setSearchValue: (newSearchValue: string) => { setSearchValue(newSearchValue); },
     };
 };

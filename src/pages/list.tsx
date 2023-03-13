@@ -52,7 +52,7 @@ export default function ListPage() {
 
     const getUserItems = async () => {
         try {
-
+            // Request items from the database
             const { data, error } = await supabase
                 .from('items')
                 .select('id, item_text, is_complete')
@@ -61,71 +61,65 @@ export default function ListPage() {
             if (error) alert(error.message);
 
             if (!data) {
-                alert('No data retrieved!');
+                alert('No data retrieved from getUserItems()!');
                 return;
             }
 
-            const items: Item[] = data.map((item: { id: number, item_text: string, is_complete: boolean }) => {
-                return {
-                    id: item.id,
-                    text: item.item_text,
-                    complete: item.is_complete
-                };
-            });
-
-            list.setItems(items);
+            // Map each database row to an Item object and set list state
+            list.setItems(
+                data.map((item) => {
+                    return {
+                        id: item.id,
+                        text: item.item_text,
+                        complete: item.is_complete,
+                    }
+                })
+            );
         }
-        finally {}
+        finally { }
     };
 
-    const updateItems = async () => {
+    // Create a new item and add to database and list state
+    const addItem = async (newItemText: string, newItemComplete: boolean = false) => {
         try {
+            // Insert new item in database and return a new item object
             const { data, error } = await supabase
                 .from('items')
-                .select('id, item_text, is_complete')
-                .eq('user_id', user?.id);
+                .insert({
+                    user_id: user?.id,
+                    item_text: newItemText,
+                    is_complete: newItemComplete
+                })
+                .select()
+                .single();
 
             if (error) alert(error.message);
 
             if (!data) {
-                alert('No data retrieved!');
+                alert('No data retrieved from addItem()!');
                 return;
             }
 
-            const items: Item[] = data.map((item) => {
-                return {
-                    id: item.id,
-                    text: item.item_text,
-                    complete: item.is_complete
-                };
+            // Add new item to list state
+            // Item must be added to state after server request because
+            // the item's id property is generated on the server
+            list.addItem({
+                id: data.id,
+                text: data.item_text,
+                complete: data.is_complete,
             });
 
-            list.setItems(items);
         }
-        finally {}
+        finally { }
     };
 
-    const addItem = async (newItemText: string, newItemComplete: boolean = false) => {
-        try {
-            const { error } = await supabase
-                .from('items')
-                .upsert({
-                    user_id: user?.id,
-                    item_text: newItemText,
-                    is_complete: newItemComplete
-                });
-
-            if (error) alert(error.message);
-
-            await updateItems();
-        }
-        catch (error) {
-            alert(error);
-        }
-    };
-
+    // Remove an item from database and list state
     const removeItem = async (selectedItem: Item) => {
         try {
+            // Remove item from list state
+            list.removeItem(selectedItem);
+
+            // Delete item from database
             const { error } = await supabase
                 .from('items')
                 .delete()
@@ -134,13 +128,16 @@ export default function ListPage() {
 
             if (error) alert(error.message);
         }
-        finally {
-            list.removeItem(selectedItem);
-        }
+        finally { }
     };
 
+    // Toggle an item's complete property in database and list state
     const toggleItemComplete = async (selectedItem: Item) => {
         try {
+            // Toggle complete in list state
+            list.toggleItemComplete(selectedItem);
+
+            // Update is_complete property in database
             const { error } = await supabase
                 .from('items')
                 .update({
@@ -151,12 +148,16 @@ export default function ListPage() {
             if (error) alert(error.message);
         }
         finally {
-            list.toggleItemComplete(selectedItem);
         }
     };
 
+    // Update an item's text property in database and list state
     const editItemText = async (selectedItem: Item, newItemText: string) => {
         try {
+            // Update text property in list state
+            list.editItemText(selectedItem, newItemText);
+
+            // Update item_text property in database
             const { error } = await supabase
                 .from('items')
                 .update({
@@ -166,13 +167,16 @@ export default function ListPage() {
 
             if (error) alert(error);
         }
-        finally {
-            list.editItemText(selectedItem, newItemText);
-        }
+        finally { }
     };
 
+    // Delete every item where 'complete=true' in database and list state
     const clearCompleteItems = async () => {
         try {
+            // Remove complete items from list state
+            list.clearCompleteItems();
+
+            // Delete complete items in database
             const { error } = await supabase
                 .from('items')
                 .delete()
@@ -181,13 +185,16 @@ export default function ListPage() {
 
             if (error) alert(error.message);
         }
-        finally {
-            list.clearCompleteItems();
-        }
+        finally { }
     };
 
+    // Delete every item owned by the user in database and list state
     const clearAllItems = async () => {
         try {
+            // Remove all items from list state
+            list.clearAllItems();
+
+            // Delete all items in databse
             const { error } = await supabase
                 .from('items')
                 .delete()
@@ -195,9 +202,7 @@ export default function ListPage() {
 
             if (error) alert(error.message);
         }
-        finally {
-            list.clearAllItems();
-        }
+        finally { }
     };
 
     return (
