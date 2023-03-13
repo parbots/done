@@ -12,7 +12,6 @@ import styles from '@styles/SigninPage.module.css'
 import { Footer } from '@components/footer'
 
 export default function SigninPage() {
-
     const router = useRouter();
 
     const supabase = useSupabaseClient();
@@ -46,7 +45,7 @@ export default function SigninPage() {
             return;
         }
 
-        // Request signin from supabase
+        // Request signin from supabase server
         const { error } = await supabase.auth.signInWithPassword({
             email: emailInputValue.trim(),
             password: passwordInputValue,
@@ -60,7 +59,6 @@ export default function SigninPage() {
             return;
         }
         
-        // Reroute to user list
         router.push('/list');
     };
 

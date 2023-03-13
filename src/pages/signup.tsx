@@ -49,6 +49,7 @@ export default function SignupPage() {
 
         setShowInfo(false);
 
+        // Check if email input is valid
         if (!emailInputValue.includes('@')) {
             setInfoMessage('Please enter a valid email');
             setShowInfo(true);
@@ -56,6 +57,7 @@ export default function SignupPage() {
             return;
         }
 
+        // Check if password is valid
         if (passwordInputValue.length < 8) {
             setInfoMessage('Password must be at least 8 characters');
             setShowInfo(true);
@@ -63,6 +65,7 @@ export default function SignupPage() {
             return;
         }
 
+        // Check if passwords match
         if (passwordInputValue !== repeatPasswordInputValue) {
             setInfoMessage('Passwords do not match');
             setShowInfo(true);
@@ -70,11 +73,13 @@ export default function SignupPage() {
             return;
         }
 
+        // Request signup from supabase server
         const { error } = await supabase.auth.signUp({
             email: emailInputValue.trim(),
             password: passwordInputValue,
         });
 
+        // Show server signup errors
         if (error) {
             setInfoMessage(error.message);
             setShowInfo(true);
