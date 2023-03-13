@@ -2,7 +2,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import { MouseEvent, useEffect } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 
 import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
@@ -26,6 +26,8 @@ export default function ListPage() {
     const user = useUser();
 
     const list = useList([]);
+
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -52,6 +54,8 @@ export default function ListPage() {
 
     const getUserItems = async () => {
         try {
+            setLoading(true);
+
             // Request items from the database
             const { data, error } = await supabase
                 .from('items')
@@ -76,7 +80,9 @@ export default function ListPage() {
                 })
             );
         }
-        finally { }
+        finally {
+            setLoading(false);
+        }
     };
 
     // Create a new item and add to database and list state
@@ -224,7 +230,7 @@ export default function ListPage() {
                     </nav>
                 </header>
 
-                <main className={styles.main}>
+                <main data-loading={loading.toString()} className={styles.main}>
                     <ListMenu
                         addItem={addItem}
                         searchValue={list.searchValue}

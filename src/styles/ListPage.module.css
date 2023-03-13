@@ -78,4 +78,16 @@
     justify-content: flex-start;
     align-items: center;
     gap: 2rem;
+
+    opacity: 0;
+
+    transition: opacity 0.3s;
+}
+
+.main[data-loading='true'] {
+    opacity: 0;
+}
+
+.main[data-loading='false'] {
+    opacity: 1;
 }
