@@ -63,7 +63,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .emailFieldset {
@@ -164,6 +164,27 @@
     border-color: var(--highlight);
 
     color: var(--highlight);
+}
+
+.infoSection {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoMessage {
+    opacity: 0;
+
+    color: var(--red);
+
+    transition: opacity 0.3s;
+}
+
+.infoMessage[data-show="true"] {
+    opacity: 1;
 }
 
 .signupButton {

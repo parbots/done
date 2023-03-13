@@ -41,35 +41,44 @@ export default function SignupPage() {
         setRepeatPasswordInputValue(event.target.value);
     };
 
+    const [showInfo, setShowInfo] = useState<boolean>(false);
+    const [infoMessage, setInfoMessage] = useState<string>('info');
+
     const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // TODO show ui instead of alerts for errors
+        setShowInfo(false);
 
         if (!emailInputValue.includes('@')) {
-            alert('Please enter a valid email!');
+            setInfoMessage('Please enter a valid email');
+            setShowInfo(true);
+
             return;
         }
 
         if (passwordInputValue.length < 8) {
-            alert('Password must be at least 8 characters!');
+            setInfoMessage('Password must be at least 8 characters');
+            setShowInfo(true);
+
             return;
         }
 
         if (passwordInputValue !== repeatPasswordInputValue) {
-            alert('Passwords do not match!');
+            setInfoMessage('Passwords do not match');
+            setShowInfo(true);
+
             return;
         }
 
-        const { data, error } = await supabase.auth.signUp({
-            email: emailInputValue,
+        const { error } = await supabase.auth.signUp({
+            email: emailInputValue.trim(),
             password: passwordInputValue,
         });
 
-        // TODO show ui instead of alerts for server errors
-
         if (error) {
-            alert(error.message);
+            setInfoMessage(error.message);
+            setShowInfo(true);
+
             return;
         }
 
@@ -128,6 +137,10 @@ export default function SignupPage() {
                                 className={styles.passwordInput}
                             />
                         </fieldset>
+
+                        <section className={styles.infoSection}>
+                            <p data-show={showInfo.toString()} className={styles.infoMessage}>{infoMessage}</p>
+                        </section>
 
                         <button type='submit' className={styles.signupButton}>Sign Up</button>
                     </form>

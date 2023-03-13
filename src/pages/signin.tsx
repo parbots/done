@@ -39,6 +39,8 @@ export default function SigninPage() {
     const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
+        setShowInfo(false);
+
         // Do nothing if either input is blank
         if (emailInputValue.trim() === '' || passwordInputValue.trim() === '') {
             return;
@@ -47,7 +49,7 @@ export default function SigninPage() {
         // Request signin from supabase
         const { error } = await supabase.auth.signInWithPassword({
             email: emailInputValue.trim(),
-            password: passwordInputValue.trim(),
+            password: passwordInputValue,
         });
 
         // Show server signin errors
