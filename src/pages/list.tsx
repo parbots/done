@@ -27,46 +27,44 @@ export default function ListPage() {
 
     const list = useList([]);
 
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         const { error } = await supabase.auth.signOut();
 
-        // TODO add error handling on signout
-        if (error) alert(error.message);
-
-        router.push('/');
+        if (error) {
+            setError(error.message);
+            return;
+        }
     };
+
+    // Runs whenever session or next/router change
+    useEffect(() => {
+        // If no user session is active, redirect to signup page
+        if (!session) router.push('/');
+    }, [session, router]);
 
     // Runs on page load
     useEffect(() => {
-        // If no user session is active, redirect to signup page
-        if (!session) {
-            router.push('/');
-            return;
-        }
-
-        // Get inital user items
-        getUserItems();
-    }, []);
-
-    const getUserItems = async () => {
-        try {
-            setLoading(true);
-
+        // Request initial items from database
+        const getUserItems = async () => {
             // Request items from the database
             const { data, error } = await supabase
                 .from('items')
                 .select('id, item_text, is_complete')
                 .eq('user_id', user?.id)
 
-            if (error) alert(error.message);
+            if (error) {
+                setError(error.message);
+                return
+            }
 
             if (!data) {
-                alert('No data retrieved from getUserItems()!');
-                return;
+                setError('No data recieved from database in getUserItems()');
+                return
             }
 
             // Map each database row to an Item object and set list state
@@ -79,137 +77,169 @@ export default function ListPage() {
                     }
                 })
             );
-        }
-        finally {
-            setLoading(false);
-        }
-    };
+        };
+
+        // Get inital user items
+        getUserItems();
+
+        setLoading(false);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     // Create a new item and add to database and list state
     const addItem = async (newItemText: string, newItemComplete: boolean = false) => {
-        try {
-            // Insert new item in database and return a new item object
-            const { data, error } = await supabase
-                .from('items')
-                .insert({
-                    user_id: user?.id,
-                    item_text: newItemText,
-                    is_complete: newItemComplete
-                })
-                .select()
-                .single();
+        // Insert new item in database and return a new item object
+        const { data, error } = await supabase
+            .from('items')
+            .insert({
+                user_id: user?.id,
+                item_text: newItemText,
+                is_complete: newItemComplete
+            })
+            .select()
+            .single();
 
-            if (error) alert(error.message);
-
-            if (!data) {
-                alert('No data retrieved from addItem()!');
-                return;
-            }
-
-            // Add new item to list state
-            // Item must be added to state after server request because
-            // the item's id property is generated on the server
-            list.addItem({
-                id: data.id,
-                text: data.item_text,
-                complete: data.is_complete,
-            });
-
+        if (error) {
+            setError(error.message);
+            return;
         }
-        finally { }
+
+        if (!data) {
+            setError('No data recieved from database in addItem()');
+            return;
+        }
+
+        // Add new item to list state
+        // Item must be added to state after server request because
+        // the item's id property is generated on the server
+        list.addItem({
+            id: data.id,
+            text: data.item_text,
+            complete: data.is_complete,
+        });
     };
 
     // Remove an item from database and list state
     const removeItem = async (selectedItem: Item) => {
-        try {
-            // Remove item from list state
-            list.removeItem(selectedItem);
+        // Delete item from database
+        const { error } = await supabase
+            .from('items')
+            .delete()
+            .eq('user_id', user?.id)
+            .eq('id', selectedItem.id);
 
-            // Delete item from database
-            const { error } = await supabase
-                .from('items')
-                .delete()
-                .eq('user_id', user?.id)
-                .eq('id', selectedItem.id);
-
-            if (error) alert(error.message);
+        if (error) {
+            setError(error.message);
+            return;
         }
-        finally { }
+
+        // Remove item from list state
+        list.removeItem(selectedItem);
     };
 
     // Toggle an item's complete property in database and list state
     const toggleItemComplete = async (selectedItem: Item) => {
-        try {
-            // Toggle complete in list state
-            list.toggleItemComplete(selectedItem);
+        // Update is_complete property in database
+        const { error } = await supabase
+            .from('items')
+            .update({
+                is_complete: !selectedItem.complete,
+            })
+            .eq('user_id', user?.id)
+            .eq('id', selectedItem.id);
 
-            // Update is_complete property in database
-            const { error } = await supabase
-                .from('items')
-                .update({
-                    is_complete: !selectedItem.complete,
-                })
-                .eq('id', selectedItem.id);
+        if (error) {
+            setError(error.message);
+            return;
+        }
 
-            if (error) alert(error.message);
-        }
-        finally {
-        }
+        // Toggle complete in list state
+        list.toggleItemComplete(selectedItem);
     };
 
     // Update an item's text property in database and list state
     const editItemText = async (selectedItem: Item, newItemText: string) => {
-        try {
-            // Update text property in list state
-            list.editItemText(selectedItem, newItemText);
+        // Update item_text property in database
+        const { error } = await supabase
+            .from('items')
+            .update({
+                item_text: newItemText,
+            })
+            .eq('user_id', user?.id)
+            .eq('id', selectedItem.id)
 
-            // Update item_text property in database
-            const { error } = await supabase
-                .from('items')
-                .update({
-                    item_text: newItemText,
-                })
-                .eq('id', selectedItem.id)
-
-            if (error) alert(error);
+        if (error) {
+            setError(error.message);
+            return;
         }
-        finally { }
+
+        // Update text property in list state
+        list.editItemText(selectedItem, newItemText);
     };
 
     // Delete every item where 'complete=true' in database and list state
     const clearCompleteItems = async () => {
-        try {
-            // Remove complete items from list state
-            list.clearCompleteItems();
+        // Delete complete items in database
+        const { error } = await supabase
+            .from('items')
+            .delete()
+            .eq('user_id', user?.id)
+            .eq('is_complete', true);
 
-            // Delete complete items in database
-            const { error } = await supabase
-                .from('items')
-                .delete()
-                .eq('user_id', user?.id)
-                .eq('is_complete', true);
-
-            if (error) alert(error.message);
+        if (error) {
+            setError(error.message);
+            return;
         }
-        finally { }
+
+        // Remove complete items from list state
+        list.clearCompleteItems();
     };
 
     // Delete every item owned by the user in database and list state
     const clearAllItems = async () => {
-        try {
-            // Remove all items from list state
-            list.clearAllItems();
+        // Delete all items in databse
+        const { error } = await supabase
+            .from('items')
+            .delete()
+            .eq('user_id', user?.id);
 
-            // Delete all items in databse
-            const { error } = await supabase
-                .from('items')
-                .delete()
-                .eq('user_id', user?.id);
-
-            if (error) alert(error.message);
+        if (error) {
+            setError(error.message);
+            return;
         }
-        finally { }
+
+        // Remove all items from list state
+        list.clearAllItems();
     };
+
+    if (error) return (
+        <>
+            <Head>
+                <title>Done</title>
+                <meta name='description' content='Get stuff done.' />
+                <meta name='viewport' content='width=device-width, initial-scale=1' />
+                <link rel='icon' href='/favicon.ico' />
+            </Head>
+
+            <div className={styles.page}>
+                <header className={styles.header}>
+                    <h2 className={styles.headerTitle}>done</h2>
+
+                    <nav className={styles.headerNav}>
+                        <p className={styles.headerNavUsername}>{user?.email}</p>
+                        <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
+                    </nav>
+                </header>
+
+                <main data-loading={loading.toString()} className={styles.main}>
+                    <p className={styles.errorMessage}>{error}</p>
+                </main>
+
+                <Footer />
+            </div>
+        </>
+    );
 
     return (
         <>
@@ -225,7 +255,7 @@ export default function ListPage() {
                     <h2 className={styles.headerTitle}>done</h2>
 
                     <nav className={styles.headerNav}>
-                        <p className={styles.headerNavUsername}>{session?.user.email}</p>
+                        <p className={styles.headerNavUsername}>{user?.email}</p>
                         <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
                     </nav>
                 </header>
