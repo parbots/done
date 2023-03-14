@@ -33,6 +33,16 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     -webkit-font-smoothing: antialiased;
+
+    --color: var(--dark-color);
+    --faded: var(--dark-faded);
+    --highlight: var(--dark-highlight);
+    --background: var(--dark-background);
+
+    color: var(--color);
+    background-color: var(--background);
+
+    transition: color 0.3s, background-color 0.3s;
 }
 
 html:focus-within {
@@ -47,17 +57,7 @@ html:focus-within {
 }
 
 body {
-    --color: var(--dark-color);
-    --faded: var(--dark-faded);
-    --highlight: var(--dark-highlight);
-    --background: var(--dark-background);
-
     min-height: 100vh;
-
-    color: var(--color);
-    background-color: var(--background);
-
-    transition: color 0.3s, background-color 0.3s;
 }
 
 img,

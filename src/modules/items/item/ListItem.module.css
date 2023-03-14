@@ -76,11 +76,15 @@
 .itemTextInput {
     flex: 1;
 
-    height: 100%;
+    height: min-content;
+
+    resize: none;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
+    overflow-wrap: break-word;
 
     outline: none;
 

@@ -11,6 +11,7 @@ type ListItemProps = {
     removeSelf: () => void;
 }
 
+// TODO use paragraph element for item text and switch to input element on click
 export const ListItem = (props: ListItemProps) => {
     const textInputRef = useRef<HTMLInputElement>(null);
     const [textInput, setTextInput] = useState<string>(props.text);

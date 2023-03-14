@@ -15,6 +15,8 @@ type ListMenuProps = {
     clearItems: () => void;
 };
 
+// TODO add an infomessage component to show warnings and errors
+// for example: max characters length of add item input
 export const ListMenu = (props: ListMenuProps) => {
 
     const [itemInputValue, setItemInputValue] = useState('');
@@ -49,6 +51,7 @@ export const ListMenu = (props: ListMenuProps) => {
                     name='itemInput'
                     placeholder='New todo...'
                     value={itemInputValue}
+                    maxLength={80}
                     onChange={handleItemInputChange}
                     className={styles.itemInput}
                 />
