@@ -57,7 +57,7 @@ body {
     color: var(--color);
     background-color: var(--background);
 
-    transition: color 0.3s, background 0.3s;
+    transition: color 0.3s, background-color 0.3s;
 }
 
 img,
