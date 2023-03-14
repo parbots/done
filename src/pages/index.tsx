@@ -27,10 +27,12 @@ export default function HomePage() {
 
                 <main className={styles.main}>
                     <h1 className={styles.title}>
-                        Get stuff <span className={styles.titleHighlight}>done.</span>
+                        Get stuff <span className={styles.titleHighlight}>done</span>.
                     </h1>
 
-                    <Link href='/list' className={styles.link}>Get Started</Link>
+                    <p className={styles.description}>Simple and efficient task management.</p>
+
+                    <Link href='/signup' className={styles.link}>Get Started</Link>
                 </main>
 
                 <Footer />

@@ -52,11 +52,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .titleHighlight {
     color: var(--highlight);
+}
+
+.titleHighlight::selection {
+    background-color: var(--highlight);
 }
 
 .link {

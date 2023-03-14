@@ -178,7 +178,7 @@ export default function ListPage() {
         list.editItemText(selectedItem, newItemText);
     };
 
-    // Delete every item where 'complete=true' in database and list state
+    // Delete every item where 'complete === true' in database and list state
     const clearCompleteItems = async () => {
         // Delete complete items in database
         const { error } = await supabase

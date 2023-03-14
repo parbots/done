@@ -22,6 +22,8 @@
 
     padding: 0.2rem;
 
+    outline: none;
+
     border: none;
     border-bottom: solid 0.15rem var(--color);
 
@@ -38,9 +40,8 @@
 
 .itemInput:hover,
 .itemInput:focus-visible {
-    outline: none;
-
     border-color: var(--highlight);
+
     color: var(--highlight);
 }
 
@@ -48,6 +49,8 @@
     padding: 0.15rem 0.5rem;
 
     cursor: pointer;
+
+    outline: none;
 
     border: solid 0.15rem var(--color);
     border-radius: 0.15rem;
@@ -60,9 +63,8 @@
 
 .addItemButton:hover,
 .addItemButton:focus-visible {
-    outline: none;
-
     border-color: var(--highlight);
+
     color: var(--highlight);
 }
 
@@ -93,6 +95,8 @@
 
     padding: 0.2rem;
 
+    outline: none;
+
     border: none;
     border-bottom: solid 0.15rem var(--color);
 
@@ -109,9 +113,8 @@
 
 .searchInput:hover,
 .searchInput:focus-visible {
-    outline: none;
-
     border-color: var(--highlight);
+
     color: var(--highlight);
 }
 
@@ -171,23 +174,22 @@
 
     cursor: pointer;
 
+    outline: none;
+
     border: solid 0.15rem var(--color);
     border-radius: 0.15rem;
 
     color: var(--color);
-    background-color: var(--background);
+    background: none;
 
-    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 .actionButton:hover,
 .actionButton:focus-visible {
-    outline: none;
-
     border-color: var(--highlight);
 
-    color: var(--background);
-    background-color: var(--highlight);
+    color: var(--highlight);
 }
 
 @media (max-width: 1250px) {
