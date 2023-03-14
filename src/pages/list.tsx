@@ -43,9 +43,9 @@ export default function ListPage() {
 
     // Runs whenever session or next/router change
     useEffect(() => {
-        // If no user session is active, redirect to signup page
-        if (!session) router.push('/');
-    }, [session, router]);
+        // If no session or user is active, redirect to signup page
+        if (!session || !user) router.push('/');
+    }, [session, user, router]);
 
     // Runs on page load
     useEffect(() => {
@@ -213,38 +213,7 @@ export default function ListPage() {
         list.clearAllItems();
     };
 
-    // TODO only conditionally render components and elements within <header> and <main>
-    if (error) return (
-        <>
-            <Head>
-                <title>Done</title>
-                <meta name='description' content='Get stuff done.' />
-                <meta name='viewport' content='width=device-width, initial-scale=1' />
-                <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
-                <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
-                <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
-                <link rel='manifest' href='/site.webmanifest' />
-            </Head>
-
-            <div className={styles.page}>
-                <header className={styles.header}>
-                    <h2 className={styles.headerTitle}>done</h2>
-
-                    <nav className={styles.headerNav}>
-                        <p className={styles.headerNavUsername}>{user?.email}</p>
-                        <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
-                    </nav>
-                </header>
-
-                <main data-loading={loading.toString()} className={styles.main}>
-                    <p className={styles.errorMessage}>{error}</p>
-                </main>
-
-                <Footer />
-            </div>
-        </>
-    );
-
+    // TODO move loading state into each component
     return (
         <>
             <Head>
@@ -267,23 +236,31 @@ export default function ListPage() {
                     </nav>
                 </header>
 
-                <main data-loading={loading.toString()} className={styles.main}>
-                    <ListMenu
-                        addItem={addItem}
-                        searchValue={list.searchValue}
-                        setSearchValue={list.setSearchValue}
-                        currentFilter={list.currentFilter}
-                        setCurrentFilter={list.setCurrentFilter}
-                        clearCompleteItems={clearCompleteItems}
-                        clearItems={clearAllItems}
-                    />
-                    <List
-                        items={list.items}
-                        removeItem={removeItem}
-                        editItemText={editItemText}
-                        toggleItemComplete={toggleItemComplete}
-                    />
-                </main>
+                {error &&
+                    <main data-loading={loading.toString()} className={styles.main}>
+                        <p className={styles.errorMessage}>{error}</p>
+                    </main>
+                }
+
+                {!error &&
+                    <main data-loading={loading.toString()} className={styles.main}>
+                        <ListMenu
+                            addItem={addItem}
+                            searchValue={list.searchValue}
+                            setSearchValue={list.setSearchValue}
+                            currentFilter={list.currentFilter}
+                            setCurrentFilter={list.setCurrentFilter}
+                            clearCompleteItems={clearCompleteItems}
+                            clearItems={clearAllItems}
+                        />
+                        <List
+                            items={list.items}
+                            removeItem={removeItem}
+                            editItemText={editItemText}
+                            toggleItemComplete={toggleItemComplete}
+                        />
+                    </main>
+                }
 
                 <Footer />
             </div>
