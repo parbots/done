@@ -97,6 +97,7 @@
 
     border: none;
     border-bottom: solid 0.15rem var(--color);
+    border-radius: 0;
 
     color: var(--color);
     background: none;
@@ -147,6 +148,7 @@
 
     border: none;
     border-bottom: solid 0.15rem var(--color);
+    border-radius: 0;
 
     color: var(--color);
     background: none;
