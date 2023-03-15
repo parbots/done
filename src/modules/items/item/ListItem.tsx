@@ -1,5 +1,5 @@
 
-import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import styles from './ListItem.module.css';
 
@@ -13,10 +13,10 @@ type ListItemProps = {
 
 // TODO use paragraph element for item text and switch to input element on click
 export const ListItem = (props: ListItemProps) => {
-    const textInputRef = useRef<HTMLInputElement>(null);
+    const textInputRef = useRef<HTMLTextAreaElement>(null);
     const [textInput, setTextInput] = useState<string>(props.text);
 
-    const handleTextInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleTextInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
         event.preventDefault();
 
         setTextInput(event.target.value);
@@ -31,36 +31,52 @@ export const ListItem = (props: ListItemProps) => {
         }
     };
 
-    const handleTextInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    const handleTextInputKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Enter') {
             textInputRef.current?.blur();
         }
+
+        resizeTextInput();
     };
+
+    const resizeTextInput = () => {
+        if (textInputRef.current) {
+            textInputRef.current.style.height = '0px';
+            textInputRef.current.style.height = `calc(0.1rem + ${textInputRef.current?.scrollHeight}px)`;
+        }
+    };
+
+    useLayoutEffect(resizeTextInput, []);
+
+    useEffect(() => {
+        window.addEventListener('resize', resizeTextInput);
+
+        return () => {
+            window.removeEventListener('resize', resizeTextInput);
+        };
+    }, []);
 
     return (
         <li data-complete={props.complete.toString()} className={styles.item}>
-            <section className={styles.mainSection}>
-                <input
-                    type='checkbox'
-                    checked={props.complete}
-                    onChange={() => props.toggleSelfComplete()}
-                    className={styles.itemCheckbox}
-                />
+            <input
+                type='checkbox'
+                checked={props.complete}
+                onChange={() => props.toggleSelfComplete()}
+                className={styles.itemCheckbox}
+            />
 
-                <input
-                    type='text'
-                    ref={textInputRef}
-                    value={textInput}
-                    onChange={handleTextInput}
-                    onBlur={() => submitText()}
-                    onKeyDown={handleTextInputKeyDown}
-                    className={styles.itemTextInput}
-                />
-            </section>
+            <textarea
+                rows={1}
+                maxLength={80}
+                ref={textInputRef}
+                value={textInput}
+                onChange={handleTextInput}
+                onBlur={() => submitText()}
+                onKeyDown={handleTextInputKeyDown}
+                className={styles.itemTextInput}
+            />
 
-            <section className={styles.actionSection}>
-                <button onClick={() => props.removeSelf()} className={styles.removeItemButton}>Remove</button>
-            </section>
+            <button onClick={() => props.removeSelf()} className={styles.removeItemButton}>Remove</button>
         </li>
     );
 };
