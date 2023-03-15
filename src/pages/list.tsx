@@ -68,6 +68,11 @@ export default function ListPage() {
                 return
             }
 
+            // Sort data by when it was created
+            data.sort((a, b) => {
+                return a.id - b.id;
+            });
+
             // Map each database row to an Item object and set list state
             list.setItems(
                 data.map((item) => {
