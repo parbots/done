@@ -39,8 +39,7 @@
     background-color: var(--highlight);
 }
 
-.itemInput:hover,
-.itemInput:focus-visible {
+.itemInput:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -62,8 +61,7 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.addItemButton:hover,
-.addItemButton:focus-visible {
+.addItemButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -73,9 +71,10 @@
     width: 100%;
 
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 
     border: none;
 }
@@ -113,8 +112,7 @@
     background-color: var(--highlight);
 }
 
-.searchInput:hover,
-.searchInput:focus-visible {
+.searchInput:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -145,8 +143,7 @@
     transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-.filterButton:hover,
-.filterButton:focus-visible {
+.filterButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -157,8 +154,7 @@
     background-color: var(--color)
 }
 
-.filterButton[data-selected='true']:hover,
-.filterButton[data-selected='true']:focus-visible {
+.filterButton[data-selected='true']:is(:hover, :focus-visible) {
     background-color: var(--highlight)
 }
 
@@ -187,63 +183,14 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.actionButton:hover,
-.actionButton:focus-visible {
+.actionButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1024px) {
     .menu {
         width: 90vw;
-    }
-}
-
-@media (max-width: 1024px) {
-    .filterSection {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        grid-template-areas:
-            'search search'
-            'filter action'
-        ;
-    }
-
-    .searchFieldset {
-        grid-area: search;
-    }
-
-    .filterFieldset {
-        grid-area: filter;
-
-        justify-content: center;
-    }
-
-    .actionFieldset {
-        grid-area: action;
-
-        justify-content: center;
-    }
-}
-
-@media (max-width: 600px) {
-    .filterSection {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas:
-            'search'
-            'filter'
-            'action'
-        ;
-    }
-
-    .filterFieldset {
-        justify-content: flex-start;
-    }
-
-    .actionFieldset {
-        justify-content: flex-start;
     }
 }

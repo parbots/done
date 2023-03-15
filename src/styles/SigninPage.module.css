@@ -1,11 +1,13 @@
 
 .page {
+    height: 100vh;
+
     display: flex;
     flex-direction: column;
 }
 
 .header {
-    height: 10vh;
+    min-height: 10vh;
 
     padding: 0 2rem 0 2rem;
 
@@ -39,15 +41,14 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.headerNavLink:hover,
-.headerNavLink:focus-visible {
+.headerNavLink:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
 .main {
-    min-height: 85vh;
+    flex: 1;
 
     display: flex;
     flex-direction: column;
@@ -78,6 +79,8 @@
 }
 
 .emailLabel {
+    width: 100%;
+
     cursor: pointer;
 
     color: var(--color);
@@ -85,8 +88,7 @@
     transition: color 0.3s;
 }
 
-.emailFieldset:hover .emailLabel,
-.emailFieldset:focus-within .emailLabel {
+.emailFieldset:is(:hover, :focus-within) .emailLabel {
     color: var(--highlight);
 }
 
@@ -110,8 +112,7 @@
     background: var(--highlight);
 }
 
-.emailFieldset:hover .emailInput,
-.emailFieldset:focus-within .emailInput {
+.emailFieldset:is(:hover, :focus-within) .emailInput {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -129,6 +130,8 @@
 }
 
 .passwordLabel {
+    width: 100%;
+
     cursor: pointer;
     
     color: var(--color);
@@ -136,8 +139,7 @@
     transition: color 0.3s;
 }
 
-.passwordFieldset:hover .passwordLabel,
-.passwordFieldset:focus-within .passwordLabel {
+.passwordFieldset:is(:hover, :focus-within) .passwordLabel {
     color: var(--highlight);
 }
 
@@ -161,8 +163,7 @@
     background: var(--highlight);
 }
 
-.passwordFieldset:hover .passwordInput,
-.passwordFieldset:focus-within .passwordInput {
+.passwordFieldset:is(:hover, :focus-within) .passwordInput {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -185,7 +186,7 @@
     transition: opacity 0.3s;
 }
 
-.infoMessage[data-show="true"] {
+.infoMessage[data-show='true'] {
     opacity: 1;
 }
 
@@ -205,10 +206,26 @@
     transition: background-color 0.3s, border-color 0.3s;
 }
 
-.signinButton:hover,
-.signinButton:focus-visible {
+.signinButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     background-color: var(--highlight);
 }
 
+@media (max-width: 600px) {
+    .signinForm {
+        width: 80vw;
+    }
+}
+
+@media (max-height: 600px) {
+    .header {
+        padding-top: 1rem;
+    }
+
+    .signinForm {
+        width: 40vw;
+
+        gap: 0.5rem;
+    }
+}

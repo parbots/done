@@ -1,10 +1,12 @@
 .page {
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
 }
 
 .header {
-    height: 10vh;
+    min-height: 10vh;
 
     padding: 0 2rem 0 2rem;
 
@@ -38,15 +40,14 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.headerNavLink:hover,
-.headerNavLink:focus-visible {
+.headerNavLink:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
 .main {
-    min-height: 85vh;
+    flex: 1;
 
     display: flex;
     flex-direction: column;
@@ -55,12 +56,22 @@
     gap: 1.5rem;
 }
 
+.title {
+    text-align: center;
+}
+
 .titleHighlight {
     color: var(--highlight);
 }
 
 .titleHighlight::selection {
     background-color: var(--highlight);
+}
+
+.description {
+    width: 60vw;
+
+    text-align: center;
 }
 
 .link {
@@ -76,11 +87,20 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.link:hover,
-.link:focus-visible {
+.link:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
+@media (max-height: 600px) {
+    .header {
+        padding-top: 1rem;
+    }
 
+    .signinForm {
+        width: 40vw;
+
+        gap: 0.5rem;
+    }
+}

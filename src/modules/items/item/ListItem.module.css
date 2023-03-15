@@ -37,15 +37,14 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible) {
-    border-color: var(--faded);
-}
-
-.itemCheckbox:hover,
-.itemCheckbox:focus-visible {
+.itemCheckbox:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
+}
+
+.item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible) {
+    border-color: var(--faded);
 }
 
 .itemCheckbox::after {
@@ -60,12 +59,11 @@
     transition: background 0.3s, transform 0.3s;
 }
 
-.itemCheckbox:checked::after {
+.item[data-complete='true'] .itemCheckbox::after {
     transform: scale(1);
 }
 
-.itemCheckbox:hover::after,
-.itemCheckbox:focus-visible::after {
+.itemCheckbox:is(:hover, :focus-visible)::after {
     background-color: var(--highlight);
 }
 
@@ -76,15 +74,11 @@
 .itemTextInput {
     flex: 1;
 
-    height: min-content;
-
-    resize: none;
+    height: 100%;
 
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
-    overflow-wrap: break-word;
 
     outline: none;
 
@@ -98,28 +92,28 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.item[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
-    color: var(--faded);
-}
 
 .itemTextInput::selection {
     color: var(--background);
     background-color: var(--highlight);
 }
 
+.itemTextInput:is(:hover, :focus-visible) {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
+
+.item[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+    color: var(--faded);
+}
+
 .item:hover .itemTextInput:not(:hover, :focus-visible) {
     border-color: var(--color);
 }
 
-.item:hover[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+.item[data-complete='true']:hover .itemTextInput:not(:hover, :focus-visible) {
     border-color: var(--faded);
-}
-
-.itemTextInput:hover,
-.itemTextInput:focus-visible {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
 }
 
 .actionSection {
@@ -144,7 +138,6 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.removeItemButton:hover,
-.removeItemButton:focus-visible {
+.removeItemButton:is(:hover, :focus-visible) {
     color: var(--highlight);
 }

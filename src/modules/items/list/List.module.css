@@ -8,7 +8,7 @@
     gap: 0.8rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
     .list {
         width: 90vw;
     }

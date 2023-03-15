@@ -134,3 +134,10 @@ a {
         transition-duration: 0.01ms !important;
     }
 }
+
+@media (max-width: 600px) {
+    html, 
+    body {
+        font-size: 14px;
+    }
+}
