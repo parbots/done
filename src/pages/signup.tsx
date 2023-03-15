@@ -9,6 +9,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import styles from '@styles/SignupPage.module.css'
 
+import { Header } from '@components/Header'
 import { Footer } from '@components/footer'
 
 export default function SignupPage() {
@@ -103,13 +104,9 @@ export default function SignupPage() {
             </Head>
 
             <div className={styles.page}>
-                <header className={styles.header}>
-                    <h2 className={styles.headerTitle}>done</h2>
-
-                    <nav className={styles.headerNav}>
-                        <Link href='/signin' className={styles.headerNavLink}>Sign In</Link>
-                    </nav>
-                </header>
+                <Header>
+                    <Link href='/signin' className={styles.headerLink}>Sign In</Link>
+                </Header>
 
                 <main className={styles.main}>
                     <form onSubmit={handleFormSubmit} className={styles.signupForm}>

@@ -9,6 +9,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import styles from '@styles/SigninPage.module.css'
 
+import { Header } from '@components/Header'
 import { Footer } from '@components/footer'
 
 export default function SigninPage() {
@@ -37,7 +38,7 @@ export default function SigninPage() {
 
     const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+
         setShowInfo(false);
 
         // Do nothing if either input is blank
@@ -58,7 +59,7 @@ export default function SigninPage() {
 
             return;
         }
-        
+
         router.push('/list');
     };
 
@@ -75,13 +76,9 @@ export default function SigninPage() {
             </Head>
 
             <div className={styles.page}>
-                <header className={styles.header}>
-                    <h2 className={styles.headerTitle}>done</h2>
-
-                    <nav className={styles.headerNav}>
-                        <Link href='/signup' className={styles.headerNavLink}>Sign Up</Link>
-                    </nav>
-                </header>
+                <Header>
+                    <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
+                </Header>
 
                 <main className={styles.main}>
                     <form onSubmit={handleFormSubmit} className={styles.signinForm}>

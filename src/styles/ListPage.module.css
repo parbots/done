@@ -1,54 +1,12 @@
 .page {
-    min-height: 100vh;
+    width: 100svw;
+    min-height: 100svh;
 
     display: flex;
     flex-direction: column;
 }
 
-.header {
-    min-height: 10vh;
-
-    padding: 0 2rem;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.headerTitle {
-    font-size: 2rem;
-}
-
-.headerNav {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-.headerNavLink {
-    padding: 0.15rem 0.5rem;
-
-    outline: none;
-
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
-
-    color: var(--color);
-    background: none;
-
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.headerNavLink:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
-}
-
-.headerNavButton {
+.headerButton {
     padding: 0.15rem 0.5rem;
 
     cursor: pointer;
@@ -64,14 +22,14 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.headerNavButton:is(:hover, :focus-visible) {
+.headerButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
 .main {
-    min-height: 85vh;
+    min-height: 85svh;
 
     padding: 2rem 0;
 
@@ -94,14 +52,8 @@
     opacity: 1;
 }
 
-@media (max-width: 600px) {
-    .headerNavUsername {
+@media (max-width: 800px) {
+    .headerUsername {
         display: none;
-    }
-}
-
-@media (max-height: 600px) {
-    .header {
-        padding-top: 1rem;
     }
 }

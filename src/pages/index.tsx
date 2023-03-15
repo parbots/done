@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import styles from '@styles/HomePage.module.css'
 
+import { Header } from '@components/Header'
 import { Footer } from '@components/footer'
 
 export default function HomePage() {
@@ -19,14 +20,10 @@ export default function HomePage() {
             </Head>
 
             <div className={styles.page}>
-                <header className={styles.header}>
-                    <h2 className={styles.headerTitle}>done</h2>
-
-                    <nav className={styles.headerNav}>
-                        <Link href='/signin' className={styles.headerNavLink}>Sign In</Link>
-                        <Link href='/signup' className={styles.headerNavLink}>Sign Up</Link>
-                    </nav>
-                </header>
+                <Header>
+                    <Link href='/signin' className={styles.headerLink}>Sign In</Link>
+                    <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
+                </Header>
 
                 <main className={styles.main}>
                     <h1 className={styles.title}>

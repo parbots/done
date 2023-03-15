@@ -1,0 +1,29 @@
+.header {
+    width: 100%;
+    min-height: 10svh;
+
+    padding: 0 2rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerTitle {
+    font-size: 2rem;
+}
+
+.headerNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-height: 800px) {
+    .header {
+        padding-top: 1rem;
+    }
+}

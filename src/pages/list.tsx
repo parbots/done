@@ -15,6 +15,7 @@ import type { Item } from 'types/item'
 import { ListMenu } from '@modules/items/menu'
 import { List } from '@modules/items/list'
 
+import { Header } from '@components/Header'
 import { Footer } from '@components/footer'
 
 export default function ListPage() {
@@ -227,14 +228,10 @@ export default function ListPage() {
             </Head>
 
             <div className={styles.page}>
-                <header className={styles.header}>
-                    <h2 className={styles.headerTitle}>done</h2>
-
-                    <nav className={styles.headerNav}>
-                        <p className={styles.headerNavUsername}>{user?.email}</p>
-                        <button onClick={handleSignoutButton} className={styles.headerNavButton}>Sign Out</button>
-                    </nav>
-                </header>
+                <Header>
+                    <p className={styles.headerUsername}>{user?.email}</p>
+                    <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
+                </Header>
 
                 {error &&
                     <main data-loading={loading.toString()} className={styles.main}>

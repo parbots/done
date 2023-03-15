@@ -1,5 +1,5 @@
 .menu {
-    width: 60vw;
+    width: 60svw;
 
     display: flex;
     flex-direction: column;
@@ -191,6 +191,6 @@
 
 @media (max-width: 1024px) {
     .menu {
-        width: 90vw;
+        width: 90svw;
     }
 }
