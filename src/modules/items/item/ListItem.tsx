@@ -1,7 +1,9 @@
 
-import { ChangeEvent, KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import styles from './ListItem.module.css';
+import styles from './ListItem.module.css'
+
+import TextareaAutosize from 'react-textarea-autosize'
 
 type ListItemProps = {
     complete: boolean;
@@ -35,26 +37,7 @@ export const ListItem = (props: ListItemProps) => {
         if (event.key === 'Enter') {
             textInputRef.current?.blur();
         }
-
-        resizeTextInput();
     };
-
-    const resizeTextInput = () => {
-        if (textInputRef.current) {
-            textInputRef.current.style.height = '0px';
-            textInputRef.current.style.height = `calc(0.1rem + ${textInputRef.current?.scrollHeight}px)`;
-        }
-    };
-
-    useLayoutEffect(resizeTextInput, []);
-
-    useEffect(() => {
-        window.addEventListener('resize', resizeTextInput);
-
-        return () => {
-            window.removeEventListener('resize', resizeTextInput);
-        };
-    }, []);
 
     return (
         <li data-complete={props.complete.toString()} className={styles.item}>
@@ -65,13 +48,13 @@ export const ListItem = (props: ListItemProps) => {
                 className={styles.itemCheckbox}
             />
 
-            <textarea
-                rows={1}
+            <TextareaAutosize
+                minRows={1}
                 maxLength={80}
                 ref={textInputRef}
                 value={textInput}
                 onChange={handleTextInput}
-                onBlur={() => submitText()}
+                onBlur={submitText}
                 onKeyDown={handleTextInputKeyDown}
                 className={styles.itemTextInput}
             />

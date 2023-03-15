@@ -7,6 +7,8 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 1rem;
+
+    transition: height 0.3s;
 }
 
 .itemCheckbox {
@@ -73,6 +75,7 @@
     min-height: 1.5rem;
 
     resize: none;
+    overflow: hidden;
 
     outline: none;
 
