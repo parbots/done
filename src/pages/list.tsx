@@ -256,7 +256,7 @@ export default function ListPage() {
                 {!error &&
                     <main className={styles.main}>
                         <ListMenu
-                            loading={true}
+                            loading={loading}
                             addItem={addItem}
                             searchValue={list.searchValue}
                             setSearchValue={list.setSearchValue}
@@ -266,7 +266,7 @@ export default function ListPage() {
                             clearItems={clearAllItems}
                         />
                         <List
-                            loading={true}
+                            loading={loading}
                             items={list.items}
                             removeItem={removeItem}
                             editItemText={editItemText}
