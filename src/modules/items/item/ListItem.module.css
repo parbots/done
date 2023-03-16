@@ -1,14 +1,11 @@
 .item {
     width: 100%;
-    min-height: fit-content;
 
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 1rem;
-
-    transition: height 0.3s;
 }
 
 .itemCheckbox {

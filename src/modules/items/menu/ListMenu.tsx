@@ -6,6 +6,7 @@ import styles from './ListMenu.module.css';
 import type { Filter } from 'types/item';
 
 type ListMenuProps = {
+    loading: boolean;
     addItem: (newItemText: string, newItemComplete?: boolean) => void;
     searchValue: string;
     setSearchValue: (newSearchValue: string) => void;
@@ -42,6 +43,14 @@ export const ListMenu = (props: ListMenuProps) => {
 
         props.setSearchValue(event.target.value);
     };
+
+    if (props.loading) {
+        return (
+            <section className={styles.loadingSection}>
+                <p className={styles.loadingMessage}>Loading...</p>
+            </section>
+        );
+    }
 
     return (
         <form onSubmit={handleFormSubmit} className={styles.menu}>

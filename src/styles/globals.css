@@ -3,11 +3,13 @@
     --light-faded: #928374;
     --light-highlight: #d65d0e;
     --light-background: #ebdbb2;
+    --light-background2: #bdae93;
 
     --dark-color: #bdae93;
     --dark-faded: #928374;
     --dark-highlight: #d65d0e;
     --dark-background: #32302f;
+    --dark-background2: #3c3836;
 
     --red: #cc241d;
 }
@@ -38,6 +40,7 @@ body {
     --faded: var(--dark-faded);
     --highlight: var(--dark-highlight);
     --background: var(--dark-background);
+    --background2: var(--dark-background2);
 
     color: var(--color);
     background-color: var(--background);

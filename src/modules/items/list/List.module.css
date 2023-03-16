@@ -1,3 +1,22 @@
+.loadingSection {
+    flex: 1;
+
+    width: 60svw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingMessage {
+    text-align: center;
+
+    font-size: 1.5rem;
+
+    color: var(--color);
+}
+
 .list {
     width: 60svw;
 
@@ -5,7 +24,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 0.8rem;
+    gap: 1rem;
 }
 
 @media (max-width: 1024px) {

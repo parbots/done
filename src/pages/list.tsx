@@ -233,20 +233,30 @@ export default function ListPage() {
             </Head>
 
             <div className={styles.page}>
-                <Header>
-                    <p className={styles.headerUsername}>{user?.email}</p>
-                    <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
-                </Header>
+
+                {loading &&
+                    <Header>
+                        <p className={styles.headerLoadingMessage}>Loading...</p>
+                    </Header>
+                }
+
+                {!loading &&
+                    <Header>
+                        <p className={styles.headerUsername}>{user?.email}</p>
+                        <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
+                    </Header>
+                }
 
                 {error &&
-                    <main data-loading={loading.toString()} className={styles.main}>
+                    <main className={styles.main}>
                         <p className={styles.errorMessage}>{error}</p>
                     </main>
                 }
 
                 {!error &&
-                    <main data-loading={loading.toString()} className={styles.main}>
+                    <main className={styles.main}>
                         <ListMenu
+                            loading={true}
                             addItem={addItem}
                             searchValue={list.searchValue}
                             setSearchValue={list.setSearchValue}
@@ -256,6 +266,7 @@ export default function ListPage() {
                             clearItems={clearAllItems}
                         />
                         <List
+                            loading={true}
                             items={list.items}
                             removeItem={removeItem}
                             editItemText={editItemText}
