@@ -33,28 +33,35 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
 }
 
-.title {
+.heroSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.heroTitle {
     text-align: center;
+
+    line-height: 1;
 }
 
-.titleHighlight {
+.heroTitleHighlight {
     color: var(--highlight);
 }
 
-.titleHighlight::selection {
+.heroTitleHighlight::selection {
     background-color: var(--highlight);
 }
 
-.description {
-    width: 60svw;
-
+.heroDescription {
     text-align: center;
 }
 
-.link {
+.heroActionLink {
     padding: 0.15rem 0.5rem;
 
     outline: none;
@@ -63,20 +70,14 @@
     border-radius: 0.15rem;
 
     color: var(--color);
+    background: none;
 
     transition: color 0.3s, border-color 0.3s;
 }
 
-.link:is(:hover, :focus-visible) {
+.heroActionLink:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-@media (max-height: 800px) {
-    .signinForm {
-        width: 40svw;
-
-        gap: 0.5rem;
-    }
-}
