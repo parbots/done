@@ -143,11 +143,11 @@ export default function SignupPage() {
                             />
                         </fieldset>
 
-                        <section className={styles.infoSection}>
-                            <p data-show={showInfo.toString()} className={styles.infoMessage}>{infoMessage}</p>
-                        </section>
-
                         <button type='submit' className={styles.signupButton}>Sign Up</button>
+
+                        <section data-show={showInfo.toString()} className={styles.infoSection}>
+                            <p className={styles.infoMessage}>{infoMessage}</p>
+                        </section>
                     </form>
                 </main>
 

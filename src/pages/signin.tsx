@@ -104,11 +104,11 @@ export default function SigninPage() {
                             />
                         </fieldset>
 
-                        <section className={styles.infoSection}>
-                            <p data-show={showInfo.toString()} className={styles.infoMessage}>{infoMessage}</p>
-                        </section>
-
                         <button type='submit' className={styles.signinButton}>Sign In</button>
+
+                        <section data-show={showInfo.toString()} className={styles.infoSection}>
+                            <p className={styles.infoMessage}>{infoMessage}</p>
+                        </section>
                     </form>
                 </main>
 
