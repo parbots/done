@@ -6,5 +6,5 @@ export const Footer = () => {
         <footer className={styles.footer}>
             <p className={styles.copyright}>Copyright © 2023 Parker Botsford</p>
         </footer>
-    )
+    );
 };

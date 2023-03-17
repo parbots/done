@@ -1,7 +1,7 @@
 
-import { useState, FormEvent, ChangeEvent } from 'react';
-
 import styles from './ListMenu.module.css';
+
+import { useState, FormEvent, ChangeEvent } from 'react';
 
 import type { Filter } from 'types/item';
 

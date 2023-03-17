@@ -1,4 +1,6 @@
 
+import styles from '@styles/ListPage.module.css'
+
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
@@ -6,16 +8,14 @@ import { MouseEvent, useEffect, useState } from 'react'
 
 import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
-import styles from '@styles/ListPage.module.css'
+import type { Item } from 'types/item'
 
 import { useList } from '@hooks/list'
-
-import type { Item } from 'types/item'
 
 import { ListMenu } from '@modules/items/menu'
 import { List } from '@modules/items/list'
 
-import { Header } from '@components/Header'
+import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
 export default function ListPage() {
@@ -278,5 +278,5 @@ export default function ListPage() {
                 <Footer />
             </div>
         </>
-    )
-}
+    );
+};

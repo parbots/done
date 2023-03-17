@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import type { Item, Filter } from 'types/item'
 
 export const useList = (initialItems: Item[]) => {
+
     const [items, setItems] = useState<Item[]>(initialItems);
 
     const [currentFilter, setCurrentFilter] = useState<Filter>('all');

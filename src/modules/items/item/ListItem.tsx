@@ -1,7 +1,7 @@
 
-import { ChangeEvent, KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from 'react'
-
 import styles from './ListItem.module.css'
+
+import { ChangeEvent, KeyboardEvent,  useRef, useState } from 'react'
 
 import TextareaAutosize from 'react-textarea-autosize'
 
@@ -11,10 +11,11 @@ type ListItemProps = {
     toggleSelfComplete: () => void;
     editSelfText: (newText: string) => void;
     removeSelf: () => void;
-}
+};
 
 // TODO use paragraph element for item text and switch to input element on click
 export const ListItem = (props: ListItemProps) => {
+
     const textInputRef = useRef<HTMLTextAreaElement>(null);
     const [textInput, setTextInput] = useState<string>(props.text);
 

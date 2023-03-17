@@ -13,6 +13,7 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
 
 export default function App({ Component, pageProps }: AppProps<{ initialSession: Session }>) {
+
     const [supabase] = useState(() => createBrowserSupabaseClient());
 
     return (

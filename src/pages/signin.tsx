@@ -1,4 +1,6 @@
 
+import styles from '@styles/SigninPage.module.css'
+
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -7,12 +9,11 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-import styles from '@styles/SigninPage.module.css'
-
-import { Header } from '@components/Header'
+import { Header } from '@components/header'
 import { Footer } from '@components/footer'
 
 export default function SigninPage() {
+
     const router = useRouter();
 
     const supabase = useSupabaseClient();

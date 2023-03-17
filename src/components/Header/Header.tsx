@@ -1,7 +1,7 @@
 
-import { ReactNode } from 'react';
-
 import styles from './Header.module.css'
+
+import { ReactNode } from 'react'
 
 type HeaderProps = {
     children: ReactNode;
