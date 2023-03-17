@@ -4,10 +4,26 @@ import styles from '@/styles/HomePage.module.css'
 import Head from 'next/head'
 import Link from 'next/link'
 
+import { MouseEvent } from 'react'
+
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 
 export default function HomePage() {
+
+    const supabase = useSupabaseClient();
+    const user = useUser();
+
+    const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+
+        const { error } = await supabase.auth.signOut();
+
+        if (error) alert(error);
+    };
+
     return (
         <>
             <Head>
@@ -21,10 +37,21 @@ export default function HomePage() {
             </Head>
 
             <div className={styles.page}>
-                <Header>
-                    <Link href='/signin' className={styles.headerLink}>Sign In</Link>
-                    <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
-                </Header>
+
+                {!user &&
+                    <Header>
+                        <Link href='/signin' className={styles.headerLink}>Sign In</Link>
+                        <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
+                    </Header>
+                }
+
+                {user &&
+                    <Header>
+                        <p className={styles.headerUsername}>{user.email}</p>
+                        <Link href='/list' className={styles.headerLink}>My List</Link>
+                        <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
+                    </Header>
+                }
 
                 <main className={styles.main}>
                     <section className={styles.heroSection}>
