@@ -1,14 +1,16 @@
+import '@styles/reset.css'
 import '@styles/globals.css'
 
 import type { AppProps } from 'next/app'
+
+import { Roboto_Mono } from 'next/font/google'
+const robotoMono = Roboto_Mono({ subsets: ['latin'] });
 
 import { useState } from 'react'
 
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
-import { Roboto_Mono } from 'next/font/google'
-const robotoMono = Roboto_Mono({ subsets: ['latin'] });
 
 export default function App({ Component, pageProps }: AppProps<{ initialSession: Session }>) {
     const [supabase] = useState(() => createBrowserSupabaseClient());
@@ -24,5 +26,5 @@ export default function App({ Component, pageProps }: AppProps<{ initialSession:
 
             <Component {...pageProps} />
         </SessionContextProvider>
-    )
-}
+    );
+};
