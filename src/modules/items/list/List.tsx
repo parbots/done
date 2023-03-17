@@ -1,9 +1,9 @@
 
 import styles from './List.module.css'
 
-import type { Item } from 'types/item'
+import type { Item } from '@/types/item'
 
-import { ListItem } from '@modules/items/item'
+import { ListItem } from '@/modules/items/item'
 
 type ListProps = {
     loading: boolean;

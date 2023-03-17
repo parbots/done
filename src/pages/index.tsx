@@ -1,11 +1,11 @@
 
-import styles from '@styles/HomePage.module.css'
+import styles from '@/styles/HomePage.module.css'
 
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { Header } from '@components/header'
-import { Footer } from '@components/footer'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 
 export default function HomePage() {
     return (

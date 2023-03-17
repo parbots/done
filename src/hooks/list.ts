@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react'
 
-import type { Item, Filter } from 'types/item'
+import type { Item, Filter } from '@/types/item'
 
 export const useList = (initialItems: Item[]) => {
 

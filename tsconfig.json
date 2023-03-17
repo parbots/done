@@ -20,19 +20,19 @@
         "incremental": true,
         "baseUrl": ".",
         "paths": {
-            "@components/*": [
+            "@/components/*": [
                 "src/components/*"
             ],
-            "@styles/*": [
+            "@/styles/*": [
                 "src/styles/*"
             ],
-            "@modules/*": [
+            "@/modules/*": [
                 "src/modules/*"
             ],
-            "@hooks/*": [
+            "@/hooks/*": [
                 "src/hooks/*"
             ],
-            "types/*": [
+            "@/types/*": [
                 "src/types/*"
             ]
         }
