@@ -2,11 +2,12 @@
 import styles from '@/styles/ListPage.module.css'
 
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { MouseEvent, useEffect, useState } from 'react'
 
-import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
 import type { Item } from '@/types/item'
 
@@ -23,7 +24,6 @@ export default function ListPage() {
     const router = useRouter();
 
     const supabase = useSupabaseClient();
-    const session = useSession();
     const user = useUser();
 
     const list = useList([]);
@@ -34,21 +34,14 @@ export default function ListPage() {
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
+        router.push('/signin');
+
         const { error } = await supabase.auth.signOut();
 
-        if (error) {
-            setError(error.message);
-            return;
-        }
+        if (error) alert(error);
     };
 
-    // Runs whenever session or next/router change
-    useEffect(() => {
-        // If no session or user is active, redirect to signup page
-        if (!session || !user) router.push('/');
-    }, [session, user, router]);
-
-    // Runs on page load
+    // Runs when user state changes
     useEffect(() => {
         // Request initial items from database
         const getUserItems = async () => {
@@ -83,15 +76,15 @@ export default function ListPage() {
                     }
                 })
             );
+
+            setLoading(false);
         };
 
         // Get inital user items
-        getUserItems();
-
-        setLoading(false);
+        if (user) getUserItems();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [user]);
 
     // Create a new item and add to database and list state
     const addItem = async (newItemText: string, newItemComplete: boolean = false) => {
@@ -219,6 +212,37 @@ export default function ListPage() {
         list.clearAllItems();
     };
 
+    if (!user) {
+        return (
+            <>
+                <Head>
+                    <title>Done</title>
+                    <meta name='description' content='Get stuff done.' />
+                    <meta name='viewport' content='width=device-width, initial-scale=1' />
+                    <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+                    <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
+                    <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
+                    <link rel='manifest' href='/site.webmanifest' />
+                </Head>
+
+                <div className={styles.page}>
+
+                    <Header>
+                        <Link href='/signin' className={styles.headerButton}>Sign In</Link>
+                        <Link href='/signup' className={styles.headerButton}>Sign Up</Link>
+                    </Header>
+
+                    <main className={styles.main}>
+                        {error && <p className={styles.errorMessage}>{error}</p>}
+                        {!error && <p className={styles.infoMessage}>No user session was found, please sign in or create an account.</p>}
+                    </main>
+
+                    <Footer />
+                </div>
+            </>
+        );
+    }
+
     // TODO move loading state into each component
     return (
         <>
@@ -234,18 +258,11 @@ export default function ListPage() {
 
             <div className={styles.page}>
 
-                {loading &&
-                    <Header>
-                        <p className={styles.headerLoadingMessage}>Loading...</p>
-                    </Header>
-                }
+                <Header>
+                    <p className={styles.headerUsername}>{user.email}</p>
+                    <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
+                </Header>
 
-                {!loading &&
-                    <Header>
-                        <p className={styles.headerUsername}>{user?.email}</p>
-                        <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
-                    </Header>
-                }
 
                 {error &&
                     <main className={styles.main}>

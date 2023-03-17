@@ -6,6 +6,7 @@
     flex-direction: column;
 }
 
+.headerLink,
 .headerButton {
     padding: var(--button-padding);
 
@@ -22,6 +23,7 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
+.headerLink:is(:hover, :focus-visible),
 .headerButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
@@ -46,6 +48,12 @@
     font-size: 1.5rem;
 
     color: var(--red);
+}
+
+.infoMessage {
+    text-align: center;
+
+    font-size: 1.5rem;
 }
 
 @media (max-width: 800px) {
