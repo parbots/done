@@ -7,7 +7,7 @@
     justify-content: center;
     align-items: center;
 
-    border-radius: 0.15rem;
+    border-radius: var(--border-radius);
 
     background-color: var(--background2);
 }
@@ -24,13 +24,13 @@
     width: 60svw;
     min-height: 4rem;
 
-    padding: 1rem;
+    padding: 16px;
 
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    border-radius: 0.15rem;
+    border-radius: var(--border-radius);
 
     color: var(--background2);
     background-color: var(--background2);
@@ -51,12 +51,12 @@
 .itemInput {
     flex: 1;
 
-    padding: 0.2rem;
+    padding: var(--input-padding);
 
     outline: none;
 
     border: none;
-    border-bottom: solid 0.15rem var(--color);
+    border-bottom: var(--border-width) solid var(--color);
     border-radius: 0;
 
     color: var(--color);
@@ -77,14 +77,14 @@
 }
 
 .addItemButton {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     cursor: pointer;
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background-color: inherit;
@@ -105,8 +105,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
 
     border: none;
 }
@@ -129,12 +129,12 @@
 .searchInput {
     flex: 1;
 
-    padding: 0.2rem;
+    padding: var(--input-padding);
 
     outline: none;
 
     border: none;
-    border-bottom: solid 0.15rem var(--color);
+    border-bottom: var(--border-width) solid var(--color);
     border-radius: 0;
 
     color: var(--color);
@@ -168,14 +168,14 @@
 }
 
 .filterButton {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     cursor: pointer;
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background-color: inherit;
@@ -212,14 +212,14 @@
 }
 
 .actionButton {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     cursor: pointer;
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background: inherit;

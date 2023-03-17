@@ -8,12 +8,12 @@
 }
 
 .headerLink {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background: none;
@@ -39,7 +39,7 @@
 .signinForm {
     width: 25svw;
 
-    padding: 1rem;
+    padding: 16px;
 
     box-sizing: border-box;
 
@@ -49,7 +49,7 @@
     align-items: center;
     gap: 2rem;
 
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
 
     color: var(--background2);
     background-color: var(--background2);
@@ -85,12 +85,12 @@
 .emailInput {
     width: 100%;
 
-    padding: 0.2rem;
+    padding: var(--input-padding);
 
     outline: none;
 
     border: none;
-    border-bottom: solid 0.15rem var(--color);
+    border-bottom: var(--border-width) solid var(--color);
     border-radius: 0;
 
     color: var(--color);
@@ -138,12 +138,12 @@
 .passwordInput {
     width: 100%;
 
-    padding: 0.2rem;
+    padding: var(--border-padding);
 
     outline: none;
 
     border: none;
-    border-bottom: solid 0.15rem var(--color);
+    border-bottom: var(--border-width) solid var(--color);
     border-radius: 0;
 
     color: var(--color);
@@ -164,14 +164,14 @@
 }
 
 .signinButton {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     cursor: pointer;
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: inherit;
     background: var(--color);

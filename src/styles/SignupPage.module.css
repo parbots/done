@@ -8,12 +8,12 @@
 }
 
 .headerLink {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background: none;
@@ -39,9 +39,7 @@
 .signupForm {
     width: 25svw;
 
-    padding: 1rem;
-
-    box-sizing: border-box;
+    padding: 16px;
 
     display: flex;
     flex-direction: column;
@@ -49,7 +47,7 @@
     align-items: center;
     gap: 2rem;
 
-    border-radius: 0.5rem;
+    border-radius: var(--border-radius);
 
     color: var(--background2);
     background-color: var(--background2);
@@ -85,10 +83,12 @@
 .emailInput {
     width: 100%;
 
+    padding: var(--input-padding);
+
     outline: none;
 
     border: none;
-    border-bottom: solid 0.15rem var(--color);
+    border-bottom: var(--border-width) solid var(--color);
     border-radius: 0;
 
     color: var(--color);
@@ -136,10 +136,12 @@
 .passwordInput {
     width: 100%;
 
+    padding: var(--input-padding);
+
     outline: none;
 
     border: none;
-    border-bottom: solid 0.15rem var(--color);
+    border-bottom: var(--border-width) solid var(--color);
     border-radius: 0;
 
     color: var(--color);
@@ -169,14 +171,14 @@
 }
 
 .signupButton {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     cursor: pointer;
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: inherit;
     background: var(--color);

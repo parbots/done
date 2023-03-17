@@ -7,12 +7,12 @@
 }
 
 .headerLink {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background: none;
@@ -44,6 +44,8 @@
 }
 
 .heroTitle {
+    font-size: 4rem;
+
     text-align: center;
 
     line-height: 1;
@@ -62,12 +64,12 @@
 }
 
 .heroActionLink {
-    padding: 0.15rem 0.5rem;
+    padding: var(--button-padding);
 
     outline: none;
 
-    border: solid 0.15rem var(--color);
-    border-radius: 0.15rem;
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
 
     color: var(--color);
     background: none;
@@ -79,5 +81,11 @@
     border-color: var(--highlight);
 
     color: var(--highlight);
+}
+
+@media (max-width: 800px) {
+    .heroTitle {
+        font-size: 3rem;
+    }
 }
 
