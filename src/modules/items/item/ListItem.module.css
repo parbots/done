@@ -99,6 +99,8 @@
 }
 
 .item[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+    text-decoration: line-through;
+
     color: var(--faded);
 }
 
