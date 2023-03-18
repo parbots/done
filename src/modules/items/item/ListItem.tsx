@@ -52,6 +52,7 @@ export const ListItem = (props: ListItemProps) => {
             <TextareaAutosize
                 minRows={1}
                 maxLength={80}
+                spellCheck={false}
                 ref={textInputRef}
                 value={textInput}
                 onChange={handleTextInput}
