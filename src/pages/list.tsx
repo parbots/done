@@ -48,7 +48,7 @@ export default function ListPage() {
             // Request tasks from the database
             const { data, error } = await supabase
                 .from('tasks')
-                .select('id, text, complete')
+                .select('id, task_text, complete')
                 .eq('user_id', user?.id)
 
             if (error) {
@@ -68,11 +68,11 @@ export default function ListPage() {
 
             // Map each database row to a Task object and set taskList state
             taskList.setTasks(
-                data.map((task) => {
+                data.map((taskData) => {
                     return {
-                        id: task.id,
-                        text: task.text,
-                        complete: task.complete,
+                        id: taskData.id,
+                        text: taskData.task_text,
+                        complete: taskData.complete,
                     }
                 })
             );
@@ -93,7 +93,7 @@ export default function ListPage() {
             .from('tasks')
             .insert({
                 user_id: user?.id,
-                text: newTaskText,
+                task_text: newTaskText,
                 complete: newTaskComplete
             })
             .select()
@@ -114,7 +114,7 @@ export default function ListPage() {
         // the tasks' id property is generated on the server
         taskList.addTask({
             id: data.id,
-            text: data.text,
+            text: data.task_text,
             complete: data.complete,
         });
     };
@@ -163,7 +163,7 @@ export default function ListPage() {
         const { error } = await supabase
             .from('tasks')
             .update({
-                text: newTaskText,
+                task_text: newTaskText,
             })
             .eq('user_id', user?.id)
             .eq('id', selectedTask.id)
