@@ -9,9 +9,9 @@ import { MouseEvent, useEffect, useState } from 'react'
 
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
-import type { Item } from '@/types/item'
+import type { Task } from '@/types/task'
 
-import { useList } from '@/hooks/list'
+import { useTaskList } from '@/hooks/tasks'
 
 import { ListMenu } from '@/modules/items/menu'
 import { List } from '@/modules/items/list'
@@ -26,7 +26,7 @@ export default function ListPage() {
     const supabase = useSupabaseClient();
     const user = useUser();
 
-    const list = useList([]);
+    const taskList = useTaskList([]);
 
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -43,12 +43,12 @@ export default function ListPage() {
 
     // Runs when user state changes
     useEffect(() => {
-        // Request initial items from database
-        const getUserItems = async () => {
-            // Request items from the database
+        // Request initial tasks from database
+        const getUserTasks = async () => {
+            // Request tasks from the database
             const { data, error } = await supabase
-                .from('items')
-                .select('id, item_text, is_complete')
+                .from('tasks')
+                .select('id, text, complete')
                 .eq('user_id', user?.id)
 
             if (error) {
@@ -66,13 +66,13 @@ export default function ListPage() {
                 return a.id - b.id;
             });
 
-            // Map each database row to an Item object and set list state
-            list.setItems(
-                data.map((item) => {
+            // Map each database row to a Task object and set taskList state
+            taskList.setTasks(
+                data.map((task) => {
                     return {
-                        id: item.id,
-                        text: item.item_text,
-                        complete: item.is_complete,
+                        id: task.id,
+                        text: task.text,
+                        complete: task.complete,
                     }
                 })
             );
@@ -80,21 +80,21 @@ export default function ListPage() {
             setLoading(false);
         };
 
-        // Get inital user items
-        if (user) getUserItems();
+        // Get inital user tasks
+        if (user) getUserTasks();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
-    // Create a new item and add to database and list state
-    const addItem = async (newItemText: string, newItemComplete: boolean = false) => {
-        // Insert new item in database and return a new item object
+    // Create a new task and add to server database and taskList client state
+    const addTask = async (newTaskText: string, newTaskComplete: boolean = false) => {
+        // Insert new task in database and return a new Task object
         const { data, error } = await supabase
-            .from('items')
+            .from('tasks')
             .insert({
                 user_id: user?.id,
-                item_text: newItemText,
-                is_complete: newItemComplete
+                text: newTaskText,
+                complete: newTaskComplete
             })
             .select()
             .single();
@@ -109,97 +109,97 @@ export default function ListPage() {
             return;
         }
 
-        // Add new item to list state
-        // Item must be added to state after server request because
-        // the item's id property is generated on the server
-        list.addItem({
+        // Add new task to taskList client state
+        // Task must be added to state after server request because
+        // the tasks' id property is generated on the server
+        taskList.addTask({
             id: data.id,
-            text: data.item_text,
-            complete: data.is_complete,
+            text: data.text,
+            complete: data.complete,
         });
     };
 
-    // Remove an item from database and list state
-    const removeItem = async (selectedItem: Item) => {
-        // Delete item from database
+    // Remove a task from server database and taskList client state
+    const removeTask = async (selectedTask: Task) => {
+        // Delete task from database
         const { error } = await supabase
-            .from('items')
+            .from('tasks')
             .delete()
             .eq('user_id', user?.id)
-            .eq('id', selectedItem.id);
+            .eq('id', selectedTask.id);
 
         if (error) {
             setError(error.message);
             return;
         }
 
-        // Remove item from list state
-        list.removeItem(selectedItem);
+        // Remove task from taskList state
+        taskList.removeTask(selectedTask);
     };
 
-    // Toggle an item's complete property in database and list state
-    const toggleItemComplete = async (selectedItem: Item) => {
+    // Toggle a tasks' complete property in server database and taskList client state
+    const toggleTaskComplete = async (selectedTask: Task) => {
         // Update is_complete property in database
         const { error } = await supabase
-            .from('items')
+            .from('tasks')
             .update({
-                is_complete: !selectedItem.complete,
+                complete: !selectedTask.complete,
             })
             .eq('user_id', user?.id)
-            .eq('id', selectedItem.id);
+            .eq('id', selectedTask.id);
 
         if (error) {
             setError(error.message);
             return;
         }
 
-        // Toggle complete in list state
-        list.toggleItemComplete(selectedItem);
+        // Toggle complete in taskList state
+        taskList.toggleTaskComplete(selectedTask);
     };
 
-    // Update an item's text property in database and list state
-    const editItemText = async (selectedItem: Item, newItemText: string) => {
-        // Update item_text property in database
+    // Update a tasks' text property in server database and taskList client state
+    const editTaskText = async (selectedTask: Task, newTaskText: string) => {
+        // Update task_text property in database
         const { error } = await supabase
-            .from('items')
+            .from('tasks')
             .update({
-                item_text: newItemText,
+                text: newTaskText,
             })
             .eq('user_id', user?.id)
-            .eq('id', selectedItem.id)
+            .eq('id', selectedTask.id)
 
         if (error) {
             setError(error.message);
             return;
         }
 
-        // Update text property in list state
-        list.editItemText(selectedItem, newItemText);
+        // Update text property in taskList state
+        taskList.editTaskText(selectedTask, newTaskText);
     };
 
-    // Delete every item where 'complete === true' in database and list state
-    const clearCompleteItems = async () => {
-        // Delete complete items in database
+    // Delete every task where 'complete === true' in server database and taskList client state
+    const clearCompleteTasks = async () => {
+        // Delete complete tasks in database
         const { error } = await supabase
-            .from('items')
+            .from('tasks')
             .delete()
             .eq('user_id', user?.id)
-            .eq('is_complete', true);
+            .eq('complete', true);
 
         if (error) {
             setError(error.message);
             return;
         }
 
-        // Remove complete items from list state
-        list.clearCompleteItems();
+        // Remove complete tasks from taskList state
+        taskList.clearCompleteTasks();
     };
 
-    // Delete every item owned by the user in database and list state
-    const clearAllItems = async () => {
-        // Delete all items in databse
+    // Delete every task owned by the user in server database and taskList client state
+    const clearAllTasks = async () => {
+        // Delete all user tasks in databse
         const { error } = await supabase
-            .from('items')
+            .from('tasks')
             .delete()
             .eq('user_id', user?.id);
 
@@ -208,8 +208,8 @@ export default function ListPage() {
             return;
         }
 
-        // Remove all items from list state
-        list.clearAllItems();
+        // Remove all tasks from taskList client state
+        taskList.clearAllTasks();
     };
 
     if (!user) {
@@ -272,22 +272,22 @@ export default function ListPage() {
 
                 {!error &&
                     <main className={styles.main}>
-                        <ListMenu
+                        <TaskListMenu
                             loading={loading}
-                            addItem={addItem}
-                            searchValue={list.searchValue}
-                            setSearchValue={list.setSearchValue}
-                            currentFilter={list.currentFilter}
-                            setCurrentFilter={list.setCurrentFilter}
-                            clearCompleteItems={clearCompleteItems}
-                            clearItems={clearAllItems}
+                            addTask={addTask}
+                            searchValue={taskList.searchValue}
+                            setSearchValue={taskList.setSearchValue}
+                            currentFilter={taskList.currentFilter}
+                            setCurrentFilter={taskList.setCurrentFilter}
+                            clearCompleteTasks={clearCompleteTasks}
+                            clearAllTasks={clearAllTasks}
                         />
-                        <List
+                        <TaskList
                             loading={loading}
-                            items={list.items}
-                            removeItem={removeItem}
-                            editItemText={editItemText}
-                            toggleItemComplete={toggleItemComplete}
+                            tasks={taskList.tasks}
+                            removeTask={removeTask}
+                            editTaskText={editTaskText}
+                            toggleTaskComplete={toggleTaskComplete}
                         />
                     </main>
                 }
