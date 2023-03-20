@@ -1,4 +1,4 @@
-.item {
+.listItem {
     width: 100%;
 
     display: flex;
@@ -8,7 +8,7 @@
     gap: 1rem;
 }
 
-.itemCheckbox {
+.taskCheckbox {
     width: 1.5rem;
     height: 1.5rem;
 
@@ -30,17 +30,17 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.itemCheckbox:is(:hover, :focus-visible) {
+.taskCheckbox:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-.item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible) {
+.listItem[data-complete='true'] .taskCheckbox:not(:hover, :focus-visible) {
     border-color: var(--faded);
 }
 
-.itemCheckbox::after {
+.taskCheckbox::after {
     content: '';
 
     width: 1rem;
@@ -54,19 +54,19 @@
     transition: background 0.3s, transform 0.3s;
 }
 
-.item[data-complete='true'] .itemCheckbox::after {
+.listItem[data-complete='true'] .taskCheckbox::after {
     transform: scale(1);
 }
 
-.itemCheckbox:is(:hover, :focus-visible)::after {
+.taskCheckbox:is(:hover, :focus-visible)::after {
     background-color: var(--highlight);
 }
 
-.item[data-complete='true'] .itemCheckbox:not(:hover, :focus-visible)::after {
+.listItem[data-complete='true'] .taskCheckbox:not(:hover, :focus-visible)::after {
     background-color: var(--faded);
 }
 
-.itemTextInput {
+.taskTextInput {
     flex: 1;
 
     min-height: 1.5rem;
@@ -87,32 +87,32 @@
 }
 
 
-.itemTextInput::selection {
+.taskTextInput::selection {
     color: var(--background);
     background-color: var(--highlight);
 }
 
-.itemTextInput:is(:hover, :focus-visible) {
+.taskTextInput:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-.item[data-complete='true'] .itemTextInput:not(:hover, :focus-visible) {
+.listItem[data-complete='true'] .taskTextInput:not(:hover, :focus-visible) {
     text-decoration: line-through;
 
     color: var(--faded);
 }
 
-.item:hover .itemTextInput:not(:hover, :focus-visible) {
+.listItem:hover .taskTextInput:not(:hover, :focus-visible) {
     border-color: var(--color);
 }
 
-.item[data-complete='true']:hover .itemTextInput:not(:hover, :focus-visible) {
+.listItem[data-complete='true']:hover .taskTextInput:not(:hover, :focus-visible) {
     border-color: var(--faded);
 }
 
-.removeItemButton {
+.removeTaskButton {
     cursor: pointer;
  
     outline: none;
@@ -125,6 +125,6 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.removeItemButton:is(:hover, :focus-visible) {
+.removeTaskButton:is(:hover, :focus-visible) {
     color: var(--highlight);
 }

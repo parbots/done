@@ -1,20 +1,20 @@
 
-import styles from './ListItem.module.css'
+import styles from './TaskListItem.module.css'
 
 import { ChangeEvent, KeyboardEvent,  useRef, useState } from 'react'
 
 import TextareaAutosize from 'react-textarea-autosize'
 
-type ListItemProps = {
+type TaskListItemProps = {
     complete: boolean;
     text: string;
     toggleSelfComplete: () => void;
-    editSelfText: (newText: string) => void;
+    editSelfText: (newTaskText: string) => void;
     removeSelf: () => void;
 };
 
 // TODO use paragraph element for item text and switch to input element on click
-export const ListItem = (props: ListItemProps) => {
+export const ListItem = (props: TaskListItemProps) => {
 
     const textInputRef = useRef<HTMLTextAreaElement>(null);
     const [textInput, setTextInput] = useState<string>(props.text);
@@ -41,12 +41,12 @@ export const ListItem = (props: ListItemProps) => {
     };
 
     return (
-        <li data-complete={props.complete.toString()} className={styles.item}>
+        <li data-complete={props.complete.toString()} className={styles.listItem}>
             <input
                 type='checkbox'
                 checked={props.complete}
                 onChange={() => props.toggleSelfComplete()}
-                className={styles.itemCheckbox}
+                className={styles.taskCheckbox}
             />
 
             <TextareaAutosize
@@ -58,10 +58,10 @@ export const ListItem = (props: ListItemProps) => {
                 onChange={handleTextInput}
                 onBlur={submitText}
                 onKeyDown={handleTextInputKeyDown}
-                className={styles.itemTextInput}
+                className={styles.taskTextInput}
             />
 
-            <button onClick={() => props.removeSelf()} className={styles.removeItemButton}>Remove</button>
+            <button onClick={() => props.removeSelf()} className={styles.removeTaskButton}>Remove</button>
         </li>
     );
 };
