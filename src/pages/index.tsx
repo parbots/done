@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 import { MouseEvent } from 'react'
 
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
@@ -14,7 +14,7 @@ import { Footer } from '@/components/footer'
 export default function HomePage() {
 
     const supabase = useSupabaseClient();
-    const user = useUser();
+    const { isLoading, session } = useSessionContext();
 
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -38,16 +38,22 @@ export default function HomePage() {
 
             <div className={styles.page}>
 
-                {!user &&
+                {isLoading &&
+                    <Header>
+                        <p className={styles.headerLoadingMessage}>Loading...</p>
+                    </Header>
+                }
+
+                {!isLoading && !session &&
                     <Header>
                         <Link href='/signin' className={styles.headerLink}>Sign In</Link>
                         <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
                     </Header>
                 }
 
-                {user &&
+                {session &&
                     <Header>
-                        <p className={styles.headerUsername}>{user.email}</p>
+                        <p className={styles.headerUsername}>{session.user.email}</p>
                         <Link href='/list' className={styles.headerLink}>My List</Link>
                         <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
                     </Header>
