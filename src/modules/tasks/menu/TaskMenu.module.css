@@ -36,7 +36,7 @@
     background-color: var(--background2);
 }
 
-.addItemFieldset {
+.addTaskFieldset {
     width: 100%;
     min-height: 2rem;
 
@@ -48,7 +48,7 @@
     border: none;
 }
 
-.itemInput {
+.taskInput {
     flex: 1;
 
     padding: var(--input-padding);
@@ -65,18 +65,18 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.itemInput::selection {
+.taskInput::selection {
     color: var(--background);
     background-color: var(--highlight);
 }
 
-.itemInput:is(:hover, :focus-visible) {
+.taskInput:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-.addItemButton {
+.addTaskButton {
     padding: var(--button-padding);
 
     cursor: pointer;
@@ -92,7 +92,7 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.addItemButton:is(:hover, :focus-visible) {
+.addTaskButton:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
     color: var(--highlight);
@@ -234,7 +234,6 @@
 }
 
 @media (max-width: 1024px) {
-
     .loadingSection {
         width: 90svw;
     }

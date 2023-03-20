@@ -1,40 +1,40 @@
 
-import styles from './ListMenu.module.css'
+import styles from './TaskMenu.module.css'
 
 import { useState, FormEvent, ChangeEvent } from 'react'
 
-import type { Filter } from '@/types/item'
+import type { Filter } from '@/types/task'
 
-type ListMenuProps = {
+type TaskMenuProps = {
     loading: boolean;
-    addItem: (newItemText: string, newItemComplete?: boolean) => void;
+    addTask: (newTaskText: string, newTaskComplete?: boolean) => void;
     searchValue: string;
     setSearchValue: (newSearchValue: string) => void;
     currentFilter: Filter;
     setCurrentFilter: (newFilter: Filter) => void;
-    clearCompleteItems: () => void;
-    clearItems: () => void;
+    clearCompleteTasks: () => void;
+    clearAllTasks: () => void;
 };
 
 // TODO add an infomessage component to show warnings and errors
 // for example: max characters length of add item input
-export const ListMenu = (props: ListMenuProps) => {
+export const TaskMenu = (props: TaskMenuProps) => {
 
-    const [itemInputValue, setItemInputValue] = useState('');
+    const [taskInputValue, setTaskInputValue] = useState('');
 
-    const handleItemInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleTaskInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
 
-        setItemInputValue(event.target.value);
+        setTaskInputValue(event.target.value);
     };
 
     const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (itemInputValue !== '' && itemInputValue[0] !== ' ') {
-            props.addItem(itemInputValue.trim());
+        if (taskInputValue !== '' && taskInputValue[0] !== ' ') {
+            props.addTask(taskInputValue.trim());
 
-            setItemInputValue('');
+            setTaskInputValue('');
         }
     };
 
@@ -54,17 +54,16 @@ export const ListMenu = (props: ListMenuProps) => {
 
     return (
         <form onSubmit={handleFormSubmit} className={styles.menu}>
-            <fieldset className={styles.addItemFieldset}>
+            <fieldset className={styles.addTaskFieldset}>
                 <input
                     type='text'
-                    name='itemInput'
-                    placeholder='New todo...'
-                    value={itemInputValue}
+                    placeholder='New task...'
+                    value={taskInputValue}
                     maxLength={80}
-                    onChange={handleItemInputChange}
-                    className={styles.itemInput}
+                    onChange={handleTaskInputChange}
+                    className={styles.taskInput}
                 />
-                <button type='submit' className={styles.addItemButton}>Add</button>
+                <button type='submit' className={styles.addTaskButton}>Add</button>
             </fieldset>
 
             <section className={styles.filterSection}>
@@ -74,7 +73,6 @@ export const ListMenu = (props: ListMenuProps) => {
 
                     <input
                         type='text'
-                        name='searchInput'
                         placeholder='Enter text...'
                         value={props.searchValue}
                         onChange={handleSearchInputChange}
@@ -118,7 +116,7 @@ export const ListMenu = (props: ListMenuProps) => {
 
                     <button
                         type='button'
-                        onClick={() => { props.clearCompleteItems() }}
+                        onClick={() => { props.clearCompleteTasks() }}
                         className={styles.actionButton}
                     >
                         Done
@@ -126,7 +124,7 @@ export const ListMenu = (props: ListMenuProps) => {
 
                     <button
                         type='button'
-                        onClick={() => { props.clearItems() }}
+                        onClick={() => { props.clearAllTasks() }}
                         className={styles.actionButton}
                     >
                         All
