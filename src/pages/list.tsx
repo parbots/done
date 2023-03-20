@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 import { MouseEvent, useEffect, useState } from 'react'
 
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { User, useSessionContext, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
 import type { Task } from '@/types/task'
 
@@ -24,11 +24,12 @@ export default function ListPage() {
     const router = useRouter();
 
     const supabase = useSupabaseClient();
+    const { isLoading, session } = useSessionContext();
     const user = useUser();
 
     const taskList = useTaskList([]);
 
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loadingTasks, setLoadingTasks] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -43,21 +44,24 @@ export default function ListPage() {
 
     // Runs when user state changes
     useEffect(() => {
+
         // Request initial tasks from database
-        const getUserTasks = async () => {
+        const getUserTasks = async (user: User) => {
             // Request tasks from the database
             const { data, error } = await supabase
                 .from('tasks')
                 .select('id, task_text, complete')
-                .eq('user_id', user?.id)
+                .eq('user_id', user.id)
 
             if (error) {
                 setError(error.message);
+                setLoadingTasks(false);
                 return
             }
 
             if (!data) {
                 setError('No data recieved from database in getUserItems()');
+                setLoadingTasks(false);
                 return
             }
 
@@ -77,14 +81,31 @@ export default function ListPage() {
                 })
             );
 
-            setLoading(false);
+            setLoadingTasks(false);
         };
 
-        // Get inital user tasks
-        if (user) getUserTasks();
+        const getUserSession = async () => {
+            setLoadingTasks(true);
+
+            const { data, error } = await supabase.auth.getSession();
+
+            if (error) {
+                setError(error.message);
+                return
+            }
+
+            if (!data || !data.session) {
+                setLoadingTasks(false);
+                return
+            }
+
+            getUserTasks(data.session.user);
+        };
+
+        getUserSession();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user]);
+    }, []);
 
     // Create a new task and add to server database and taskList client state
     const addTask = async (newTaskText: string, newTaskComplete: boolean = false) => {
@@ -212,7 +233,44 @@ export default function ListPage() {
         taskList.clearAllTasks();
     };
 
-    if (!user) {
+    if (isLoading) {
+        return (
+            <>
+                <Head>
+                    <title>Done</title>
+                    <meta name='description' content='Get stuff done.' />
+                    <meta name='viewport' content='width=device-width, initial-scale=1' />
+                    <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+                    <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
+                    <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
+                    <link rel='manifest' href='/site.webmanifest' />
+                </Head>
+
+                <div className={styles.page}>
+
+                    <Header>
+                        <p className={styles.headerLoadingMessage}>Loading...</p>
+                    </Header>
+
+
+                    {error &&
+                        <main className={styles.main}>
+                            <p className={styles.errorMessage}>{error}</p>
+                        </main>
+                    }
+
+                    <main className={styles.main}>
+                        {error && <p className={styles.errorMessage}>{error}</p>}
+                        {!error && <p className={styles.infoMessage}>Loading...</p>}
+                    </main>
+
+                    <Footer />
+                </div>
+            </>
+        );
+    }
+
+    if (!isLoading && !session) {
         return (
             <>
                 <Head>
@@ -243,7 +301,6 @@ export default function ListPage() {
         );
     }
 
-    // TODO move loading state into each component
     return (
         <>
             <Head>
@@ -259,7 +316,7 @@ export default function ListPage() {
             <div className={styles.page}>
 
                 <Header>
-                    <p className={styles.headerUsername}>{user.email}</p>
+                    <p className={styles.headerUsername}>{session?.user.email}</p>
                     <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
                 </Header>
 
@@ -273,7 +330,7 @@ export default function ListPage() {
                 {!error &&
                     <main className={styles.main}>
                         <TaskListMenu
-                            loading={loading}
+                            loading={loadingTasks}
                             addTask={addTask}
                             searchValue={taskList.searchValue}
                             setSearchValue={taskList.setSearchValue}
@@ -283,7 +340,7 @@ export default function ListPage() {
                             clearAllTasks={clearAllTasks}
                         />
                         <TaskList
-                            loading={loading}
+                            loading={loadingTasks}
                             tasks={taskList.tasks}
                             removeTask={removeTask}
                             editTaskText={editTaskText}
