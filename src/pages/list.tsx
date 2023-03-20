@@ -13,8 +13,8 @@ import type { Task } from '@/types/task'
 
 import { useTaskList } from '@/hooks/tasks'
 
-import { ListMenu } from '@/modules/items/menu'
-import { List } from '@/modules/items/list'
+import { TaskListMenu } from '@/modules/tasks/listmenu'
+import { TaskList } from '@/modules/tasks/list'
 
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'

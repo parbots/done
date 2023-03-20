@@ -1,11 +1,11 @@
 
-import styles from './TaskMenu.module.css'
+import styles from './TaskListMenu.module.css'
 
 import { useState, FormEvent, ChangeEvent } from 'react'
 
 import type { Filter } from '@/types/task'
 
-type TaskMenuProps = {
+type TaskListMenuProps = {
     loading: boolean;
     addTask: (newTaskText: string, newTaskComplete?: boolean) => void;
     searchValue: string;
@@ -18,7 +18,7 @@ type TaskMenuProps = {
 
 // TODO add an infomessage component to show warnings and errors
 // for example: max characters length of add item input
-export const TaskMenu = (props: TaskMenuProps) => {
+export const TaskListMenu = (props: TaskListMenuProps) => {
 
     const [taskInputValue, setTaskInputValue] = useState('');
 
