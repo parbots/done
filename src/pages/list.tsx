@@ -5,13 +5,11 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { MouseEvent, useEffect, useState } from 'react'
+import { MouseEvent, useEffect } from 'react'
 
-import { User, useSessionContext, useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
 
-import type { Task } from '@/types/task'
-
-import { useTaskList } from '@/hooks/tasks'
+import { useSupabaseTasks } from '@/hooks/supabaseTasks'
 
 import { TaskListMenu } from '@/modules/tasks/listmenu'
 import { TaskList } from '@/modules/tasks/list'
@@ -25,12 +23,8 @@ export default function ListPage() {
 
     const supabase = useSupabaseClient();
     const { isLoading, session } = useSessionContext();
-    const user = useUser();
 
-    const taskList = useTaskList([]);
-
-    const [loadingTasks, setLoadingTasks] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const supabaseTasks = useSupabaseTasks();
 
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -42,196 +36,12 @@ export default function ListPage() {
         if (error) alert(error);
     };
 
-    // Runs when user state changes
+    // Runs once when component mounts
     useEffect(() => {
-
-        // Request initial tasks from database
-        const getUserTasks = async (user: User) => {
-            // Request tasks from the database
-            const { data, error } = await supabase
-                .from('tasks')
-                .select('id, task_text, complete')
-                .eq('user_id', user.id)
-
-            if (error) {
-                setError(error.message);
-                setLoadingTasks(false);
-                return
-            }
-
-            if (!data) {
-                setError('No data recieved from database in getUserItems()');
-                setLoadingTasks(false);
-                return
-            }
-
-            // Sort data by when it was created
-            data.sort((a, b) => {
-                return a.id - b.id;
-            });
-
-            // Map each database row to a Task object and set taskList state
-            taskList.setTasks(
-                data.map((taskData) => {
-                    return {
-                        id: taskData.id,
-                        text: taskData.task_text,
-                        complete: taskData.complete,
-                    }
-                })
-            );
-
-            setLoadingTasks(false);
-        };
-
-        const getUserSession = async () => {
-            setLoadingTasks(true);
-
-            const { data, error } = await supabase.auth.getSession();
-
-            if (error) {
-                setError(error.message);
-                return
-            }
-
-            if (!data || !data.session) {
-                setLoadingTasks(false);
-                return
-            }
-
-            getUserTasks(data.session.user);
-        };
-
-        getUserSession();
+        supabaseTasks.getInitialTasks();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    // Create a new task and add to server database and taskList client state
-    const addTask = async (newTaskText: string, newTaskComplete: boolean = false) => {
-        // Insert new task in database and return a new Task object
-        const { data, error } = await supabase
-            .from('tasks')
-            .insert({
-                user_id: user?.id,
-                task_text: newTaskText,
-                complete: newTaskComplete
-            })
-            .select()
-            .single();
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        if (!data) {
-            setError('No data recieved from database in addItem()');
-            return;
-        }
-
-        // Add new task to taskList client state
-        // Task must be added to state after server request because
-        // the tasks' id property is generated on the server
-        taskList.addTask({
-            id: data.id,
-            text: data.task_text,
-            complete: data.complete,
-        });
-    };
-
-    // Remove a task from server database and taskList client state
-    const removeTask = async (selectedTask: Task) => {
-        // Delete task from database
-        const { error } = await supabase
-            .from('tasks')
-            .delete()
-            .eq('user_id', user?.id)
-            .eq('id', selectedTask.id);
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        // Remove task from taskList state
-        taskList.removeTask(selectedTask);
-    };
-
-    // Toggle a tasks' complete property in server database and taskList client state
-    const toggleTaskComplete = async (selectedTask: Task) => {
-        // Update is_complete property in database
-        const { error } = await supabase
-            .from('tasks')
-            .update({
-                complete: !selectedTask.complete,
-            })
-            .eq('user_id', user?.id)
-            .eq('id', selectedTask.id);
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        // Toggle complete in taskList state
-        taskList.toggleTaskComplete(selectedTask);
-    };
-
-    // Update a tasks' text property in server database and taskList client state
-    const editTaskText = async (selectedTask: Task, newTaskText: string) => {
-        // Update task_text property in database
-        const { error } = await supabase
-            .from('tasks')
-            .update({
-                task_text: newTaskText,
-            })
-            .eq('user_id', user?.id)
-            .eq('id', selectedTask.id)
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        // Update text property in taskList state
-        taskList.editTaskText(selectedTask, newTaskText);
-    };
-
-    // Delete every task where 'complete === true' in server database and taskList client state
-    const clearCompleteTasks = async () => {
-        // Delete complete tasks in database
-        const { error } = await supabase
-            .from('tasks')
-            .delete()
-            .eq('user_id', user?.id)
-            .eq('complete', true);
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        // Remove complete tasks from taskList state
-        taskList.clearCompleteTasks();
-    };
-
-    // Delete every task owned by the user in server database and taskList client state
-    const clearAllTasks = async () => {
-        // Delete all user tasks in databse
-        const { error } = await supabase
-            .from('tasks')
-            .delete()
-            .eq('user_id', user?.id);
-
-        if (error) {
-            setError(error.message);
-            return;
-        }
-
-        // Remove all tasks from taskList client state
-        taskList.clearAllTasks();
-    };
 
     if (isLoading) {
         return (
@@ -252,16 +62,8 @@ export default function ListPage() {
                         <p className={styles.headerLoadingMessage}>Loading...</p>
                     </Header>
 
-
-                    {error &&
-                        <main className={styles.main}>
-                            <p className={styles.errorMessage}>{error}</p>
-                        </main>
-                    }
-
                     <main className={styles.main}>
-                        {error && <p className={styles.errorMessage}>{error}</p>}
-                        {!error && <p className={styles.infoMessage}>Loading...</p>}
+                        <p className={styles.infoMessage}>Loading...</p>
                     </main>
 
                     <Footer />
@@ -291,8 +93,7 @@ export default function ListPage() {
                     </Header>
 
                     <main className={styles.main}>
-                        {error && <p className={styles.errorMessage}>{error}</p>}
-                        {!error && <p className={styles.infoMessage}>No user session was found, please sign in or create an account.</p>}
+                        <p className={styles.infoMessage}>No user session was found, please sign in or create an account.</p>
                     </main>
 
                     <Footer />
@@ -320,34 +121,25 @@ export default function ListPage() {
                     <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
                 </Header>
 
-
-                {error &&
-                    <main className={styles.main}>
-                        <p className={styles.errorMessage}>{error}</p>
-                    </main>
-                }
-
-                {!error &&
-                    <main className={styles.main}>
-                        <TaskListMenu
-                            loading={loadingTasks}
-                            addTask={addTask}
-                            searchValue={taskList.searchValue}
-                            setSearchValue={taskList.setSearchValue}
-                            currentFilter={taskList.currentFilter}
-                            setCurrentFilter={taskList.setCurrentFilter}
-                            clearCompleteTasks={clearCompleteTasks}
-                            clearAllTasks={clearAllTasks}
-                        />
-                        <TaskList
-                            loading={loadingTasks}
-                            tasks={taskList.tasks}
-                            removeTask={removeTask}
-                            editTaskText={editTaskText}
-                            toggleTaskComplete={toggleTaskComplete}
-                        />
-                    </main>
-                }
+                <main className={styles.main}>
+                    <TaskListMenu
+                        loading={supabaseTasks.loadingTasks}
+                        addTask={supabaseTasks.addTask}
+                        searchValue={supabaseTasks.searchValue}
+                        setSearchValue={supabaseTasks.setSearchValue}
+                        currentFilter={supabaseTasks.currentFilter}
+                        setCurrentFilter={supabaseTasks.setCurrentFilter}
+                        clearCompleteTasks={supabaseTasks.clearCompleteTasks}
+                        clearAllTasks={supabaseTasks.clearAllTasks}
+                    />
+                    <TaskList
+                        loading={supabaseTasks.loadingTasks}
+                        tasks={supabaseTasks.tasks}
+                        removeTask={supabaseTasks.removeTask}
+                        editTaskText={supabaseTasks.editTaskText}
+                        toggleTaskComplete={supabaseTasks.toggleTaskComplete}
+                    />
+                </main>
 
                 <Footer />
             </div>
