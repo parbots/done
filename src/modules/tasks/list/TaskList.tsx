@@ -1,5 +1,5 @@
 
-import styles from './List.module.css'
+import styles from './TaskList.module.css'
 
 import type { Task } from '@/types/task'
 

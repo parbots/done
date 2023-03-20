@@ -14,7 +14,7 @@ type TaskListItemProps = {
 };
 
 // TODO use paragraph element for item text and switch to input element on click
-export const ListItem = (props: TaskListItemProps) => {
+export const TaskListItem = (props: TaskListItemProps) => {
 
     const textInputRef = useRef<HTMLTextAreaElement>(null);
     const [textInput, setTextInput] = useState<string>(props.text);
