@@ -3,6 +3,8 @@ import { useState } from 'react'
 
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
+import * as Sentry from '@sentry/nextjs'
+
 import type { Task } from '@/types/task'
 
 import { useTaskList } from './tasks'
@@ -26,6 +28,8 @@ export const useSupabaseTasks = () => {
         if (sessionError) {
             setLoading(false);
 
+            Sentry.captureException(sessionError);
+
             return { error: sessionError };
         }
 
@@ -46,6 +50,8 @@ export const useSupabaseTasks = () => {
 
         if (databaseError) {
             setLoading(false);
+
+            Sentry.captureException(databaseError);
 
             return { error: databaseError };
         }
@@ -80,7 +86,11 @@ export const useSupabaseTasks = () => {
             .select('id, task_text, complete')
             .eq('user_id', user?.id);
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Sort task data by id
         data.sort((a, b) => {
@@ -113,7 +123,11 @@ export const useSupabaseTasks = () => {
             .select()
             .single();
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Add task to taskList state
         // supabase generates the id
@@ -134,7 +148,11 @@ export const useSupabaseTasks = () => {
             .eq('user_id', user?.id)
             .eq('id', selectedTask.id);
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Remove task from taskList state
         taskList.removeTask(selectedTask);
@@ -152,7 +170,11 @@ export const useSupabaseTasks = () => {
             .eq('user_id', user?.id)
             .eq('id', selectedTask.id);
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Toggle complete in taskList state
         taskList.toggleTaskComplete(selectedTask);
@@ -170,7 +192,11 @@ export const useSupabaseTasks = () => {
             .eq('user_id', user?.id)
             .eq('id', selectedTask.id);
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Update 'text' property in taskList state
         taskList.editTaskText(selectedTask, newTaskText);
@@ -186,7 +212,11 @@ export const useSupabaseTasks = () => {
             .eq('user_id', user?.id)
             .eq('complete', true);
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Remove complete tasks from taskList state
         taskList.clearCompleteTasks();
@@ -201,7 +231,11 @@ export const useSupabaseTasks = () => {
             .delete()
             .eq('user_id', user?.id);
 
-        if (error) return { error: error };
+        if (error) {
+            Sentry.captureException(error);
+    
+            return { error: error };
+        }
 
         // Remove all tasks from taskList state
         taskList.clearAllTasks
