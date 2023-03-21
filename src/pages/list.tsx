@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { MouseEvent, useEffect } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 
 import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
 
@@ -28,6 +28,8 @@ export default function ListPage() {
 
     const supabaseTasks = useSupabaseTasks();
 
+    const [error, setError] = useState<string | null>(null);
+
     const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
@@ -41,8 +43,17 @@ export default function ListPage() {
     // Runs once when component mounts
     useEffect(() => {
 
-        // Gets inital user tasks from supabase if user session exists
-        supabaseTasks.getInitialTasks();
+        const getInitialTasks = async () => {
+
+            // Gets inital user tasks from supabase if user session exists
+            const { error } = await supabaseTasks.getInitialTasks();
+
+            if (error) {
+                setError(error.message);
+            }
+        };
+
+        getInitialTasks();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -51,8 +62,42 @@ export default function ListPage() {
     useEffect(() => {
 
         // Log session context errors
-        if (sessionContextError) Sentry.captureException(sessionContextError);
+        if (sessionContextError) {
+            Sentry.captureException(sessionContextError);
+
+            setError(sessionContextError.message);
+        }
     }, [sessionContextError]);
+
+    if (error) {
+        return (
+            <>
+                <Head>
+                    <title>Done</title>
+                    <meta name='description' content='Get stuff done.' />
+                    <meta name='viewport' content='width=device-width, initial-scale=1' />
+                    <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+                    <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
+                    <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
+                    <link rel='manifest' href='/site.webmanifest' />
+                </Head>
+
+                <div className={styles.page}>
+
+                    <Header>
+                        <Link href='/signin' className={styles.headerButton}>Sign In</Link>
+                        <Link href='/signup' className={styles.headerButton}>Sign Up</Link>
+                    </Header>
+
+                    <main className={styles.main}>
+                        <p className={styles.errorMessage}>{error}</p>
+                    </main>
+
+                    <Footer />
+                </div>
+            </>
+        );
+    }
 
     if (isLoading) {
         return (
