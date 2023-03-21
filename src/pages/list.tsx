@@ -11,6 +11,8 @@ import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-rea
 
 import { useSupabaseTasks } from '@/hooks/supabaseTasks'
 
+import * as Sentry from '@sentry/nextjs'
+
 import { TaskListMenu } from '@/modules/tasks/listmenu'
 import { TaskList } from '@/modules/tasks/list'
 
@@ -22,7 +24,7 @@ export default function ListPage() {
     const router = useRouter();
 
     const supabase = useSupabaseClient();
-    const { isLoading, session } = useSessionContext();
+    const { isLoading, session, error: sessionContextError } = useSessionContext();
 
     const supabaseTasks = useSupabaseTasks();
 
@@ -33,15 +35,24 @@ export default function ListPage() {
 
         const { error } = await supabase.auth.signOut();
 
-        if (error) alert(error);
+        if (error) Sentry.captureException(error);
     };
 
     // Runs once when component mounts
     useEffect(() => {
+
+        // Gets inital user tasks from supabase if user session exists
         supabaseTasks.getInitialTasks();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // Runs when sessionContextError state changes
+    useEffect(() => {
+
+        // Log session context errors
+        if (sessionContextError) Sentry.captureException(sessionContextError);
+    }, [sessionContextError]);
 
     if (isLoading) {
         return (
