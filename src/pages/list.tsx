@@ -43,30 +43,32 @@ export default function ListPage() {
     // Runs once when component mounts
     useEffect(() => {
 
-        const getInitialTasks = async () => {
-
-            // Gets inital user tasks from supabase if user session exists
-            const { error } = await supabaseTasks.getInitialTasks();
-
-            if (error) {
-                setError(error.message);
-            }
-        };
-
-        getInitialTasks();
+        // Gets inital user tasks from supabase if user session exists
+        supabaseTasks.getInitialTasks();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // Runs when supabaseTasks.error changes
+    useEffect(() => {
+
+        if (supabaseTasks.error) {
+            setError(supabaseTasks.error);
+        }
+
+    }, [supabaseTasks.error]);
+
     // Runs when sessionContextError state changes
     useEffect(() => {
 
-        // Log session context errors
         if (sessionContextError) {
+
+            // Log useSessionContext errors
             Sentry.captureException(sessionContextError);
 
             setError(sessionContextError.message);
         }
+
     }, [sessionContextError]);
 
     if (error) {
@@ -179,7 +181,7 @@ export default function ListPage() {
 
                 <main className={styles.main}>
                     <TaskListMenu
-                        loading={supabaseTasks.loadingTasks}
+                        loading={supabaseTasks.loading}
                         addTask={supabaseTasks.addTask}
                         searchValue={supabaseTasks.searchValue}
                         setSearchValue={supabaseTasks.setSearchValue}
@@ -189,7 +191,7 @@ export default function ListPage() {
                         clearAllTasks={supabaseTasks.clearAllTasks}
                     />
                     <TaskList
-                        loading={supabaseTasks.loadingTasks}
+                        loading={supabaseTasks.loading}
                         tasks={supabaseTasks.tasks}
                         removeTask={supabaseTasks.removeTask}
                         editTaskText={supabaseTasks.editTaskText}

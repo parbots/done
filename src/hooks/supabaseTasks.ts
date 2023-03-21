@@ -17,6 +17,7 @@ export const useSupabaseTasks = () => {
     const taskList = useTaskList([]);
 
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     // Get initial tasks from supabase or do nothing if no session is found
     const getInitialTasks = async () => {
@@ -30,14 +31,16 @@ export const useSupabaseTasks = () => {
 
             Sentry.captureException(sessionError);
 
-            return { error: sessionError };
+            setError(sessionError.message);
+
+            return
         }
 
         // Exit if no session is found (no user signed in)
         if (!sessionData || !sessionData.session) {
             setLoading(false);
 
-            return { error: null };
+            return
         }
 
         const session = sessionData.session;
@@ -53,7 +56,9 @@ export const useSupabaseTasks = () => {
 
             Sentry.captureException(databaseError);
 
-            return { error: databaseError };
+            setError(databaseError.message);
+
+            return
         }
 
         // Sort task data by id
@@ -73,8 +78,6 @@ export const useSupabaseTasks = () => {
         );
 
         setLoading(false);
-
-        return { error: null };
     };
 
     // Get supabase tasks and update taskList state
@@ -89,7 +92,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Sort task data by id
@@ -126,7 +131,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Add task to taskList state
@@ -151,7 +158,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Remove task from taskList state
@@ -173,7 +182,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Toggle complete in taskList state
@@ -195,7 +206,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Update 'text' property in taskList state
@@ -215,7 +228,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Remove complete tasks from taskList state
@@ -234,7 +249,9 @@ export const useSupabaseTasks = () => {
         if (error) {
             Sentry.captureException(error);
     
-            return { error: error };
+            setError(error.message);
+
+            return
         }
 
         // Remove all tasks from taskList state
@@ -242,7 +259,8 @@ export const useSupabaseTasks = () => {
     };
 
     return {
-        loadingTasks: loading,
+        loading,
+        error,
 
         tasks: taskList.tasks,
 
