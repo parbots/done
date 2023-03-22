@@ -2,7 +2,6 @@
 import styles from '@/styles/SigninPage.module.css'
 
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
@@ -10,6 +9,8 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
+import { SignupLink } from '@/components/signupLink'
+
 import { Footer } from '@/components/footer'
 
 export default function SigninPage() {
@@ -78,7 +79,7 @@ export default function SigninPage() {
 
             <div className={styles.page}>
                 <Header useSession={false}>
-                    <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
+                    <SignupLink />
                 </Header>
 
                 <main className={styles.main}>

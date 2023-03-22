@@ -6,7 +6,6 @@
     flex-direction: column;
 }
 
-.headerButton,
 .headerLink {
     padding: var(--button-padding);
 
@@ -23,7 +22,6 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.headerButton:is(:hover, :focus-visible),
 .headerLink:is(:hover, :focus-visible) {
     border-color: var(--highlight);
 
@@ -90,10 +88,6 @@
 @media (max-width: 800px) {
     .heroTitle {
         font-size: 3rem;
-    }
-
-    .headerUsername {
-        display: none;
     }
 }
 

@@ -48,7 +48,9 @@ export default function ListPage() {
                 </Header>
 
                 {supabaseTasks.error &&
-                    <p className={styles.error}>{supabaseTasks.error}</p>
+                    <main className={styles.main}>
+                        <p className={styles.error}>{supabaseTasks.error}</p>
+                    </main>
                 }
 
                 {!supabaseTasks.error &&
