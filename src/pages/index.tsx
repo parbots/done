@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { Header } from '@/components/header'
-import { AccountLink } from '@/components/accountlink'
+import { AccountLink } from '@/components/accountLink'
 import { SignoutButton } from '@/components/signoutButton'
 
 import { Footer } from '@/components/footer'
