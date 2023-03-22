@@ -9,6 +9,8 @@ import { MouseEvent } from 'react'
 import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
+import { AccountLink } from '@/components/accountlink'
+
 import { Footer } from '@/components/footer'
 
 export default function HomePage() {
@@ -53,8 +55,8 @@ export default function HomePage() {
 
                 {session &&
                     <Header>
-                        <p className={styles.headerUsername}>{session.user.email}</p>
                         <Link href='/list' className={styles.headerLink}>My List</Link>
+                        <AccountLink />
                         <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
                     </Header>
                 }

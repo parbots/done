@@ -17,6 +17,8 @@ import { TaskListMenu } from '@/modules/tasks/listmenu'
 import { TaskList } from '@/modules/tasks/list'
 
 import { Header } from '@/components/header'
+import { AccountLink } from '@/components/accountlink'
+
 import { Footer } from '@/components/footer'
 
 export default function ListPage() {
@@ -175,7 +177,7 @@ export default function ListPage() {
             <div className={styles.page}>
 
                 <Header>
-                    <p className={styles.headerUsername}>{session?.user.email}</p>
+                    <AccountLink />
                     <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
                 </Header>
 
