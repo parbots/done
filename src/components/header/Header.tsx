@@ -10,11 +10,25 @@ import { SignupLink } from '@/components/signupLink'
 
 type HeaderProps = {
     children: ReactNode;
+    useSession?: boolean;
 };
 
-export const Header = (props: HeaderProps) => {
+export const Header = ({ children, useSession = true }: HeaderProps) => {
 
     const { isLoading, session, error } = useSessionContext();
+
+    // If page does not change with session, just show children
+    if (!useSession) {
+        return (
+            <header className={styles.header}>
+                <h2 className={styles.title}>done</h2>
+
+                <nav className={styles.nav}>
+                    {children}
+                </nav>
+            </header>
+        );
+    }
 
     if (error) {
         return (
@@ -49,7 +63,7 @@ export const Header = (props: HeaderProps) => {
 
             {!isLoading && session &&
                 <nav className={styles.nav}>
-                    {props.children}
+                    {children}
                 </nav>
             }
         </header>
