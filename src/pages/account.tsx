@@ -74,12 +74,18 @@ export default function AccountPage() {
 
                 {!isLoading && session &&
                     <main className={styles.main}>
-                        <section className={styles.emailSection}>
-                            <p className={styles.emailLabel}>Email:</p>
-                            <p className={styles.email}>{session.user.email}</p>
+                        <section className={styles.accountInfoSection}>
+                            <h2 className={styles.sectionTitle}>Account Details</h2>
+
+                            <section className={styles.infoSection}>
+                                <p className={styles.infoLabel}>Email:</p>
+                                <p className={styles.emailInfo}>{session.user.email}</p>
+                            </section>
                         </section>
 
-                        <form className={styles.passwordForm}>
+                        <form className={styles.changePasswordForm}>
+                            <h2 className={styles.sectionTitle}>Change Password</h2>
+
                             <fieldset className={styles.changePasswordFieldset}>
                                 <label htmlFor={'currentPassword' + inputID} className={styles.changePasswordLabel}>Current Password:</label>
                                 <input type='password' id={'currentPassword' + inputID} value='' className={styles.changePasswordInput} />
@@ -99,6 +105,8 @@ export default function AccountPage() {
                         </form>
 
                         <form className={styles.actionForm}>
+                            <h2 className={styles.sectionTitle}>Delete Account</h2>
+
                             <fieldset className={styles.deleteActionFieldset}>
                                 <label htmlFor={'deleteEmail' + inputID} className={styles.deleteActionLabel}>Email:</label>
                                 <input type='password' id={'deleteEmail' + inputID} value='' className={styles.deleteActionInput} />
