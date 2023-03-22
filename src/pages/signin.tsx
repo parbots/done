@@ -77,7 +77,7 @@ export default function SigninPage() {
             </Head>
 
             <div className={styles.page}>
-                <Header>
+                <Header useSession={false}>
                     <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
                 </Header>
 

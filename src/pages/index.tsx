@@ -4,8 +4,6 @@ import styles from '@/styles/HomePage.module.css'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { useSessionContext } from '@supabase/auth-helpers-react'
-
 import { Header } from '@/components/header'
 import { AccountLink } from '@/components/accountlink'
 import { SignoutButton } from '@/components/signoutButton'
@@ -13,9 +11,6 @@ import { SignoutButton } from '@/components/signoutButton'
 import { Footer } from '@/components/footer'
 
 export default function HomePage() {
-
-    const { isLoading, session } = useSessionContext();
-
     return (
         <>
             <Head>
@@ -29,27 +24,11 @@ export default function HomePage() {
             </Head>
 
             <div className={styles.page}>
-
-                {isLoading &&
-                    <Header>
-                        <p className={styles.headerLoadingMessage}>Loading...</p>
-                    </Header>
-                }
-
-                {!isLoading && !session &&
-                    <Header>
-                        <Link href='/signin' className={styles.headerLink}>Sign In</Link>
-                        <Link href='/signup' className={styles.headerLink}>Sign Up</Link>
-                    </Header>
-                }
-
-                {session &&
-                    <Header>
-                        <Link href='/list' className={styles.headerLink}>My List</Link>
-                        <AccountLink />
-                        <SignoutButton />
-                    </Header>
-                }
+                <Header>
+                    <Link href='/list' className={styles.headerLink}>My List</Link>
+                    <AccountLink />
+                    <SignoutButton />
+                </Header>
 
                 <main className={styles.main}>
                     <section className={styles.heroSection}>
