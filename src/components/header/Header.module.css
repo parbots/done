@@ -10,11 +10,11 @@
     align-items: center;
 }
 
-.headerTitle {
+.title {
     font-size: 2rem;
 }
 
-.headerNav {
+.nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -22,8 +22,19 @@
     gap: 1rem;
 }
 
+.loading {
+    text-align: center;
+}
+
+.error {
+    text-align: center;
+
+    color: var(--red);
+}
+
 @media (max-height: 800px) {
     .header {
+        padding: 0 1rem;
         padding-top: 1rem;
     }
 }
