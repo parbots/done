@@ -26,7 +26,7 @@ export default function ListPage() {
     const supabase = useSupabaseClient();
     const { isLoading, session, error: sessionContextError } = useSessionContext();
 
-    const supabaseTasks = useSupabaseTasks();
+    const supabaseTasks = useSupabaseTasks('tasks');
 
     const [error, setError] = useState<string | null>(null);
 

@@ -9,7 +9,7 @@ import type { Task } from '@/types/task'
 
 import { useTaskList } from './tasks'
 
-export const useSupabaseTasks = () => {
+export const useSupabaseTasks = (table: string) => {
 
     const supabase = useSupabaseClient();
     const user = useUser();
@@ -47,7 +47,7 @@ export const useSupabaseTasks = () => {
 
         // Get user task data from supabase
         const { data: taskData, error: databaseError } = await supabase
-            .from('tasks')
+            .from(table)
             .select('id, task_text, complete')
             .eq('user_id', session.user.id);
 
@@ -85,7 +85,7 @@ export const useSupabaseTasks = () => {
 
         // Get user task data from supabase
         const { data, error } = await supabase
-            .from('tasks')
+            .from(table)
             .select('id, task_text, complete')
             .eq('user_id', user?.id);
 
@@ -119,7 +119,7 @@ export const useSupabaseTasks = () => {
 
         // Insert new task in supabase and return the new row
         const { data, error } = await supabase
-            .from('tasks')
+            .from(table)
             .insert({
                 user_id: user?.id,
                 task_text: newTaskText,
@@ -150,7 +150,7 @@ export const useSupabaseTasks = () => {
 
         // Delete task in supabase
         const { error } = await supabase
-            .from('tasks')
+            .from(table)
             .delete()
             .eq('user_id', user?.id)
             .eq('id', selectedTask.id);
@@ -172,7 +172,7 @@ export const useSupabaseTasks = () => {
 
         // Update 'is_complete' property in supabase
         const { error } = await supabase
-            .from('tasks')
+            .from(table)
             .update({
                 complete: !selectedTask.complete,
             })
@@ -196,7 +196,7 @@ export const useSupabaseTasks = () => {
 
         // Update 'task_text' property in supabase
         const { error } = await supabase
-            .from('tasks')
+            .from(table)
             .update({
                 task_text: newTaskText,
             })
@@ -220,7 +220,7 @@ export const useSupabaseTasks = () => {
 
         // Delete all user tasks where 'complete === true' in supabase
         const { error } = await supabase
-            .from('tasks')
+            .from(table)
             .delete()
             .eq('user_id', user?.id)
             .eq('complete', true);
@@ -242,7 +242,7 @@ export const useSupabaseTasks = () => {
 
         // Delete all user tasks in supabase
         const { error } = await supabase
-            .from('tasks')
+            .from(table)
             .delete()
             .eq('user_id', user?.id);
 
