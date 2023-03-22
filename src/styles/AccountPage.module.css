@@ -45,37 +45,6 @@
     font-size: 1.5rem;
 }
 
-.accountInfoSection {
-    width: 40svw;
-
-    padding: 16px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-
-    border-radius: var(--border-radius);
-
-    background-color: var(--background2);
-}
-
-.infoSection {
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.emailInfo {
-    width: 100%;
-
-    text-align: center;
-}
-
 .changePasswordForm {
     width: 40svw;
 

@@ -130,15 +130,6 @@ export default function AccountPage() {
 
                 {!isLoading && session &&
                     <main className={styles.main}>
-                        <section className={styles.accountInfoSection}>
-                            <h2 className={styles.sectionTitle}>Account Details</h2>
-
-                            <section className={styles.infoSection}>
-                                <p className={styles.infoLabel}>Email:</p>
-                                <p className={styles.emailInfo}>{session.user.email}</p>
-                            </section>
-                        </section>
-
                         <form onSubmit={handleChangePasswordForm} className={styles.changePasswordForm}>
                             <h2 className={styles.sectionTitle}>Change Password</h2>
 
