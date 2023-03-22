@@ -3,11 +3,10 @@ import styles from '@/styles/ListPage.module.css'
 
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
-import { MouseEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSessionContext } from '@supabase/auth-helpers-react'
 
 import { useSupabaseTasks } from '@/hooks/supabaseTasks'
 
@@ -18,29 +17,17 @@ import { TaskList } from '@/modules/tasks/list'
 
 import { Header } from '@/components/header'
 import { AccountLink } from '@/components/accountlink'
+import { SignoutButton } from '@/components/signoutButton'
 
 import { Footer } from '@/components/footer'
 
 export default function ListPage() {
 
-    const router = useRouter();
-
-    const supabase = useSupabaseClient();
     const { isLoading, session, error: sessionContextError } = useSessionContext();
 
     const supabaseTasks = useSupabaseTasks('tasks');
 
     const [error, setError] = useState<string | null>(null);
-
-    const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-
-        router.push('/signin');
-
-        const { error } = await supabase.auth.signOut();
-
-        if (error) Sentry.captureException(error);
-    };
 
     // Runs once when component mounts
     useEffect(() => {
@@ -178,7 +165,7 @@ export default function ListPage() {
 
                 <Header>
                     <AccountLink />
-                    <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
+                    <SignoutButton />
                 </Header>
 
                 <main className={styles.main}>

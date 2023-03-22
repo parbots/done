@@ -4,27 +4,17 @@ import styles from '@/styles/HomePage.module.css'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import { MouseEvent } from 'react'
-
-import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSessionContext } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
 import { AccountLink } from '@/components/accountlink'
+import { SignoutButton } from '@/components/signoutButton'
 
 import { Footer } from '@/components/footer'
 
 export default function HomePage() {
 
-    const supabase = useSupabaseClient();
     const { isLoading, session } = useSessionContext();
-
-    const handleSignoutButton = async (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-
-        const { error } = await supabase.auth.signOut();
-
-        if (error) alert(error);
-    };
 
     return (
         <>
@@ -57,7 +47,7 @@ export default function HomePage() {
                     <Header>
                         <Link href='/list' className={styles.headerLink}>My List</Link>
                         <AccountLink />
-                        <button onClick={handleSignoutButton} className={styles.headerButton}>Sign Out</button>
+                        <SignoutButton />
                     </Header>
                 }
 
