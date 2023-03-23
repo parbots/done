@@ -53,7 +53,7 @@ export const SigninForm = () => {
                 {errors.password?.type === 'minLength' && 'password must be 8 characters'}
             </fieldset>
 
-            <button type='submit'>Sign In</button>
+            <button type='submit' className={styles.submitButton}>Sign In</button>
         </form>
     );
 };

@@ -1,0 +1,93 @@
+.form {
+    width: 25svw;
+
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    border-radius: var(--border-radius);
+
+    background-color: var(--background2);
+}
+
+.title {
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 2rem;
+}
+
+.inputFieldset {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+
+    border: none;
+}
+
+.inputLabel {
+    width: 100%;
+
+    cursor: pointer;
+
+    transition: color 0.3s;
+}
+
+.inputFieldset:is(:hover, :focus-within) .inputLabel {
+    color: var(--highlight);
+}
+
+.input {
+    width: 100%;
+
+    padding: var(--input-padding);
+
+    outline: none;
+
+    border: none;
+    border-bottom: var(--border-width) solid var(--color);
+    border-radius: 0;
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.inputFieldset:is(:hover, :focus-within) .input {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
+
+.submitButton {
+    padding: var(--button-padding);
+
+    cursor: pointer;
+
+    outline: none;
+
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.submitButton:is(:hover, :focus-visible) {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
+
