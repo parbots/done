@@ -60,7 +60,7 @@ export const SigninForm = () => {
             <h2 className={styles.title}>Sign In</h2>
 
             <fieldset
-                data-error={errors.email !== undefined}
+                data-error={errors.email ? 'true' : 'false'}
                 className={styles.inputFieldset}
             >
                 <label htmlFor={'email' + inputID} className={styles.inputLabel}>Email:</label>
@@ -68,16 +68,18 @@ export const SigninForm = () => {
                     {...register('email', {
                         required: 'Please enter an email',
                     })}
+                    type='text'
+                    aria-invalid={errors.email ? 'true' : 'false'}
                     id={'email' + inputID}
                     className={styles.input}
                 />
                 {errors.email &&
-                    <p className={styles.inputError}>{errors.email.message}</p>
+                    <p role='alert' className={styles.inputError}>{errors.email.message}</p>
                 }
             </fieldset>
 
             <fieldset
-                data-error={errors.password !== undefined}
+                data-error={errors.password ? 'true' : 'false'}
                 className={styles.inputFieldset}
             >
                 <label htmlFor={'password' + inputID} className={styles.inputLabel}>Password:</label>
@@ -85,18 +87,20 @@ export const SigninForm = () => {
                     {...register('password', {
                         required: 'Please enter a password',
                     })}
+                    type='password'
+                    aria-invalid={errors.password ? 'true' : 'false'}
                     id={'password' + inputID}
                     className={styles.input}
                 />
                 {errors.password &&
-                    <p className={styles.inputError}>{errors.password.message}</p>
+                    <p role='alert' className={styles.inputError}>{errors.password.message}</p>
                 }
             </fieldset>
 
             <button type='submit' className={styles.submitButton}>Sign In</button>
 
             {authError &&
-                <p className={styles.authError}>{authError}</p>
+                <p role='alert' className={styles.authError}>{authError}</p>
             }
         </form>
     );

@@ -22,6 +22,11 @@
     font-size: 2rem;
 }
 
+.title::selection {
+    color: var(--background2);
+    background-color: var(--color);
+}
+
 .inputFieldset {
     width: 100%;
 
@@ -37,17 +42,34 @@
 .inputLabel {
     width: 100%;
 
-    cursor: pointer;
+    cursor: text;
+
+    color: var(--color);
 
     transition: color 0.3s;
 }
 
+.inputLabel::selection {
+    color: var(--background2);
+}
+
 .inputFieldset[data-error='true'] .inputLabel {
-    color: red;
+    color: var(--red);
+}
+
+.inputFieldset[data-error='true'] .inputLabel::selection {
+    color: var(--background2);
+    background-color: var(--red);
 }
 
 .inputFieldset[data-error='false']:is(:hover, :focus-within) .inputLabel {
     color: var(--highlight);
+}
+
+
+.inputFieldset[data-error='false']:is(:hover, :focus-within) .inputLabel::selection {
+    color: var(--background2);
+    background-color: var(--highlight);
 }
 
 .input {
@@ -67,16 +89,41 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
+.input::selection {
+    color: var(--background2);
+}
+
+.inputFieldset[data-error='true'] .input {
+    border-color: var(--red);
+
+    color: var(--red);
+}
+
+.inputFieldset[data-error='true'] .input::selection {
+    color: var(--background2);
+    background-color: var(--red);
+}
+
 .inputFieldset[data-error='false']:is(:hover, :focus-within) .input {
     border-color: var(--highlight);
 
     color: var(--highlight);
 }
 
-.inputFieldset[data-error='true'] .input {
-    border-color: red;
+.inputFieldset[data-error='false']:is(:hover, :focus-within) .input::selection {
+    color: var(--background2);
+    background-color: var(--highlight);
+}
 
-    color: red;
+.inputError {
+    width: 100%;
+
+    color: var(--red);
+}
+
+.inputError::selection {
+    color: var(--background2);
+    background-color: var(--red);
 }
 
 .submitButton {
@@ -99,5 +146,16 @@
     border-color: var(--highlight);
 
     color: var(--highlight);
+}
+
+.authError {
+    width: 100%;
+
+    color: var(--red);
+}
+
+.authError::selection {
+    color: var(--background2);
+    background-color: var(--red);
 }
 
