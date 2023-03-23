@@ -48,7 +48,7 @@ export const SignupForm = () => {
     const authErrorRef = useRef<HTMLParagraphElement | null>(null);
 
     useEffect(() => {
-        if (authErrorRef) authErrorRef.current?.scrollIntoView();
+        if (authErrorRef.current) authErrorRef.current.scrollIntoView();
     }, [authErrorRef]);
 
     const inputID = useId();

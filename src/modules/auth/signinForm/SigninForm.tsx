@@ -3,7 +3,7 @@ import styles from './SigninForm.module.css'
 
 import { useRouter } from 'next/router'
 
-import { useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -42,6 +42,12 @@ export const SigninForm = () => {
 
         router.push('/list');
     };
+
+    const authErrorRef = useRef<HTMLParagraphElement | null>(null);
+
+    useEffect(() => {
+        if (authErrorRef.current) authErrorRef.current.scrollIntoView();
+    }, [authErrorRef]);
 
     const inputID = useId();
 
@@ -100,7 +106,7 @@ export const SigninForm = () => {
             <button type='submit' className={styles.submitButton}>Sign In</button>
 
             {authError &&
-                <p role='alert' className={styles.authError}>{authError}</p>
+                <p role='alert' ref={authErrorRef} className={styles.authError}>{authError}</p>
             }
         </form>
     );
