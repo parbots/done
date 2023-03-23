@@ -118,10 +118,23 @@
 .inputError {
     width: 100%;
 
+    transition: color 0.3s;
+}
+
+.inputError[data-error='false'] {
+    color: var(--green);
+}
+
+.inputError[data-error='false']::selection {
+    color: var(--background2);
+    background-color: var(--green);
+}
+
+.inputError[data-error='true'] {
     color: var(--red);
 }
 
-.inputError::selection {
+.inputError[data-error='true']::selection {
     color: var(--background2);
     background-color: var(--red);
 }

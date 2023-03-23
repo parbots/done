@@ -3,7 +3,7 @@ import styles from './SignupForm.module.css'
 
 import { useRouter } from 'next/router'
 
-import { useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -46,9 +46,11 @@ export const SignupForm = () => {
 
     const inputID = useId();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<FormInputs>({
         mode: 'onChange',
     });
+
+    const watchEmail = watch('email');
 
     const onSubmit: SubmitHandler<FormInputs> = (data, event) => {
         event?.preventDefault();
@@ -67,16 +69,25 @@ export const SignupForm = () => {
                 <label htmlFor={'email' + inputID} className={styles.inputLabel}>Email:</label>
                 <input
                     {...register('email', {
-                        required: 'Please enter an email',
+                        required: true,
+                        pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: 'Must be a valid email address',
+                        }
                     })}
                     type='text'
                     aria-invalid={errors.email ? 'true' : 'false'}
                     id={'email' + inputID}
                     className={styles.input}
                 />
-                {errors.email &&
-                    <p role='alert' className={styles.inputError}>{errors.email.message}</p>
-                }
+
+                <p
+                    data-error={errors.email || !watchEmail ? 'true' : 'false'}
+                    role={errors.email ? 'alert' : ''}
+                    className={styles.inputError}
+                >
+                    Must be a valid email address
+                </p>
             </fieldset>
 
             <fieldset
@@ -106,7 +117,7 @@ export const SignupForm = () => {
                 <label htmlFor={'confirmPassword' + inputID} className={styles.inputLabel}>Confirm Password:</label>
                 <input
                     {...register('confirmPassword', {
-                        required: 'Please enter a password',
+                        required: 'Please enter confirm password',
                         minLength: 8,
                     })}
                     type='password'
@@ -119,7 +130,7 @@ export const SignupForm = () => {
                 }
             </fieldset>
 
-            <button type='submit' className={styles.submitButton}>Sign In</button>
+            <button type='submit' className={styles.submitButton}>Sign Up</button>
 
             {authError &&
                 <p role='alert' className={styles.authError}>{authError}</p>
