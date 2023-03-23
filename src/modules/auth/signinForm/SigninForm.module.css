@@ -42,7 +42,11 @@
     transition: color 0.3s;
 }
 
-.inputFieldset:is(:hover, :focus-within) .inputLabel {
+.inputFieldset[data-error='true'] .inputLabel {
+    color: red;
+}
+
+.inputFieldset[data-error='false']:is(:hover, :focus-within) .inputLabel {
     color: var(--highlight);
 }
 
@@ -63,10 +67,16 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.inputFieldset:is(:hover, :focus-within) .input {
+.inputFieldset[data-error='false']:is(:hover, :focus-within) .input {
     border-color: var(--highlight);
 
     color: var(--highlight);
+}
+
+.inputFieldset[data-error='true'] .input {
+    border-color: red;
+
+    color: red;
 }
 
 .submitButton {
