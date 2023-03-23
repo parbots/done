@@ -2,68 +2,15 @@
 import styles from '@/styles/SigninPage.module.css'
 
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-
-import { ChangeEvent, FormEvent, useState } from 'react'
-
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
 import { SignupLink } from '@/components/signupLink'
 
+import { SigninForm } from '@/modules/auth/signinForm'
+
 import { Footer } from '@/components/footer'
 
 export default function SigninPage() {
-
-    const router = useRouter();
-
-    const supabase = useSupabaseClient();
-
-    const [emailInputValue, setEmailInputValue] = useState<string>('');
-
-    const handleEmailInput = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-
-        setEmailInputValue(event.target.value);
-    };
-
-    const [passwordInputValue, setPasswordInputValue] = useState<string>('');
-
-    const handlePasswordInput = (event: ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-
-        setPasswordInputValue(event.target.value);
-    };
-
-    const [showInfo, setShowInfo] = useState<boolean>(false);
-    const [infoMessage, setInfoMessage] = useState<string>('info');
-
-    const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        setShowInfo(false);
-
-        // Do nothing if either input is blank
-        if (emailInputValue.trim() === '' || passwordInputValue.trim() === '') {
-            return;
-        }
-
-        // Request signin from supabase server
-        const { error } = await supabase.auth.signInWithPassword({
-            email: emailInputValue.trim(),
-            password: passwordInputValue,
-        });
-
-        // Show server signin errors
-        if (error) {
-            setInfoMessage(error.message);
-            setShowInfo(true);
-
-            return;
-        }
-
-        router.push('/list');
-    };
 
     return (
         <>
@@ -83,35 +30,7 @@ export default function SigninPage() {
                 </Header>
 
                 <main className={styles.main}>
-                    <form onSubmit={handleFormSubmit} className={styles.signinForm}>
-                        <fieldset className={styles.emailFieldset}>
-                            <label htmlFor='signinEmailInput' className={styles.emailLabel}>Email:</label>
-                            <input
-                                type='email'
-                                id='signinEmailInput'
-                                value={emailInputValue}
-                                onChange={handleEmailInput}
-                                className={styles.emailInput}
-                            />
-                        </fieldset>
-
-                        <fieldset className={styles.passwordFieldset}>
-                            <label htmlFor='signinPasswordInput' className={styles.passwordLabel}>Password:</label>
-                            <input
-                                type='password'
-                                id='signinPasswordInput'
-                                value={passwordInputValue}
-                                onChange={handlePasswordInput}
-                                className={styles.passwordInput}
-                            />
-                        </fieldset>
-
-                        <button type='submit' className={styles.signinButton}>Sign In</button>
-
-                        <section data-show={showInfo.toString()} className={styles.infoSection}>
-                            <p className={styles.infoMessage}>{infoMessage}</p>
-                        </section>
-                    </form>
+                    <SigninForm />
                 </main>
 
                 <Footer />
