@@ -1,5 +1,5 @@
 
-import styles from './AccountLink.module.css'
+import styles from './SettingsLink.module.css'
 
 import Link from 'next/link'
 
@@ -7,7 +7,7 @@ import { useSessionContext } from '@supabase/auth-helpers-react'
 
 import * as Sentry from '@sentry/nextjs'
 
-export const AccountLink = () => {
+export const SettingsLink = () => {
 
     const { isLoading, session, error } = useSessionContext();
 
@@ -26,7 +26,7 @@ export const AccountLink = () => {
     }
 
     return (
-        <Link href='/account' className={styles.link}>Account</Link>
+        <Link href='/settings' className={styles.link}>Settings</Link>
     );
 };
 

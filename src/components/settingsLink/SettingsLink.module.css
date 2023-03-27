@@ -1,3 +1,14 @@
+
+.loading {
+    text-align: center;
+}
+
+.error {
+    text-align: center;
+
+    color: var(--red);
+}
+
 .link {
     padding: var(--button-padding);
 
@@ -16,8 +27,4 @@
     border-color: var(--highlight);
 
     color: var(--highlight);
-}
-
-.error {
-    color: var(--red);
 }
