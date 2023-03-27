@@ -1,1 +1,0 @@
-export { changePasswordForm } from './ChangePasswordForm'
