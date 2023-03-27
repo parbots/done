@@ -42,6 +42,27 @@
 .title {
     text-align: center;
 
-    font-size: 3rem;
+    font-size: 4rem;
 }
 
+.section {
+    width: 40svw;
+
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+
+    border-radius: var(--border-radius);
+
+    background-color: var(--background2);
+}
+
+.sectionTitle {
+    width: 100%;
+
+    font-size: 2rem;
+}

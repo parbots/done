@@ -82,6 +82,11 @@ export default function SettingsPage() {
                 {!isLoading && session &&
                     <main className={styles.main}>
                         <h1 className={styles.title}>Settings</h1>
+
+                        <section className={styles.section}>
+                            <h2 className={styles.sectionTitle}>Account</h2>
+
+                        </section>
                     </main>
                 }
 
