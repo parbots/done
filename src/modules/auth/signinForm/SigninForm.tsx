@@ -20,8 +20,22 @@ export const SigninForm = () => {
 
     const router = useRouter();
 
+    const inputID = useId();
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
+        mode: 'onSubmit',
+    });
+
+    const onSubmit: SubmitHandler<FormInputs> = (data, event) => {
+        event?.preventDefault();
+
+        signinUser(data.email, data.password);
+    };
+
     const supabase = useSupabaseClient();
+
     const [authError, setAuthError] = useState<string | null>(null);
+    const authErrorRef = useRef<HTMLParagraphElement | null>(null);
 
     const signinUser = async (formEmail: string, formPassword: string) => {
 
@@ -43,23 +57,9 @@ export const SigninForm = () => {
         router.push('/list');
     };
 
-    const authErrorRef = useRef<HTMLParagraphElement | null>(null);
-
     useEffect(() => {
         if (authErrorRef.current) authErrorRef.current.scrollIntoView();
     }, [authErrorRef]);
-
-    const inputID = useId();
-
-    const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>({
-        mode: 'onChange',
-    });
-
-    const onSubmit: SubmitHandler<FormInputs> = (data, event) => {
-        event?.preventDefault();
-
-        signinUser(data.email, data.password);
-    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
