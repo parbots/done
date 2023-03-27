@@ -1,6 +1,6 @@
 User-agent: *
 Disallow: /list
-Disallow: /account
+Disallow: /settings
 
 User-agent: *
 Allow: /
