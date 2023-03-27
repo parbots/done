@@ -9,7 +9,7 @@ import { TaskListMenu } from '@/modules/tasks/listmenu'
 import { TaskList } from '@/modules/tasks/list'
 
 import { Header } from '@/components/header'
-import { AccountLink } from '@/components/accountLink'
+import { SettingsLink } from '@/components/settingsLink'
 import { SignoutButton } from '@/components/signoutButton'
 
 import { Footer } from '@/components/footer'
@@ -43,7 +43,7 @@ export default function ListPage() {
             <div className={styles.page}>
 
                 <Header>
-                    <AccountLink />
+                    <SettingsLink />
                     <SignoutButton />
                 </Header>
 

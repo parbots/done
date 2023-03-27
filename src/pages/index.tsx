@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { Header } from '@/components/header'
-import { AccountLink } from '@/components/accountLink'
+import { SettingsLink } from '@/components/settingsLink'
 import { SignoutButton } from '@/components/signoutButton'
 
 import { Footer } from '@/components/footer'
@@ -26,7 +26,7 @@ export default function HomePage() {
             <div className={styles.page}>
                 <Header>
                     <Link href='/list' className={styles.headerLink}>My List</Link>
-                    <AccountLink />
+                    <SettingsLink />
                     <SignoutButton />
                 </Header>
 
