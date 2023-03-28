@@ -1,1 +1,0 @@
-export { SettingsLink } from './SettingsLink'

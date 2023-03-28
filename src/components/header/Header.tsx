@@ -5,8 +5,7 @@ import { ReactNode } from 'react'
 
 import { useSessionContext } from '@supabase/auth-helpers-react'
 
-import { SigninLink } from '@/components/signinLink'
-import { SignupLink } from '@/components/signupLink'
+import { ButtonLink } from '@/components/buttonLink'
 
 type HeaderProps = {
     children: ReactNode;
@@ -56,8 +55,8 @@ export const Header = ({ children, useSession = true }: HeaderProps) => {
 
             {!isLoading && !session &&
                 <nav className={styles.nav}>
-                    <SigninLink />
-                    <SignupLink />
+                    <ButtonLink href='/signin' text='Sign In' />
+                    <ButtonLink href='/signup' text='Sign Up' />
                 </nav>
             }
 

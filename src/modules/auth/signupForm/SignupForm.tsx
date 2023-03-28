@@ -11,6 +11,8 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import * as Sentry from '@sentry/nextjs'
 
+import { Button } from '@/components/button'
+
 type FormInputs = {
     email: string,
     password: string,
@@ -134,7 +136,7 @@ export const SignupForm = () => {
                 }
             </fieldset>
 
-            <button type='submit' className={styles.submitButton}>Sign Up</button>
+            <Button type='submit'>Sign Up</Button>
 
             {authError &&
                 <p role='alert' ref={authErrorRef} className={styles.authError}>{authError}</p>

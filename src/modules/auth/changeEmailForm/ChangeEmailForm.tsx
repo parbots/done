@@ -3,6 +3,8 @@ import styles from './ChangeEmailForm.module.css'
 
 import { useId } from 'react'
 
+import { Button } from '@/components/button'
+
 export const ChangeEmailForm = () => {
 
     const id = useId();
@@ -36,7 +38,7 @@ export const ChangeEmailForm = () => {
                 <p className={styles.error}></p>
             </fieldset>
 
-            <button type='submit' className={styles.submitButton}>Change Email</button>
+            <Button type='submit'>Change Email</Button>
         </form>
     );
 };

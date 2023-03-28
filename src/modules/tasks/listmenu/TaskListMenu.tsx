@@ -5,6 +5,8 @@ import { useState, FormEvent, ChangeEvent } from 'react'
 
 import type { Filter } from '@/types/task'
 
+import { Button } from '@/components/button'
+
 type TaskListMenuProps = {
     loading: boolean;
     addTask: (newTaskText: string, newTaskComplete?: boolean) => void;
@@ -63,7 +65,7 @@ export const TaskListMenu = (props: TaskListMenuProps) => {
                     onChange={handleTaskInputChange}
                     className={styles.taskInput}
                 />
-                <button type='submit' className={styles.addTaskButton}>Add</button>
+                <Button type='submit'>Add</Button>
             </fieldset>
 
             <section className={styles.filterSection}>
@@ -83,52 +85,36 @@ export const TaskListMenu = (props: TaskListMenuProps) => {
                 <fieldset id='filterFieldset' className={styles.filterFieldset}>
                     <label htmlFor='filterFieldset' className={styles.filterFieldsetLabel}>Show:</label>
 
-                    <button
-                        type='button'
+                    <Button
                         data-selected={(props.currentFilter === 'all').toString()}
                         onClick={() => props.setCurrentFilter('all')}
                         className={styles.filterButton}
                     >
                         All
-                    </button>
+                    </Button>
 
-                    <button
-                        type='button'
+                    <Button
                         data-selected={(props.currentFilter === 'incomplete').toString()}
                         onClick={() => props.setCurrentFilter('incomplete')}
                         className={styles.filterButton}
                     >
                         Doing
-                    </button>
+                    </Button>
 
-                    <button
-                        type='button'
+                    <Button
                         data-selected={(props.currentFilter === 'complete').toString()}
                         onClick={() => props.setCurrentFilter('complete')}
                         className={styles.filterButton}
                     >
                         Done
-                    </button>
+                    </Button>
                 </fieldset>
 
                 <fieldset id='actionFieldset' className={styles.actionFieldset}>
                     <label htmlFor='actionFieldset' className={styles.actionFieldsetLabel}>Clear:</label>
 
-                    <button
-                        type='button'
-                        onClick={() => { props.clearCompleteTasks() }}
-                        className={styles.actionButton}
-                    >
-                        Done
-                    </button>
-
-                    <button
-                        type='button'
-                        onClick={() => { props.clearAllTasks() }}
-                        className={styles.actionButton}
-                    >
-                        All
-                    </button>
+                    <Button onClick={() => { props.clearCompleteTasks() }}>Done</Button>
+                    <Button onClick={() => { props.clearAllTasks() }}>All</Button>
                 </fieldset>
             </section>
         </form>

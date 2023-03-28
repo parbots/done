@@ -2,11 +2,11 @@
 import styles from '@/styles/HomePage.module.css'
 
 import Head from 'next/head'
-import Link from 'next/link'
 
 import { Header } from '@/components/header'
-import { SettingsLink } from '@/components/settingsLink'
 import { SignoutButton } from '@/components/signoutButton'
+
+import { ButtonLink } from '@/components/buttonLink'
 
 import { Footer } from '@/components/footer'
 
@@ -25,8 +25,8 @@ export default function HomePage() {
 
             <div className={styles.page}>
                 <Header>
-                    <Link href='/list' className={styles.headerLink}>My List</Link>
-                    <SettingsLink />
+                    <ButtonLink href='/list' text='My List' />
+                    <ButtonLink href='/settings' text='Settings' />
                     <SignoutButton />
                 </Header>
 
@@ -38,7 +38,7 @@ export default function HomePage() {
 
                         <p className={styles.heroDescription}>Simple and efficient task management.</p>
 
-                        <Link href='/signup' className={styles.heroActionLink}>Get Started</Link>
+                        <ButtonLink href='/signup' text='Get Started' />
                     </section>
                 </main>
 

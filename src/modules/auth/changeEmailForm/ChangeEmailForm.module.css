@@ -71,12 +71,3 @@
     transition: color 0.3s, border-color 0.3s;
 }
 
-.submitButton {
-    padding: var(--button-padding);
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background: none;
-}
