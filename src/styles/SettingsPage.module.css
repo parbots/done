@@ -46,23 +46,17 @@
 }
 
 .section {
-    width: 40svw;
-
-    padding: 16px;
-
     display: flex;
     flex-direction: column;
-    justify-items: flex-start;
-    align-items: flex-start;
+    justify-items: center;
+    align-items: center;
     gap: 2rem;
-
-    border-radius: var(--border-radius);
-
-    background-color: var(--background2);
 }
 
 .sectionTitle {
     width: 100%;
+
+    text-align: center;
 
     font-size: 2rem;
 }

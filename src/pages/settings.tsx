@@ -12,6 +12,8 @@ import { useSessionContext } from '@supabase/auth-helpers-react'
 import { Header } from '@/components/header'
 import { SignoutButton } from '@/components/signoutButton'
 
+import { ChangeEmailForm } from '@/modules/auth/changeEmailForm'
+
 import { Footer } from '@/components/footer'
 
 export default function SettingsPage() {
@@ -81,11 +83,10 @@ export default function SettingsPage() {
 
                 {!isLoading && session &&
                     <main className={styles.main}>
-                        <h1 className={styles.title}>Settings</h1>
-
                         <section className={styles.section}>
                             <h2 className={styles.sectionTitle}>Account</h2>
 
+                            <ChangeEmailForm />
                         </section>
                     </main>
                 }
