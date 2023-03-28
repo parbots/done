@@ -3,7 +3,6 @@ import styles from '@/styles/SettingsPage.module.css'
 
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Link from 'next/link'
 
 import { useEffect } from 'react'
 
@@ -11,6 +10,8 @@ import { useSessionContext } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
 import { SignoutButton } from '@/components/signoutButton'
+
+import { ButtonLink } from '@/components/buttonLink'
 
 import { Footer } from '@/components/footer'
 
@@ -41,7 +42,7 @@ export default function SettingsPage() {
 
                 <div className={styles.page}>
                     <Header>
-                        <Link href='/list' className={styles.headerLink}>My List</Link>
+                        <ButtonLink href='/list' text='My List' />
                         <SignoutButton />
                     </Header>
 
@@ -69,7 +70,7 @@ export default function SettingsPage() {
 
             <div className={styles.page}>
                 <Header>
-                    <Link href='/list' className={styles.headerLink}>My List</Link>
+                    <ButtonLink href='/list' text='My List' />
                     <SignoutButton />
                 </Header>
 

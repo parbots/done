@@ -4,8 +4,8 @@ import styles from '@/styles/SigninPage.module.css'
 import Head from 'next/head'
 
 import { Header } from '@/components/header'
-import { SignupLink } from '@/components/signupLink'
 
+import { ButtonLink } from '@/components/buttonLink'
 import { SigninForm } from '@/modules/auth/signinForm'
 
 import { Footer } from '@/components/footer'
@@ -26,7 +26,7 @@ export default function SigninPage() {
 
             <div className={styles.page}>
                 <Header useSession={false}>
-                    <SignupLink />
+                    <ButtonLink href='/signup' text='Sign Up' />
                 </Header>
 
                 <main className={styles.main}>

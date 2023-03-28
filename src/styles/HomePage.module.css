@@ -6,28 +6,6 @@
     flex-direction: column;
 }
 
-.headerLink {
-    padding: var(--button-padding);
-
-    cursor: pointer;
-
-    outline: none;
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background: none;
-
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.headerLink:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
-}
-
 .main {
     flex: 1;
 
@@ -63,26 +41,6 @@
 
 .heroDescription {
     text-align: center;
-}
-
-.heroActionLink {
-    padding: var(--button-padding);
-
-    outline: none;
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background: none;
-
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.heroActionLink:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
 }
 
 @media (max-width: 800px) {

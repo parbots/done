@@ -3,17 +3,18 @@ import styles from '@/styles/ListPage.module.css'
 
 import Head from 'next/head'
 
+import { useEffect } from 'react'
+
 import { useSupabaseTasks } from '@/hooks/supabaseTasks'
 
+import { Header } from '@/components/header'
+import { SignoutButton } from '@/components/signoutButton'
+
+import { ButtonLink } from '@/components/buttonLink'
 import { TaskListMenu } from '@/modules/tasks/listmenu'
 import { TaskList } from '@/modules/tasks/list'
 
-import { Header } from '@/components/header'
-import { SettingsLink } from '@/components/settingsLink'
-import { SignoutButton } from '@/components/signoutButton'
-
 import { Footer } from '@/components/footer'
-import { useEffect } from 'react'
 
 export default function ListPage() {
 
@@ -43,7 +44,7 @@ export default function ListPage() {
             <div className={styles.page}>
 
                 <Header>
-                    <SettingsLink />
+                    <ButtonLink href='/settings' text='Settings' />
                     <SignoutButton />
                 </Header>
 
