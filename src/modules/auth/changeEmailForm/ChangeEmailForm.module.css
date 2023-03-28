@@ -33,10 +33,26 @@
 
 .sectionLabel {
     width: 100%;
+
+    cursor: text;
+}
+
+.sectionLabel::selection {
+    color: var(--background2);
+    background-color: var(--color);
 }
 
 .sectionText {
     width: 100%;
+
+    padding: var(--input-padding);
+
+    font-weight: bold;
+}
+
+.sectionText::selection {
+    color: var(--background2);
+    background-color: var(--color);
 }
 
 .inputFieldset {
@@ -53,13 +69,32 @@
 .inputLabel {
     width: 100%;
 
+    cursor: text;
+
+    color: var(--color);
+
     transition: color 0.3s;
+}
+
+.inputLabel::selection {
+    color: var(--background2);
+    background-color: var(--color);
+}
+
+.inputFieldset:is(:hover, :focus-within) .inputLabel {
+    color: var(--highlight);
+}
+.inputFieldset:is(:hover, :focus-within) .inputLabel::selection {
+    color: var(--background2);
+    background-color: var(--highlight);
 }
 
 .input {
     width: 100%;
 
     padding: var(--input-padding);
+
+    outline: none;
 
     border: none;
     border-bottom: var(--border-width) solid var(--color);
@@ -69,5 +104,21 @@
     background: none;
 
     transition: color 0.3s, border-color 0.3s;
+}
+
+.input::selection {
+    color: var(--background2);
+    background-color: var(--color);
+}
+
+.inputFieldset:is(:hover, :focus-within) .input {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
+
+.inputFieldset:is(:hover, :focus-within) .input::selection {
+    color: var(--background2);
+    background-color: var(--highlight);
 }
 
