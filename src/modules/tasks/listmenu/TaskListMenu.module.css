@@ -76,28 +76,6 @@
     color: var(--highlight);
 }
 
-.addTaskButton {
-    padding: var(--button-padding);
-
-    cursor: pointer;
-
-    outline: none;
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background-color: inherit;
-
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.addTaskButton:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
-}
-
 .filterSection {
     width: 100%;
     min-height: 2rem;
@@ -167,34 +145,13 @@
     color: var(--color);
 }
 
-.filterButton {
-    padding: var(--button-padding);
-
-    cursor: pointer;
-
-    outline: none;
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background-color: inherit;
-
-    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
-}
-
-.filterButton:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
-}
-
 .filterButton[data-selected='true'] {
-    color: inherit;
+    color: var(--background2);
     background-color: var(--color);
 }
 
 .filterButton[data-selected='true']:is(:hover, :focus-visible) {
+    color: var(--background2);
     background-color: var(--highlight)
 }
 
@@ -209,28 +166,6 @@
 
 .actionFieldsetLabel {
     color: var(--color);
-}
-
-.actionButton {
-    padding: var(--button-padding);
-
-    cursor: pointer;
-
-    outline: none;
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background: inherit;
-
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.actionButton:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
 }
 
 @media (max-width: 1024px) {

@@ -9,6 +9,8 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 import * as Sentry from '@sentry/nextjs'
 
+import { Button } from '@/components/button'
+
 export const SignoutButton = () => {
 
     const router = useRouter();
@@ -26,6 +28,6 @@ export const SignoutButton = () => {
     };
 
     return (
-        <button onClick={handleSignout} className={styles.button}>Sign Out</button>
+        <Button onClick={handleSignout} className={styles.button}>Sign Out</Button>
     );
 };

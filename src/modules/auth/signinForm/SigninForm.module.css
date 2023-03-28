@@ -126,28 +126,6 @@
     background-color: var(--red);
 }
 
-.submitButton {
-    padding: var(--button-padding);
-
-    cursor: pointer;
-
-    outline: none;
-
-    border: var(--border-width) solid var(--color);
-    border-radius: var(--border-radius);
-
-    color: var(--color);
-    background: none;
-
-    transition: color 0.3s, border-color 0.3s;
-}
-
-.submitButton:is(:hover, :focus-visible) {
-    border-color: var(--highlight);
-
-    color: var(--highlight);
-}
-
 .authError {
     width: 100%;
 
