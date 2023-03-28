@@ -1,0 +1,82 @@
+.form {
+    width: 40svw;
+
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    border-radius: var(--border-radius);
+
+    background-color: var(--background2);
+}
+
+.title {
+    width: 100%;
+
+    text-align: left;
+
+    font-size: 1.5rem;
+}
+
+.section {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sectionLabel {
+    width: 100%;
+}
+
+.sectionText {
+    width: 100%;
+}
+
+.inputFieldset {
+    width: 100%;
+
+    border: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputLabel {
+    width: 100%;
+
+    transition: color 0.3s;
+}
+
+.input {
+    width: 100%;
+
+    padding: var(--input-padding);
+
+    border: none;
+    border-bottom: var(--border-width) solid var(--color);
+    border-radius: 0;
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.submitButton {
+    padding: var(--button-padding);
+
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
+
+    color: var(--color);
+    background: none;
+}

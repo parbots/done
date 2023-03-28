@@ -13,11 +13,11 @@ export const ChangeEmailForm = () => {
 
             <section className={styles.section}>
                 <label htmlFor={'currentEmail' + id} className={styles.sectionLabel}>Current Email:</label>
-                <p id={'currentEmail' + id} className={styles.sectionText}></p>
+                <p id={'currentEmail' + id} className={styles.sectionText}>test</p>
             </section>
 
             <fieldset className={styles.inputFieldset}>
-                <label htmlFor={'newEmail' + id} className={styles.inputLabel}></label>
+                <label htmlFor={'newEmail' + id} className={styles.inputLabel}>New Email:</label>
                 <input
                     type='text'
                     id={'newEmail' + id}
@@ -27,7 +27,7 @@ export const ChangeEmailForm = () => {
             </fieldset>
 
             <fieldset className={styles.inputFieldset}>
-                <label htmlFor={'confirmNewEmail' + id} className={styles.inputLabel}></label>
+                <label htmlFor={'confirmNewEmail' + id} className={styles.inputLabel}>Confirm New Email:</label>
                 <input
                     type='text'
                     id={'confirmNewEmail' + id}
@@ -36,7 +36,7 @@ export const ChangeEmailForm = () => {
                 <p className={styles.error}></p>
             </fieldset>
 
-            <button type='submit'>Change Email</button>
+            <button type='submit' className={styles.submitButton}>Change Email</button>
         </form>
     );
 };
