@@ -1,0 +1,21 @@
+.link {
+    width: fit-content;
+
+    padding: var(--button-padding);
+
+    outline: none;
+
+    border: var(--border-width) solid var(--color);
+    border-radius: var(--border-radius);
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3, background-color 0.3s, border-color 0.3s;
+}
+
+.link:is(:hover, :focus-visible) {
+    border-color: var(--highlight);
+
+    color: var(--highlight);
+}
