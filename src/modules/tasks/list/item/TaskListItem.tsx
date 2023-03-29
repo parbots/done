@@ -13,7 +13,6 @@ type TaskListItemProps = {
     removeSelf: () => void;
 };
 
-// TODO use paragraph element for item text and switch to input element on click
 export const TaskListItem = (props: TaskListItemProps) => {
 
     const textInputRef = useRef<HTMLTextAreaElement>(null);

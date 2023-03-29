@@ -1,7 +1,9 @@
+
 .footer {
-    min-height: 5vh;
+    min-height: 5svh;
 
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
@@ -9,3 +11,4 @@
 .copyright {
     font-size: 0.8rem;
 }
+

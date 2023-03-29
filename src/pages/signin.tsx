@@ -11,7 +11,6 @@ import { SigninForm } from '@/modules/auth/signinForm'
 import { Footer } from '@/components/footer'
 
 export default function SigninPage() {
-
     return (
         <>
             <Head>

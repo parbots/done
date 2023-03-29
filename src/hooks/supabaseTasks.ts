@@ -5,9 +5,8 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
 import * as Sentry from '@sentry/nextjs'
 
+import { useTaskList } from '@/hooks/tasks'
 import type { Task } from '@/types/task'
-
-import { useTaskList } from './tasks'
 
 export const useSupabaseTasks = (table: string) => {
 

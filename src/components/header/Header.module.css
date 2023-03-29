@@ -1,8 +1,9 @@
+
 .header {
     width: 100%;
     min-height: 10svh;
 
-    padding: 0 2rem;
+    padding: 0 16px;
 
     display: flex;
     flex-direction: row;
@@ -19,7 +20,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 8px;
 }
 
 .loading {
@@ -34,7 +35,6 @@
 
 @media (max-height: 800px) {
     .header {
-        padding: 0 1rem;
-        padding-top: 1rem;
+        padding: 8px 8px 0 8px;
     }
 }

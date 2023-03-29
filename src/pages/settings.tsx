@@ -1,8 +1,8 @@
 
 import styles from '@/styles/SettingsPage.module.css'
 
-import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import { useEffect } from 'react'
 

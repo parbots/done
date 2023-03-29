@@ -3,7 +3,7 @@ import styles from './TaskList.module.css'
 
 import type { Task } from '@/types/task'
 
-import { TaskListItem } from './item'
+import { TaskListItem } from '@/modules/tasks/list/item'
 
 type TaskListProps = {
     loading: boolean;

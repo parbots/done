@@ -18,8 +18,6 @@ type TaskListMenuProps = {
     clearAllTasks: () => void;
 };
 
-// TODO add an infomessage component to show warnings and errors
-// for example: max characters length of add item input
 export const TaskListMenu = (props: TaskListMenuProps) => {
 
     const [taskInputValue, setTaskInputValue] = useState('');

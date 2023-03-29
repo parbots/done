@@ -1,3 +1,4 @@
+
 .listItem {
     width: 100%;
 
@@ -128,3 +129,4 @@
 .removeTaskButton:is(:hover, :focus-visible) {
     color: var(--highlight);
 }
+
