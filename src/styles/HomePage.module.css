@@ -25,11 +25,7 @@
 }
 
 .heroTitle {
-    font-size: 4rem;
-
     text-align: center;
-
-    line-height: 1;
 }
 
 .heroTitleHighlight {
@@ -44,9 +40,5 @@
     text-align: center;
 }
 
-@media (max-width: 800px) {
-    .heroTitle {
-        font-size: 3rem;
-    }
-}
+@media (max-width: 800px) {}
 

@@ -4,6 +4,8 @@
 
     padding: var(--button-padding);
 
+    line-height: 1;
+
     outline: none;
 
     border: var(--border-width) solid var(--color);
@@ -12,7 +14,7 @@
     color: var(--color);
     background: none;
 
-    transition: color 0.3, background-color 0.3s, border-color 0.3s;
+    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
 .link:is(:hover, :focus-visible) {

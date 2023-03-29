@@ -6,6 +6,8 @@
 
     cursor: pointer;
 
+    line-height: 1;
+
     outline: none;
 
     border: var(--border-width) solid var(--color);

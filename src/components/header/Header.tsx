@@ -20,7 +20,7 @@ export const Header = ({ children, useSession = true }: HeaderProps) => {
     if (!useSession) {
         return (
             <header className={styles.header}>
-                <h2 className={styles.title}>done</h2>
+                <h4 className={styles.title}>done</h4>
 
                 <nav className={styles.nav}>
                     {children}
@@ -32,7 +32,7 @@ export const Header = ({ children, useSession = true }: HeaderProps) => {
     if (error) {
         return (
             <header className={styles.header}>
-                <h2 className={styles.title}>done</h2>
+                <h4 className={styles.title}>done</h4>
 
                 {error &&
                     <nav className={styles.nav}>
@@ -45,7 +45,7 @@ export const Header = ({ children, useSession = true }: HeaderProps) => {
 
     return (
         <header className={styles.header}>
-            <h2 className={styles.title}>done</h2>
+            <h4 className={styles.title}>done</h4>
 
             {isLoading &&
                 <nav className={styles.nav}>

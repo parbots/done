@@ -67,7 +67,7 @@ export const SignupForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <h2 className={styles.title}>Sign Up</h2>
+            <h1 className={styles.title}>Sign Up</h1>
 
             <fieldset data-error={errors.email ? 'true' : 'false'} className={styles.inputFieldset}>
                 <label htmlFor={'email' + inputID} className={styles.inputLabel}>Email:</label>
