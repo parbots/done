@@ -1,11 +1,13 @@
 
 import styles from './ChangeEmailForm.module.css'
 
-import { useId } from 'react'
+import { useId, useRef, useState } from 'react'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useSessionContext } from '@supabase/auth-helpers-react'
+import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react'
+
+import * as Sentry from '@sentry/nextjs'
 
 import { Button } from '@/components/button'
 
@@ -26,10 +28,35 @@ export const ChangeEmailForm = () => {
     const onSubmit: SubmitHandler<FormInputs> = (data, event) => {
         event?.preventDefault();
 
-        // Change email here
+        updateUserEmail(data.newEmail);
     };
 
+    const supabase = useSupabaseClient();
     const { session } = useSessionContext();
+
+    const [authError, setAuthError] = useState<string | null>(null);
+    const authErrorRef = useRef<HTMLParagraphElement | null>(null);
+
+    const updateUserEmail = async (newEmail: string) => {
+
+        // maybe make user sign in again before updating email
+
+        setAuthError(null);
+
+        const { error } = await supabase.auth.updateUser({
+            email: newEmail,
+        });
+
+        if (error) {
+            Sentry.captureException(error);
+
+            setAuthError('Unable to update user email, the new email may already be taken or a server errror occurred');
+
+            return
+        }
+
+        // explain user must confirm new email 
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -61,7 +88,7 @@ export const ChangeEmailForm = () => {
                     className={styles.input}
                 />
                 {errors.newEmail &&
-                    <p role='alert' className={styles.error}>{errors.newEmail.message}</p>
+                    <p role='alert' className={styles.inputError}>{errors.newEmail.message}</p>
                 }
             </fieldset>
 
@@ -82,11 +109,15 @@ export const ChangeEmailForm = () => {
                     className={styles.input}
                 />
                 {errors.confirmNewEmail &&
-                    <p role='alert' className={styles.error}>{errors.confirmNewEmail.message}</p>
+                    <p role='alert' className={styles.inputError}>{errors.confirmNewEmail.message}</p>
                 }
             </fieldset>
 
             <Button type='submit'>Change Email</Button>
+
+            {authError &&
+                <p role='alert' ref={authErrorRef} className={styles.authError}>{authError}</p>
+            }
         </form>
     );
 };
