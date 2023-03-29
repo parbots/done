@@ -1,5 +1,5 @@
 
-import styles from './ChangeEmailForm.module.css'
+import styles from './UpdateEmailForm.module.css'
 
 import { useId, useRef, useState } from 'react'
 
@@ -16,7 +16,7 @@ type FormInputs = {
     confirmNewEmail: string,
 };
 
-export const ChangeEmailForm = () => {
+export const UpdateEmailForm = () => {
 
     const id = useId();
 

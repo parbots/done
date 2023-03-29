@@ -12,7 +12,7 @@ import { Header } from '@/components/header'
 import { SignoutButton } from '@/components/signoutButton'
 
 import { ButtonLink } from '@/components/buttonLink'
-import { ChangeEmailForm } from '@/modules/auth/changeEmailForm'
+import { UpdateEmailForm } from '@/modules/auth/updateEmailForm'
 
 import { Footer } from '@/components/footer'
 
@@ -86,7 +86,7 @@ export default function SettingsPage() {
                         <section className={styles.section}>
                             <h2 className={styles.sectionTitle}>Account</h2>
 
-                            <ChangeEmailForm />
+                            <UpdateEmailForm />
                         </section>
                     </main>
                 }
