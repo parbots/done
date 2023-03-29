@@ -5,6 +5,8 @@ import { useId } from 'react'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { useSessionContext } from '@supabase/auth-helpers-react'
+
 import { Button } from '@/components/button'
 
 type FormInputs = {
@@ -27,6 +29,8 @@ export const ChangeEmailForm = () => {
         // Change email here
     };
 
+    const { session } = useSessionContext();
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <h3 className={styles.title}>Change Email</h3>
@@ -41,6 +45,15 @@ export const ChangeEmailForm = () => {
                 <input
                     {...register('newEmail', {
                         required: 'Required',
+                        pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: 'Must be a valid email address',
+                        },
+                        validate: (value) => {
+                            return value !== session?.user.email
+                                ? true
+                                : 'Must be different than current email';
+                        },
                     })}
                     type='text'
                     aria-invalid={errors.newEmail ? 'true' : 'false'}
@@ -57,6 +70,11 @@ export const ChangeEmailForm = () => {
                 <input
                     {...register('confirmNewEmail', {
                         required: 'Required',
+                        validate: (value, formValues) => {
+                            return value === formValues.newEmail
+                                ? true
+                                : 'Must match new email';
+                        },
                     })}
                     type='text'
                     aria-invalid={errors.confirmNewEmail ? 'true' : 'false'}
