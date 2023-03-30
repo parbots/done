@@ -6,6 +6,7 @@ import { ReactNode } from 'react'
 import { useSessionContext } from '@supabase/auth-helpers-react'
 
 import { ButtonLink } from '@/components/buttonLink'
+import Link from 'next/link';
 
 type HeaderProps = {
     children?: ReactNode;
@@ -19,7 +20,9 @@ export const Header = ({ children = null, useSession = true }: HeaderProps) => {
     if (error) {
         return (
             <header className={styles.header}>
-                <h4 className={styles.title}>done</h4>
+                <h4 className={styles.title}>
+                    <Link href='/' className={styles.titleLink}>done</Link>
+                </h4>
 
                 {error &&
                     <nav className={styles.nav}>
@@ -34,7 +37,9 @@ export const Header = ({ children = null, useSession = true }: HeaderProps) => {
     if (!useSession) {
         return (
             <header className={styles.header}>
-                <h4 className={styles.title}>done</h4>
+                <h4 className={styles.title}>
+                    <Link href='/' className={styles.titleLink}>done</Link>
+                </h4>
 
                 <nav className={styles.nav}>
                     {children}
@@ -45,7 +50,9 @@ export const Header = ({ children = null, useSession = true }: HeaderProps) => {
 
     return (
         <header className={styles.header}>
-            <h4 className={styles.title}>done</h4>
+            <h4 className={styles.title}>
+                <Link href='/' className={styles.titleLink}>done</Link>
+            </h4>
 
             {isLoading &&
                 <nav className={styles.nav}>

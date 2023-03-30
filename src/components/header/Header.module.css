@@ -14,7 +14,28 @@
 }
 
 .title {
+    width: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleLink {
+    padding: 2px 4px;
+
     text-align: center;
+
+    outline: none;
+
+    color: var(--color);
+    background: none;
+
+    transition: color 0.3s;
+}
+
+.titleLink:is(:hover, :focus-visible) {
+    color: var(--highlight);
 }
 
 .nav {
