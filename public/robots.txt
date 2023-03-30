@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /list
 Disallow: /settings
+Disallow: /confirm-email
 
 User-agent: *
 Allow: /
