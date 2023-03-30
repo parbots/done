@@ -2,7 +2,12 @@
 import styles from '@/styles/ConfirmEmailPage.module.css'
 
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useSearchParams } from 'next/navigation'
+
+import { useEffect } from 'react'
+
+import { useSessionContext } from '@supabase/auth-helpers-react'
 
 import { Header } from '@/components/header'
 
@@ -10,9 +15,17 @@ import { Footer } from '@/components/footer'
 
 export default function ConfirmEmailPage() {
 
-    const searchParameters = useSearchParams();
+    const router = useRouter();
 
+    const searchParameters = useSearchParams();
     const confirmationURL = searchParameters.get('confirmation');
+
+    const {isLoading, session} = useSessionContext();
+
+    // redirect to homepage if user is already signed in or confirmation url is empty
+    useEffect(() => {
+        if (!isLoading && session) router.push('/');
+    }, [router, isLoading, session]);
 
     return (
         <>
