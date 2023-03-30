@@ -32,30 +32,32 @@ export const UpdateEmailForm = () => {
     };
 
     const supabase = useSupabaseClient();
-    const { session } = useSessionContext();
+    const { isLoading, session } = useSessionContext();
 
     const [authError, setAuthError] = useState<string | null>(null);
     const authErrorRef = useRef<HTMLParagraphElement | null>(null);
 
     const updateUserEmail = async (newEmail: string) => {
 
-        // maybe make user sign in again before updating email
-
         setAuthError(null);
 
-        const { error } = await supabase.auth.updateUser({
+        const { error: updateUserError } = await supabase.auth.updateUser({
             email: newEmail,
         });
 
-        if (error) {
-            Sentry.captureException(error);
+        if (updateUserError) {
+            Sentry.captureException(updateUserError);
 
             setAuthError('Unable to update user email, the new email may already be taken or a server errror occurred');
 
             return
         }
 
-        // explain user must confirm new email 
+        // push a new page that explains user will need to confirm new email
+
+        const { error: signoutError } = await supabase.auth.signOut();
+
+        if (signoutError) Sentry.captureException(signoutError);
     };
 
     return (
@@ -64,7 +66,12 @@ export const UpdateEmailForm = () => {
 
             <section className={styles.section}>
                 <label htmlFor={'currentEmail' + id} className={styles.sectionLabel}>Current Email:</label>
-                <p id={'currentEmail' + id} className={styles.sectionText}>test</p>
+                {isLoading &&
+                    <p id={'currentEmail' + id} className={styles.sectionText}>Loading...</p>
+                }
+                {!isLoading && session &&
+                    <p id={'currentEmail' + id} className={styles.sectionText}>{session.user.email}</p>
+                }
             </section>
 
             <fieldset data-error={errors.newEmail ? 'true' : 'false'} className={styles.inputFieldset}>
