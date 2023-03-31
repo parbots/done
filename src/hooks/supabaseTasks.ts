@@ -90,7 +90,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -129,7 +129,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -156,7 +156,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -180,7 +180,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -204,7 +204,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -226,7 +226,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -247,7 +247,7 @@ export const useSupabaseTasks = (table: string) => {
 
         if (error) {
             Sentry.captureException(error);
-    
+
             setError(error.message);
 
             return
@@ -279,4 +279,3 @@ export const useSupabaseTasks = (table: string) => {
         clearAllTasks
     };
 };
-

@@ -17,12 +17,13 @@ export default function ConfirmEmailPage() {
 
     const router = useRouter();
 
+    // get confirmation url from query parameter
     const searchParameters = useSearchParams();
     const confirmationURL = searchParameters.get('confirmation');
 
-    const {isLoading, session} = useSessionContext();
+    const { isLoading, session } = useSessionContext();
 
-    // redirect to homepage if user is already signed in or confirmation url is empty
+    // redirect to homepage if user is already signed in
     useEffect(() => {
         if (!isLoading && session) router.push('/');
     }, [router, isLoading, session]);

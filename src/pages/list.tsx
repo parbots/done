@@ -18,6 +18,7 @@ import { Footer } from '@/components/footer'
 
 export default function ListPage() {
 
+    // custom hook to manage server and client side task state
     const supabaseTasks = useSupabaseTasks('tasks');
 
     // Runs once when page mounts
