@@ -8,16 +8,16 @@ import type { AppProps } from 'next/app'
 import { useState } from 'react'
 
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 
 const robotoMono = Roboto_Mono({ subsets: ['latin'] });
 
 export default function App({ Component, pageProps }: AppProps<{ initialSession: Session }>) {
 
-    const [supabase] = useState(() => createBrowserSupabaseClient());
+    const [supabaseClient] = useState(() => createPagesBrowserClient());
 
     return (
-        <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession}>
+        <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
             <style jsx global>
                 {`
                     html,
